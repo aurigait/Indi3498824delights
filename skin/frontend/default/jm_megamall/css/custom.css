@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,300);
+
+body{font-family: 'Open Sans', sans-serif;}
+.filter-subcat a, .jm-datetime, .block-tags .block-content a, .tags-list li a, #jm-error, #cboxCurrent, #jm-setting .btn-toggle, .info-inner, .product-options dd select, .ja-tab-content, .product-shop, .breadcrumbs, .vertical-mega-menu .jm-megamenu .mega-item-des, .jm-megamenu ul.level2 li.mega li.mega a.mega, .jm-megamenu ul.level2 li.mega li a, .product-name a, .ul-dropdown, #jm-bots1, .jm-legal, #jm-tops1 ul li, .select-box2 select, .shop-access .links, .lits-category select, .block-cart .summary, .old-price span.price, .products-grid .product-information, .list-categories .block-title span span, .list-categories .category-title h1 span, .block-cart .product-details .product-name a, .products-grid button.jmquickview, #button-btt{font-family: 'Open Sans', sans-serif;}
+.message h2, .products-list .add-to-links li a, #jm-error h3, #jm-error dl dt, .page-head-alt h2, #jm-setting .inner-toggle label, .contact-form .form-list label, .product-options dt label, .product-view .box-up-sell h2, .product-collateral h2, ul.ja-tab-navigator li, .product-essential h2, .product-view .product-shop .add-to-links, .add-to-cart label, .product-view .product-shop .availability, .jm-menu-top, span.price, .block-title, button.button, .page-title h1, .page-title h2, .block-cate h2, .toolbar label, .mycart-toggle span, button.btn-checkout, #jm-tops1 ul li span, .block-cart .subtotal, .block-cart span.price, .jm-slider li span.price, .account-login .content h2, .form-search button.button, .block-subscribe .input-box button, .list-categories .category-title h1, .jm-megamenu ul.level0 li.mega a.mega, .block-cate ul li a, .cart .totals td, .cart-table .product-name, .jm-megamenu .product-name a, .product-view .product-shop .price-box, #jm-error ul.none-disc li a{font-family: 'Open Sans', sans-serif; font-weight:600;}
+
+#jm-head {border-bottom:#d3d3d3 solid 1px;}
+#jm-tops2 .col3-set .col-3{ margin-left:20px;}
+#jm-tops2 .col3-set .col-2{margin:0; width: auto; overflow: hidden; height: 1%; float: none;}
+.block-cate h2{ text-transform:none; font-size:28px; font-weight:normal;}
+.block .block-title strong{ font-weight:600;}
+
+#jm-bots1 a, #jm-bots1 .block-aboutus ul li a, #jm-bots1 ul.list-info li a{color:#009bcb;}
+#jm-bots1 button.button{ background:#8fd04e; }

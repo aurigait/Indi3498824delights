@@ -7701,7 +7701,7 @@ ul.list-socials li a:hover{
 .jm-products-slider-listing .block-title{
 	background: #f5f5f5;
 	border-bottom: 0 none;
-	color: #555 !important;
+/*	color: #555 !important;*/
 	margin: 0 0 20px;
 	padding: 13px 20px
 }
@@ -7812,7 +7812,7 @@ ul.list-socials li a:hover{
 }
 
 .list-categories .category-title h1{
-	color: #555 !important;
+/*	color: #555 !important;*/
 	float: left;
 	font-size: 135%;
 	font-weight: normal;

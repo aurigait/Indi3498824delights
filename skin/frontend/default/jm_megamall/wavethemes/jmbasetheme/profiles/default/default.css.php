@@ -200,12 +200,14 @@ ul.list-info li a,
 .contact-form .buttons-set button.button:focus, 
 .contact-form .buttons-set button.button:hover,
 .dashboard .box-reviews .number,
-.jm-megamenu,
 .opc .active .step-title .number,
 #mainnav-inner{
 	background-color: <?php echo $baseconfig["color"] ?>;
 }
-
+.jm-megamenu{
+	background-color: <?php echo $baseconfig["menubg"] ?>;
+    border:<?php echo $baseconfig["menubg"] ?> solid 1px;
+}
 .remember-me-popup .remember-me-popup-body a,
 .jm-two-products .products-list button.button:active,
 .jm-two-products .products-list button.button:hover,
@@ -237,6 +239,11 @@ ul.list-info li a,
 .jm-megamenu ul.level0 li.mega a.mega:hover, 
 .jm-megamenu ul.level0 li.mega:hover > a.mega{
 	background: <?php echo $baseconfig["menucolor"] ?>;
+    color: <?php echo $baseconfig["menubg"] ?>;
+}
+
+.jm-menu-top .jm-megamenu ul li a{
+    border-right:1px solid <?php echo $baseconfig["menucolor"] ?>;
 }
 
 .new-label.icon-label{

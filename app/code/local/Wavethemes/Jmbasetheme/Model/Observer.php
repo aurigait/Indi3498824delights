@@ -60,7 +60,9 @@
 			 	$link = str_replace("\\", "/", $link);
 			 	$addlinks .= '<link type="text/css" rel="stylesheet" href="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).$link.'" />';
 			 }
-			 $body = str_replace("</head>", $addlinks.'</head>', $body);
+			
+			 $customcss='<link type="text/css" rel="stylesheet" href="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/jm_megamall/css/custom.css" />';
+			 $body = str_replace("</head>", $addlinks.$customcss.'</head>', $body);
 			 $response["response"]->setBody($body);
     	}
 
