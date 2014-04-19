@@ -205,8 +205,7 @@ ul.list-info li a,
 	background-color: <?php echo $baseconfig["color"] ?>;
 }
 .jm-megamenu{
-	background-color: <?php echo $baseconfig["menubg"] ?>;
-    border:<?php echo $baseconfig["menubg"] ?> solid 1px;
+	background-color: <?php echo $baseconfig["menubg"] ?>;   
 }
 .remember-me-popup .remember-me-popup-body a,
 .jm-two-products .products-list button.button:active,
@@ -239,12 +238,9 @@ ul.list-info li a,
 .jm-megamenu ul.level0 li.mega a.mega:hover, 
 .jm-megamenu ul.level0 li.mega:hover > a.mega{
 	background: <?php echo $baseconfig["menucolor"] ?>;
-    color: <?php echo $baseconfig["menubg"] ?>;
 }
 
-.jm-menu-top .jm-megamenu ul li a{
-    border-right:1px solid <?php echo $baseconfig["menucolor"] ?>;
-}
+
 
 .new-label.icon-label{
 	background-color: <?php echo $baseconfig["color"] ?>;
