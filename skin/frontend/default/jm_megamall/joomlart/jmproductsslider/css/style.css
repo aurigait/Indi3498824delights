@@ -235,10 +235,10 @@ img { border: none; }
 	background-color: #cccccc;
 }
 
-/* product horizon slide */
+/* product horizon slide 
 .jm-products-slider-horizon{
 	margin: 0 20px 0 0 !important;
-}
+}*/
 
 .jm-products-slider-horizon .jm-prev, 
 .jm-products-slider-horizon .jm-next{

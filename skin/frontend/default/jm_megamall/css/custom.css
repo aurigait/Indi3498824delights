@@ -30,3 +30,17 @@ body{font-family: 'Open Sans', sans-serif;}
 .block-layered-nav .block-title {background: #8d7fa3;}
 .block-layered-nav{ color:#FFF; background:#463c57;}
 #narrow-by-list dt{ color:#FFF;}
+.jm-products-slider-horizon{margin: 0 20px 0 0;}
+.jm-products-slider-horizon li{ border:#ebebeb solid 1px;}
+.jm-products-slider-horizon li .product-information{ padding:10px 18px; text-align:left;}
+.jm-products-slider-horizon li .product-image{ border:none;}
+.jm-product-list .products-grid .product-image .New-label{ background:rgba(155, 210, 100, 0.7); right:-7px;}
+.cms-home #jm-tops1.jm-position{ margin:0 0 18px 0;}
+#jm-tops1 .inner{ border-bottom:#f0f0f0 solid 1px; padding-bottom:18px;}
+
+.col-2 .jm-products-slider-horizon li{ margin-right:19px; border:none;}
+.col-2 .jm-products-slider-horizon .product-image{ border:#ebebeb solid 1px; overflow:hidden;}
+.col-2 .jm-products-slider-horizon {border-left: 0 none; border-left: 1px solid #ebebeb; padding: 0 0 0 20px ; margin:0;}
+.col-2 .jm-products-slider-horizon li .product-information{ padding:0;}
+.col-2 .jm-products-slider-horizon .ratings{ margin:7px 0;}
+.jm-product-list .product-name{ font-size:13px;}
