@@ -1,0 +1,23 @@
+<?php 
+$categoryId=  $this->getData('category_id'); 
+$_category = Mage::getModel('catalog/category')->load($categoryId);
+$sub_cat=$_category->getChildrenCategories();
+foreach ($sub_cat as $cat)
+{?>
+<div class="menu-i">
+<div class="title">
+<?php	echo "<h2><a href='".$cat->getURL()."'>".$cat->getName()."</a></h2></div>";
+	if($cat->hasChildren())
+	{
+		echo "<ul>";
+		foreach ($cat->getChildrenCategories() as $scat)
+		{
+			echo "<li><a href='".$scat->getURL()."'>".$scat->getName()."</a></li>";
+		}
+		echo "</ul>";		
+	}
+?>
+</div>
+<?php 	
+}
+?>
