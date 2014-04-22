@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+	<config>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<welcomevoucher translate="title" module="voucher">
+											<title>Welcome Voucher Section</title>
+											<sort_order>0</sort_order>
+										</welcomevoucher>
+										<invitationvoucher translate="title" module="voucher">
+											<title>Invitation Vouchers Section</title>
+											<sort_order>1</sort_order>
+										</invitationvoucher>
+										<admindefiend translate="title" module="voucher">
+											<title>Admin Voucher Section</title>
+											<sort_order>2</sort_order>
+										</admindefiend>
+										<usercumulativevouchers translate="title" module="voucher">
+											<title>User Cumulative Purchase Vouchers Section</title>
+											<sort_order>3</sort_order>
+										</usercumulativevouchers>
+										<ordercumulative translate="title" module="voucher">
+											<title>Order Cumulative Voucher Section</title>
+											<sort_order>4</sort_order>
+										</ordercumulative>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</config>

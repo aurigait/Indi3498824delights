@@ -78,6 +78,11 @@ if($configs['autorun']){
 										<a title="<?php echo $this->htmlEscape($_product->getName()) ?>" href="<?php echo $_product->getProductUrl() ?>">
 											<img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->keepAspectRatio(TRUE)->resize($configs['width'], $configs['height'])->setWatermarkSize('30x10'); ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>"/> 
 										</a>
+										<?php if ($labeltype && $showlabel): ?>
+											<span class="<?php echo $labeltype; ?>-label icon-label">
+												<?php echo $labelname;	?>
+											</span>		
+										<?php endif; ?>
 										<?php if($configs['show_cart']){ ?>
 											<?php if($_product->isSaleable()){ ?>
 											<br class="clear" />
@@ -106,11 +111,7 @@ if($configs['autorun']){
 											<a class="product-title" title="<?php echo $this->htmlEscape($_product->getName()) ?>" href="<?php echo $_product->getProductUrl() ?>">
 												<span>
 													<?php 
-													if (strlen($_product->getName()) > 18) :
-														echo substr($_product->getName(),0, 16).'...';
-													else : 
 														echo $_product->getName();
-													endif;
 													?>
 												</span>
 											</a>

@@ -238,6 +238,7 @@ ul.list-info li a,
 .jm-megamenu ul.level0 li.mega a.mega:hover, 
 .jm-megamenu ul.level0 li.mega:hover > a.mega{
 	background: <?php echo $baseconfig["menucolor"] ?>;
+    color:  <?php echo $baseconfig["menubg"] ?>;
 }
 
 

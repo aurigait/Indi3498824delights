@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Aurigait_Voucher>
+      <version>0.1.0</version>
+    </Aurigait_Voucher>
+  </modules>
+  <frontend>
+    <routers>
+      <voucher>
+        <use>standard</use>
+          <args>
+            <module>Aurigait_Voucher</module>
+            <frontName>voucher</frontName>
+          </args>
+      </voucher>
+    </routers>
+		<layout>
+		  <updates>
+			<voucher>
+			  <file>voucher.xml</file>
+			</voucher>
+		  </updates>
+		</layout>
+  </frontend>
+  <global>
+    <helpers>
+      <voucher>
+        <class>Aurigait_Voucher_Helper</class>
+      </voucher>
+    </helpers>
+	<blocks>
+	  <voucher>
+		<class>Aurigait_Voucher_Block</class>
+	  </voucher>
+
+		<adminhtml>
+			<rewrite>
+			     <promo_quote_edit_tab_actions>Aurigait_Voucher_Block_Adminhtml_Promo_Quote_Edit_Tab_Actions</promo_quote_edit_tab_actions>
+			</rewrite>
+		</adminhtml>
+		<adminhtml>
+			<rewrite>
+				<promo_quote_edit_tab_main>Aurigait_Voucher_Block_Adminhtml_Promo_Quote_Edit_Tab_Main</promo_quote_edit_tab_main>
+			</rewrite>
+		</adminhtml>
+	</blocks>
+	<models>	      
+	          <salesrule>
+			<rewrite>
+				<validator>Aurigait_Voucher_Model_SalesRule_Validator</validator>
+			</rewrite>
+		</salesrule>
+	</models>
+	<!-- <models>
+		<voucher>
+			<class>Aurigait_Voucher_Model</class>
+		</voucher>
+	</models>
+	
+	<events>
+      <sales_quote_collect_totals_before>
+        <observers>
+          <aurigait_voucher_observer>
+            <type>singleton</type>
+         	   <class>Aurigait_Voucher_Model_Observer</class>
+            <method>apply_discount_percent</method>
+          </aurigait_voucher_observer>
+        </observers>
+      </sales_quote_collect_totals_before>     
+    </events> -->
+    
+    <rewrite>        
+            <aurigait_voucher_checkout_cartcontroller>
+                <from><![CDATA[#^/checkout/cart/#]]></from> <!-- Mage_Checkout_CartController  -->
+                <to>/voucher/checkout_cart/</to> <!-- Aurigait_Voucher_Checkout_CartController  -->
+            </aurigait_voucher_checkout_cartcontroller>
+    </rewrite>
+
+	<rewrite>        
+            <aurigait_voucher_adminhtml_promo_quotecontroller>
+                <from><![CDATA[#^/admin/promo_quote/#]]></from> <!-- Mage_Adminhtml_Promo_QuoteController  -->
+                <to>/voucher/adminhtml_promo_quote/</to> <!-- Aurigait_Voucher_Adminhtml_Promo_QuoteController  -->
+            </aurigait_voucher_adminhtml_promo_quotecontroller>
+	</rewrite>
+    
+  </global>
+  <admin>
+	<routers>
+	  <voucher>
+	    <use>admin</use>
+		<args>
+		  <module>Aurigait_Voucher</module>
+		  <frontName>voucher</frontName>
+		</args>
+	  </voucher>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <voucher module="voucher">
+		<title>Voucher</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <voucherbackend module="voucher">
+			<title>Set up Voucher</title>
+			<sort_order>0</sort_order>
+			<action>voucher/adminhtml_voucherbackend</action>
+		  </voucherbackend>
+		</children>
+	  </voucher>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<voucher translate="title" module="voucher">
+			  <title>Voucher</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <voucherbackend translate="title">
+			<title>Set up Voucher</title>
+		  </voucherbackend>
+			  </children>
+			</voucher>
+		  </children>
+		</admin>
+	      <voucher_setup>
+		<setup>
+		  <module>Aurigait_Voucher</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+		  </voucher_setup>
+		  <voucher_write>
+			<connection>
+			  <use>core_write</use>
+			</connection>
+		  </voucher_write>
+		  <voucher_read>
+			<connection>
+			  <use>core_read</use>
+			</connection>
+		  </voucher_read>
+	</resources>
+	</acl>
+	<layout>
+	  <updates>
+		<voucher>
+		  <file>voucher.xml</file>
+		</voucher>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 
