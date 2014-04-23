@@ -32,6 +32,7 @@
 				<?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?>
 			</div>
 		</div>
+		
 		<!-- END: WELCOME -->
 			<!-- BEGIN: MY CART-->
 		<div id="jm-mycart" class="has-toggle">
@@ -76,6 +77,9 @@
 				?>
 			</div>
 		</div>
+		<div class="quick-setting has-toggle"><?php echo $this->getChildHtml('custom_currency_selector') ?></div>
+		<div id="select-language" class="quick-setting has-toggle"></div>
+		
 		<!-- END: QUICK ACCESS -->
 		<!-- BEGIN: QUICK ACCESS -->
 		<!--<div id="jm-setting" class="quick-setting has-toggle">
@@ -84,7 +88,7 @@
 			</div>
 			<div class="inner-toggle">
 				<?php //echo $this->getChildHtml('store_language') ?>
-				<?php //echo $this->getChildHtml('custom_currency_selector') ?>
+				<?php echo $this->getChildHtml('custom_currency_selector') ?>
 				<?php // echo $this->getLayout()->createBlock('cms/block')->setBlockId('colors')->toHtml() ?>
 			</div>
 		</div>-->
@@ -181,3 +185,8 @@
 })(jQuery);
 //]]>
 </script>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+ new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false}, 'select-language');
+}
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

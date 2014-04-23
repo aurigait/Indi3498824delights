@@ -26,7 +26,7 @@ foreach ($sub_cat as $cat)
 }
 ?>
 </div>
-<div class="menu-region">
+
 <?php 
 $reset_cat=$layer->getCurrentCategory();
 $layer->setCurrentCategory($_category);
@@ -41,6 +41,7 @@ foreach ($attributes as $attribute) {
 		{
 			//print_r($option);
 			?>
+			<div class="menu-region">
 			<div class='title'><h2>Regions</h2></div>
 			<ul class="">
 			<?php 
@@ -50,10 +51,11 @@ foreach ($attributes as $attribute) {
 			<?php
 			}?>
 			</ul>
+			</div>
 	<?php 
 		}
 	}
 }
 $layer->setCurrentCategory($reset_cat);
 ?>
-</div>
+
