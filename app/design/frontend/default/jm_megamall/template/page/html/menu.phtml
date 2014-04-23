@@ -2,6 +2,10 @@
 $categoryId=  $this->getData('category_id'); 
 $_category = Mage::getModel('catalog/category')->load($categoryId);
 $sub_cat=$_category->getChildrenCategories();
+$layer = Mage::getModel("catalog/layer");
+?>
+<div class="menu-group">
+<?php 
 foreach ($sub_cat as $cat)
 {?>
 <div class="menu-i">
@@ -21,3 +25,35 @@ foreach ($sub_cat as $cat)
 <?php 	
 }
 ?>
+</div>
+<div class="menu-region">
+<?php 
+$reset_cat=$layer->getCurrentCategory();
+$layer->setCurrentCategory($_category);
+$attributes = $layer->getFilterableAttributes();
+foreach ($attributes as $attribute) {
+	if ($attribute->getAttributeCode() == 'region') {
+		$filterBlockName = 'catalog/layer_filter_attribute';
+		//$result = $this->getLayout()->createBlock($filterBlockName)->setLayer($layer)->setAttributeModel($attribute)->init();
+		$result=Mage::getModel($filterBlockName)->setAttributeModel($attribute)->setLayer($layer);
+		//echo "<pre>";print_r($result->getData())."<br/>";
+		if(!empty($result->getItems()))
+		{
+			//print_r($option);
+			?>
+			<div class='title'><h2>Regions</h2></div>
+			<ul class="">
+			<?php 
+			foreach($result->getItems() as $option) {
+			?>
+			<li><a href="<?php echo $_category->getUrl().'?region='.$option->getValue()?>"><span><?php echo $option->getLabel()?></span></a></li>
+			<?php
+			}?>
+			</ul>
+	<?php 
+		}
+	}
+}
+$layer->setCurrentCategory($reset_cat);
+?>
+</div>
