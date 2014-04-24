@@ -85,7 +85,7 @@ if($configs['autorun']){
 										<?php endif; ?>
 										<?php if($configs['show_cart']){ ?>
 											<?php if($_product->isSaleable()){ ?>
-											<br class="clear" />
+											<!--<br class="clear" /> -->
 											<button class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')">
 												<span><?php echo $this->helper("catalog")->__('Add to Cart') ?></span>
 											</button>

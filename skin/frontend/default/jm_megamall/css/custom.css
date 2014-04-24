@@ -97,7 +97,8 @@ ul.megamenu{ margin:15px 20px;}
 .childcontent-inner.clearfix:after{ display:none;}
 .jm-megamenu .megacol{ background:#FFF;}
 .block-currency{ background:none; height:auto; margin-right:60px;}
-.block-currency .block-content select{ border:none; color:#8d8d8d; font-size:11px; margin-top:4px; background:none; position:relative; -webkit-appearance:none;}
+.block-currency .block-content { overflow:hidden;}
+.block-currency .block-content select{ width:115%; border:none; color:#8d8d8d; font-size:11px; margin-top:4px; background:none; position:relative; appearance:none; -webkit-appearance:none; -moz-appearance:none; -mso-appearance:none;}
 .block-currency .block-content:before{ position:absolute; left:0; top:9px; content:'|'; color:#d4d4d4;}
 .block-currency .block-content:after{ z-index:-1; position:absolute; right:70px; top:18px; content:'';  width: 0; height:0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 8px solid #9b9b9b;}
 
@@ -105,6 +106,10 @@ ul.megamenu{ margin:15px 20px;}
 #menu-banners .col-6{ width:46%; margin:15px 10px 0 0; display:inline-block;}
 #menu-banners a img:hover{opacity:0.9;}
 .cart-table tfoot td:first-of-type, .cart-table tfoot th:first-of-type, .cart-table td:first-of-type, .cart-table th:first-of-type{ padding:10px;}
+.form-search input.input-text, .form-search input.input-text:focus{ margin-left:5px;}
+.block-progress{ background:#FFF; border:solid 1px #eeeeee;}
+.block-progress .block-title{ border-color:#eeeeee;}
+.block-progress dt{ color:#464646;}
 
 
 @media only screen and (max-width: 985px) {
@@ -115,9 +120,8 @@ ul.megamenu{ margin:15px 20px;}
 
 
 @media only screen and (max-width: 480px){
-
 .quick-access .btn-toggle {right: 80px !important;}
 #jm-header #jm-search .btn-toggle{ left:103px; top:-95px;}
 #jm-search{ border:none;}
-
+.block-subscribe .input-box button.button, .block-subscribe .input-box button.button:focus, .block-subscribe .input-box button.button:hover{ right:0;}
 }

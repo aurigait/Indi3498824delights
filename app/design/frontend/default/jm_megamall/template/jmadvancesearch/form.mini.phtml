@@ -29,7 +29,7 @@ $catalogSearchHelper =  $this->helper('catalogsearch');
 ?>
 <form id="search_mini_form" action="<?php echo Mage::getBaseUrl().'catalogsearch/advanced/result/'?>" method="get">
 	<div class="jm-search-category">
-		<div class="select-box lits-category">
+	<?php /*	<div class="select-box lits-category">
 			<select name="category" id="category_search_field">
 				<option value="all"> <?php echo $this->__('All Categories');?></option>
 				<?php 
@@ -42,7 +42,7 @@ $catalogSearchHelper =  $this->helper('catalogsearch');
 					<?php endif; ?>
 				<?php endforeach ?>
 			</select>
-		</div>
+		</div>*/?>
 		<div class="form-search">
 			<input type="text" maxlength="128" class="input-text " title="Name" value="" id="name" name="name">
 			<button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button>
