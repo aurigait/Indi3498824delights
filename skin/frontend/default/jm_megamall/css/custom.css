@@ -75,7 +75,8 @@ ul.megamenu{ margin:15px 20px;}
 .megamenu .menu-i h2{ margin:10px 0 0;}
 .megamenu .menu-i ul { margin-left:-20px;}
 .megamenu .menu-i ul li{ width:44%; display:inline-block; vertical-align:top; margin-left:20px;}
-.jm-megamenu li.haschild:hover >.childcontent{ overflow:visible; }
+.jm-megamenu li.haschild:hover >.childcontent{ overflow:visible; transition: none ; -webkit-transition: none; -moz-transition: none; -o-transition: none; }
+.jm-megamenu li.mega .childcontent{transition: none ; -webkit-transition: none; -moz-transition: none; -o-transition: none; }
 /*.jm-megamenu li.haschild:hover >.childcontent:after{content: "."; display: block; background:#FFF; position:absolute; left:0; right:0; bottom:-3px; height:3px; transition: all .3s linear;
 -webkit-transition: all .3s linear;}*/
 .megamenu .menu-region{ position: absolute; left: 100%; top: -15px; background: #ebebeb; bottom: -15px; padding: 15px 20px; box-shadow:1px 1px 1px 1px #d1d1d1; min-width:150px; z-index:100; }
@@ -100,7 +101,23 @@ ul.megamenu{ margin:15px 20px;}
 .block-currency .block-content:before{ position:absolute; left:0; top:9px; content:'|'; color:#d4d4d4;}
 .block-currency .block-content:after{ z-index:-1; position:absolute; right:70px; top:18px; content:'';  width: 0; height:0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 8px solid #9b9b9b;}
 
+#menu-banners img{max-width:100%;}
+#menu-banners .col-6{ width:46%; margin:15px 10px 0 0; display:inline-block;}
+#menu-banners a img:hover{opacity:0.9;}
+.cart-table tfoot td:first-of-type, .cart-table tfoot th:first-of-type, .cart-table td:first-of-type, .cart-table th:first-of-type{ padding:10px;}
+
+
 @media only screen and (max-width: 985px) {
 .tiles-categories .col-1, .tiles-categories .col-2{ width:100%; text-align:center;}
-#select-language, .menu-region{ display:none;}
+#select-language, .menu-region, .block-currency .block-content{ display:none;}
+.sp-block-cate ul, .sp-block-cate p{ width:100%;}	
+}
+
+
+@media only screen and (max-width: 480px){
+
+.quick-access .btn-toggle {right: 80px !important;}
+#jm-header #jm-search .btn-toggle{ left:103px; top:-95px;}
+#jm-search{ border:none;}
+
 }
