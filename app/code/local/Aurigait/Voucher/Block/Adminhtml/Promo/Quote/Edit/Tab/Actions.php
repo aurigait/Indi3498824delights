@@ -38,13 +38,13 @@ protected function _prepareForm()
         ));
         $model->setDiscountQty($model->getDiscountQty()*1);
 
-        echo 123;
+        
         $fieldset->addField('max_discount_amount', 'text', array(
         		'name' => 'max_discount_amount',
         		'label' => Mage::helper('salesrule')->__('Maximum Amount of Discount'),
         		'note' =>'Total Maximume discount amount in any condition (with % or with qty) ',
         ));
-        echo 123;
+        
         $fieldset->addField('discount_step', 'text', array(
             'name' => 'discount_step',
             'label' => Mage::helper('salesrule')->__('Discount Qty Step (Buy X)'),
