@@ -240,38 +240,74 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                           </voucherperiod>
-                          <thresholdamount translate="label">
-                            <label>Threshold Amount</label>
+                          <thresholdamount1 translate="label">
+                            <label>Threshold Amount 1</label>
 							<frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                          </thresholdamount>
+                          </thresholdamount1>
+                          <offerprice1 translate="label">
+                            <label>Offer Discount 1 </label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>% of  total order value</comment>
+                          </offerprice1>
+                          <thresholdamount2 translate="label">
+                            <label>Threshold Amount 2</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </thresholdamount2>
+                          <offerprice2 translate="label">
+                            <label>Offer Discount 2 </label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>% of  total order value</comment>
+                          </offerprice2>
+                          <thresholdamount3 translate="label">
+                            <label>Threshold Amount 3</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </thresholdamount3>
+                          <offerprice3 translate="label">
+                            <label>Offer Discount 3 </label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>% of  total order value</comment>
+                          </offerprice3>
+                          
                           <alertamount translate="label">
                             <label>Alert Amount</label>
 							<frontend_type>text</frontend_type>
-                            <sort_order>2</sort_order>
+                            <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                           </alertamount>
                           
                           
-                           <offerprice translate="label">
-                            <label>Offer Discount </label>
-							<frontend_type>text</frontend_type>
-                            <sort_order>3</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-							<comment>% of  total order value</comment>
-                          </offerprice>
+                            
                           
                             <maximumdiscountamout translate="label">
                             <label>Maximum Disocunt Amount Permitted</label>
 							<frontend_type>text</frontend_type>
-                            <sort_order>4</sort_order>
+                            <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -281,7 +317,7 @@
                             <minimumpurchaseamount translate="label">
                             <label>Minimum Purchase Amount</label>
 							<frontend_type>text</frontend_type>
-                            <sort_order>5</sort_order>
+                            <sort_order>9</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -295,7 +331,7 @@
                             <backend_model>adminhtml/system_config_backend_image</backend_model>
                             <upload_dir config="system/filesystem/media" scope_info="1">catalog/product/watermark</upload_dir>
                             <base_url type="media" scope_info="1">catalog/product/watermark</base_url>
-                            <sort_order>6</sort_order>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -303,7 +339,7 @@
                           <termsconditions translate="label">
                             <label>Terms and Conditions</label>
 							<frontend_type>text</frontend_type>
-                            <sort_order>7</sort_order>
+                            <sort_order>11</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -356,7 +392,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>IN days only </comment>
+                            <comment>In days only </comment>
                           </vouchervaliditypperiod>
                           <icon translate="label">
                             <label>Icon</label>

@@ -45,12 +45,25 @@
 			</rewrite>
 		</adminhtml>
 	</blocks>
-	<models>	      
+	<models>	  
+		<voucher>
+			<class>Aurigait_Voucher_Model</class>
+			<resourceModel>voucher_mysql4</resourceModel>
+	  	</voucher>
+	  	<voucher_mysql4>
+			<class>Aurigait_Voucher_Model_Mysql4</class>
+			<entities>		  
+				<voucherlistcustomer>
+					<table>voucher_allcouponlist</table>
+			  	</voucherlistcustomer>
+        	</entities>
+	  	</voucher_mysql4>
+	    
 	          <salesrule>
-			<rewrite>
-				<validator>Aurigait_Voucher_Model_SalesRule_Validator</validator>
-			</rewrite>
-		</salesrule>
+				<rewrite>
+					<validator>Aurigait_Voucher_Model_SalesRule_Validator</validator>
+				</rewrite>
+		    </salesrule>
 	</models>
 	<!-- <models>
 		<voucher>
@@ -79,12 +92,21 @@
 
 	<rewrite>        
             <aurigait_voucher_adminhtml_promo_quotecontroller>
-                <from><![CDATA[#^/admin/promo_quote/#]]></from> <!-- Mage_Adminhtml_Promo_QuoteController  -->
+                <from><![CDATA[#^/adminhtml/promo_quote/#]]></from> <!-- Mage_Adminhtml_Promo_QuoteController  -->
                 <to>/voucher/adminhtml_promo_quote/</to> <!-- Aurigait_Voucher_Adminhtml_Promo_QuoteController  -->
             </aurigait_voucher_adminhtml_promo_quotecontroller>
 	</rewrite>
     
   </global>
+     <crontab>
+        <jobs>            
+			<voucher_setUsercommulativeVoucher>
+                <schedule><cron_expr>*/5 * * * *</cron_expr></schedule>
+                <run><model>voucher/cron::setUsercommulativeVoucher</model></run>
+            </voucher_setUsercommulativeVoucher>
+        </jobs>
+    </crontab>
+  
   <admin>
 	<routers>
 	  <voucher>

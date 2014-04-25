@@ -2,6 +2,7 @@
 require_once "Mage/Checkout/controllers/CartController.php";  
 
 require_once "Aurigait/Voucher/controllers/IndexController.php";
+
 class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartController{
 
 	public function couponPostAction()
@@ -29,59 +30,13 @@ class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartControl
 		try {
 			$codeLength = strlen($couponCode);
 			
-			// sandeep::  to add condtions of configuration. 
-			switch($couponCode)
+			// sandeep::  to add condtions for validation. 
+			
+			if(!$this->checkcustomcondition($couponCode))
 			{
-				case  Aurigait_Voucher_IndexController::WELCOMECODE:
-			
-					$customer = Mage::getSingleton('customer/session')->getCustomer();
-					$orders = Mage::getResourceModel('sales/order_collection')
-					->addFieldToSelect('*')
-					->addFieldToFilter('customer_id', $customer->getId());
-					
-					if ( $customer->getId())
-					{ 
-						if(!$orders->getSize())
-						{
-							$configValue = Mage::getStoreConfig('welcomevoucher/gwelcomevoucher/vouchervaliditypperiod');
-							
-							$daygap = ($configValue * 24 * 60 * 60);
-							$registerdate = $customer->getCreatedAtTimestamp();
-							
-							$totaldayspassed =  $customer->getCreatedAtTimestamp() + $daygap;
-							
-							if( strtotime(now()) < $totaldayspassed)
-							{
-								//echo 123;die;
-								$this->_getSession()->addError(
-										$this->__('Coupon code "%s" is available %s  after registeration', Mage::helper('core')->escapeHtml($couponCode) ,$configValue)
-								);
-								$this->_goBack();
-								return;
-							}
-						}
-						else
-						{
-							// has already  placed an order
-							$this->_getSession()->addError(
-									$this->__('Coupon code "%s" only for First purchase .', Mage::helper('core')->escapeHtml($couponCode))
-							);
-							$this->_goBack();
-							return;
-						}
-					}
-					else
-					{
-						$this->_getSession()->addError(
-								$this->__('Use Coupon code "%s" after login .', Mage::helper('core')->escapeHtml($couponCode))
-						);
-						$this->_goBack();
-						return;
-					}
-					break;
-			
+				$this->_goBack();
+				return;
 			}
-				
 		
             $codeLength = strlen($couponCode);
             $isCodeLengthValid = $codeLength && $codeLength <= Mage_Checkout_Helper_Cart::COUPON_CODE_MAX_LENGTH;
@@ -116,6 +71,85 @@ class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartControl
 		$this->_goBack();
 	}
 	
+	
+	public function checkcustomcondition($couponcode)
+	{
+		
+		
+		if($couponcode == Aurigait_Voucher_IndexController::WELCOMECODE)
+		{
+			
+			$customer = Mage::getSingleton('customer/session')->getCustomer();
+			$orders = Mage::getResourceModel('sales/order_collection')
+			->addFieldToSelect('*')
+			->addFieldToFilter('customer_id', $customer->getId());
+				
+			if ( $customer->getId())
+			{
+				if(!$orders->getSize())
+				{
+					$configValue = Mage::getStoreConfig('welcomevoucher/gwelcomevoucher/vouchervaliditypperiod');
+						
+					$daygap = ($configValue * 24 * 60 * 60);
+					$registerdate = $customer->getCreatedAtTimestamp();
+						
+					$totaldayspassed =  $customer->getCreatedAtTimestamp() + $daygap;
+						
+					if( strtotime(now()) < $totaldayspassed)
+					{
+						//echo 123;die;
+						$this->_getSession()->addError(
+								$this->__('Coupon code "%s" is available for  %s  after registeration', Mage::helper('core')->escapeHtml($couponCode) ,$configValue)
+						);
+						$this->_goBack();
+						return;
+					}
+				}
+				else
+				{
+					// has already  placed an order
+					$this->_getSession()->addError(
+							$this->__('Coupon code "%s" only for First purchase .', Mage::helper('core')->escapeHtml($couponCode))
+					);
+					$this->_goBack();
+					return;
+				}
+			}
+			else
+			{
+				$this->_getSession()->addError(
+						$this->__('Use Coupon code "%s" after login .', Mage::helper('core')->escapeHtml($couponCode))
+				);
+				$this->_goBack();
+				return;
+			}
+		}
+		else if(substr($couponcode,0,4) == Aurigait_Voucher_IndexController::CUSTCODE)
+		{
+			$customer = Mage::getSingleton('customer/session')->getCustomer();
+			if ( $customer->getId())
+			{	
+			    $isValiduser =  Mage::getModel('voucher/voucherlistcustomer')->checkCustomerByCoupon($customer->getId(),$couponcode);
+				if(!$isValiduser)
+				{
+					$this->_getSession()->addError(
+							$this->__('You are not valid to use  "%s" coupon .', Mage::helper('core')->escapeHtml($couponCode))
+					);
+					$this->_goBack();
+					return;
+				}
+			}
+			else
+			{
+				$this->_getSession()->addError(
+						$this->__('Use Coupon code "%s" after login .', Mage::helper('core')->escapeHtml($couponCode))
+				);
+				$this->_goBack();
+				return;
+			}
+						 					
+		}
+	}
 }
 
 				
