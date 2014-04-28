@@ -101,7 +101,7 @@ class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartControl
 					{
 						//echo 123;die;
 						$this->_getSession()->addError(
-								$this->__('Coupon code "%s" is available for  %s days  after registeration.', Mage::helper('core')->escapeHtml($couponcode) ,$configValue)
+								$this->__('Coupon code "%s" is available for  %s days  after registration.', Mage::helper('core')->escapeHtml($couponcode) ,$configValue)
 						);
 						$this->_goBack();
 						return -1;
