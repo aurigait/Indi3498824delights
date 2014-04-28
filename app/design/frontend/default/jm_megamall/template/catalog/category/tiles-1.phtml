@@ -50,5 +50,34 @@
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
     }
 	*/
-	echo $this->getLayout()->createBlock('cms/block')->setBlockId('tiles-1')->toHtml();
-?>
+	// echo $this->getLayout()->createBlock('cms/block')->setBlockId('tiles-1')->toHtml();
+$_category  = $this->getCurrentCategory();
+$_subCaegories=explode(',',$_category->getChildren());
+$block=$this->getLayout()->createBlock('joomlart_jmproductsslider/list')->setTemplate("joomlart/jmproductsslider/horizontallist.phtml");
+$block->setTitle(" ")->setNumberItems(3)->setItemwidth(165)->setItemheight(252)->setWidth(165)->setHeight(150);
+
+$_helper    = $this->helper('catalog/output');
+foreach ($_subCaegories as $scatid)
+{
+	$_subcat = Mage::getModel('catalog/category')->load($scatid);
+	if($_subcat->getData("is_tile"))
+	{
+		
+?>		
+
+<div class="tiles-categories">
+<div class="block block-cate sp-block-cate">
+<h2><?php echo $_subcat->getName();?></h2>
+<p><?php echo $_subcat->getDescription(); ?></p>
+<ul>
+<li><a href="#">View All</a></li>
+</ul>
+</div>
+<div class="col2-set">
+<div class="col-1"><img src="<?php  echo  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."catalog/category/".$_subcat->getTilePageImage(); ?>" alt="" /></div>
+<div class="col-2">
+<?php echo $block->setCatsId($scatid)->toHtml()?>
+</div>
+</div>
+</div>
+<?php } }?>
