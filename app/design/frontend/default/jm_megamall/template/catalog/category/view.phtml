@@ -29,39 +29,46 @@
  * Category view template
  *
  * @see Mage_Catalog_Block_Category_View
- 
-<div class="page-title category-title">
-    <h1>Utsav</h1>
-</div>
-<?php
-	$block=$this->getLayout()->createBlock('joomlart_jmproductsslider/list')->setTemplate("joomlart/jmproductsslider/horizontallist.phtml");
-	$block->setCatsId(22);
-	echo $block->toHtml();
-?>
- 
  */
 ?>
-<?php 
- /*   $_helper    = $this->helper('catalog/output');
+<?php
+    $_helper    = $this->helper('catalog/output');
     $_category  = $this->getCurrentCategory();
     $_imgHtml   = '';
     if ($_imgUrl = $_category->getImageUrl()) {
         $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->escapeHtml($_category->getName()).'" title="'.$this->escapeHtml($_category->getName()).'" /></p>';
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
     }
-	*/
-	// echo $this->getLayout()->createBlock('cms/block')->setBlockId('tiles-1')->toHtml();
-$_categories  = Mage::getModel('catalog/category')->getCollection()
-->addAttributeToSelect('*')->addFieldToFilter("is_tile",1);
-foreach ($_categories as $scat)
-{
-	
-	if(!empty($scat->getTilePageImage()))
-	{
-?>		
-<div class="col-4">
-	<a href="<?php echo $scat->getUrl(); ?>" >
-		<img src="<?php  echo  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."catalog/category/".$scat->getTilePageImage(); ?>" alt="" />
-	</a>
+?>
+<div class="list-banner-img">
+<?php if($_imgUrl): ?>
+    <?php echo $_imgHtml ?>
+<?php endif; ?>
 </div>
-<?php } }?>
+<div class="page-title category-title">
+    <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
+        <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
+    <?php endif; ?>
+    <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+</div>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+
+
+<?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+    <div class="category-description std">
+        <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
+    </div>
+    <?php endif; ?>
+
+<?php if($this->isContentMode()): ?>
+    <?php echo $this->getCmsBlockHtml() ?>
+
+<?php elseif($this->isMixedMode()): ?>
+    <?php echo $this->getCmsBlockHtml() ?>
+    <?php echo $this->getProductListHtml() ?>
+
+<?php else: ?>
+    <?php echo $this->getProductListHtml() ?>
+<?php endif; ?>

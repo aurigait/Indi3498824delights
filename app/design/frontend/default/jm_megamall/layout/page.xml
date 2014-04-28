@@ -171,7 +171,9 @@ Default layout, loads most of the pages
 			<block type="core/text_list" name="tops12" as="tops12" translate="label">
                 <label>Content Top 12</label>
             </block>
-			
+			<block type="core/text_list" name="home-tile" as="home-tile" translate="label">
+                <label>Content home-tile</label>
+            </block>
 			<block type="core/text_list" name="mass-top" as="mass-top" translate="label">
                 <label>Content Mass Top</label>
             </block>

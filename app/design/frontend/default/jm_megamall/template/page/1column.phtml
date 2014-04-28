@@ -194,7 +194,7 @@
 	<!-- //TOP SPOTLIGHT 10 -->
 	<?php endif; ?>
 	
-    
+   
     
 	<?php if ($this->getChildHtml('tops4')) : ?>
 	<!-- //TOP SPOTLIGHT 4 -->
@@ -221,12 +221,27 @@
 	<!-- //TOP SPOTLIGHT 11 -->
 	<?php endif; ?>
 	
+	
+	
+	
 	<?php if ($this->getChildHtml('tops12')) : ?>
 	<!-- //TOP SPOTLIGHT 12 -->
 	<div id="jm-tops12" class="jm-position wrap clearfix">
 		<div class="main col1-set">
 			<div class="inner">
 				<?php echo $this->getChildHtml('tops12') ?>
+			</div>
+		</div>
+	</div>
+	<!-- //TOP SPOTLIGHT 12 -->
+	<?php endif; ?>
+	
+	 <?php if ($this->getChildHtml('home-tile')) : ?>
+	<!-- //TOP SPOTLIGHT 12 -->
+	<div id="jm-home-tile" class="jm-position wrap clearfix">
+		<div class="main col1-set tiles-set">
+			<div class="inner">
+				<?php echo $this->getChildHtml('home-tile') ?>
 			</div>
 		</div>
 	</div>
