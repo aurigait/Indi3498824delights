@@ -116,8 +116,8 @@ Default layout, loads most of the pages
 
             <block type="core/text_list" name="content" as="content" translate="label">
                 <label>Main Content Area</label>
-                <remove name="messages"/>
-                <remove name="global_messages"/>
+              <!--   <remove name="messages"/>
+                <remove name="global_messages"/>--> 
             </block>
 			
 		<block type="core/text_list" name="tops0" as="tops0" translate="label">

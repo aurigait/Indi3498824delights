@@ -26,7 +26,7 @@ class Aurigait_Voucher_Model_Observer
 	
 	public function mailwelcomevouhcer()
 	{
-		$templateId = 2;
+		$templateId = 1;
 		
 		$senderName = Mage::getStoreConfig('trans_email/ident_support/name');
 		$senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');

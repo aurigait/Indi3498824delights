@@ -115,7 +115,7 @@
      <crontab>
         <jobs>            
 			<voucher_setUsercommulativeVoucher>
-                <schedule><cron_expr>*/5 * * * *</cron_expr></schedule>
+                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
                 <run><model>voucher/cron::setUsercommulativeVoucher</model></run>
             </voucher_setUsercommulativeVoucher>
         </jobs>
