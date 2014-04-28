@@ -103,7 +103,7 @@ class Aurigait_Voucher_Block_Adminhtml_Promo_Quote_Edit_Tab_Main extends Mage_Ad
         $couponCodeFiled = $fieldset->addField('coupon_code', 'text', array(
             'name' => 'coupon_code',
             'label' => Mage::helper('salesrule')->__('Coupon Code'),
-        		'note' =>'Use :: <br> WELCOME => Welcome coupon<br> USER  => User Cumulative coupon <br>',
+        	'note' =>'Use :: <br> WELCOME => Welcome coupon<br> USER  => User Cumulative coupon <br>',
             'required' => true,
         ));
 
