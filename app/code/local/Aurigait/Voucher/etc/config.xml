@@ -22,6 +22,20 @@
 			</voucher>
 		  </updates>
 		</layout>
+	<events>
+	
+      <customer_register_success>
+        <observers>
+          <your_module>
+            <type>singleton</type>
+            <class>voucher/observer</class>
+            <method>mailwelcomevouhcer</method>
+          </your_module>
+        </observers>
+      </customer_register_success>
+    </events>
+		
+		
   </frontend>
   <global>
     <helpers>
