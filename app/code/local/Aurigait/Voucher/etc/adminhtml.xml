@@ -29,6 +29,12 @@
 											<sort_order>4</sort_order>
 										</ordercumulative>
 									</children>
+									<children>
+										<contactcustomsec translate="title" module="voucher">
+											<title>Contact Custom Section</title>
+											<sort_order>0</sort_order>
+										</contactcustomsec>
+									</children>
 								</config>
 							</children>
 						</system>

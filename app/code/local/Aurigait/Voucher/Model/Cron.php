@@ -54,6 +54,7 @@ class Aurigait_Voucher_Model_Cron{
 	protected $offerprice3;
 	protected $maximumdiscountamout;
 	protected $minimumpurchaseamount;
+	protected $offertype;
 	
 	protected $thresholdamoutarry =array();
 	protected $thresholarr =array();
@@ -63,17 +64,7 @@ class Aurigait_Voucher_Model_Cron{
 	public function setUsercommulativeVoucher()
 	{
 	
-		try {
-			$myFile = "/var/www/indidelights/cronlog.txt";
-			$fh = fopen($myFile, 'w');
-			$stringData = date('l jS \of F Y h:i:s A');
-			fwrite($fh, $stringData);
-			fclose($fh);
-		} catch (Exception $e) {
-			Mage::printException($e);
-		}
 		
-	
 		$this->voucherperiod  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/voucherperiod');
 		$this->thresholdamount1  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/thresholdamount1');
 		$this->offerprice1  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/offerprice1');
@@ -85,6 +76,8 @@ class Aurigait_Voucher_Model_Cron{
 		$this->minimumpurchaseamount  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/minimumpurchaseamount');
 		$this->alertamount  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/alertamount');
 	
+		$this->offertype = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/offertype');
+		
 		$this->thresholarr = array($this->thresholdamount1,$this->thresholdamount2,$this->thresholdamount3);
 	
 		$this->thresholdamoutarry = array(
@@ -110,21 +103,21 @@ class Aurigait_Voucher_Model_Cron{
 		$helperobj->_maximumdiscountamout = $this->maximumdiscountamout;
 		$helperobj->_minimumpurchaseamount = $this->minimumpurchaseamount;
 	
-		$sql = "select customer_id , sum(base_subtotal ) as totalorderamount from sales_flat_order where created_at >'".$fromdate."' and created_at <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$minimumthreshold."  ";
+		$sql = "select customer_id , sum(base_subtotal ) as totalorderamount from sales_flat_order where status= 'complete' and created_at >'".$fromdate."' and created_at <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$minimumthreshold."  ";
 		$write = Mage::getSingleton('core/resource')->getConnection('core_write');
 	
 		$data=$write->fetchAll($sql);
 			
-	
 		foreach($data as $row)
 		{
-				
 				
 			$orderamount  = number_format( $row['totalorderamount'],2);
 				
 			$offeramount = $this->getOfferbyOrderamout($orderamount);
 			$helperobj->_offerprice =$offeramount;
 			$helperobj->_code ='CUST';
+			
+			//$stringData.= '##'.$row[customer_id].'@@'.$offeramount.'<br>/n';
 				
 			$couponcreatedalready = Mage::getModel('voucher/voucherlistcustomer')->testcoupon($row['customer_id'],$orderamount,$fromdate,$minimumthreshold);
 	
@@ -137,11 +130,26 @@ class Aurigait_Voucher_Model_Cron{
 					$offeramount = $this->getOfferbyOrderamout($orderamount1);
 					$helperobj->_offerprice =$offeramount;
 				}
+			//	$stringData.= '##'.$row[customer_id].'@@'.$offeramount.'<br>/n'.$offeramount;
+				
+				$stringData.=$customerEmailId.','.$customerFName;
+				$customerData = Mage::getModel('customer/customer')->load($row['customer_id']);
+				
+				$customerEmailId = $customerData->getEmail();
+				$customerFName = $customerData->getFirstname();
+				//$stringData.=$customerEmailId.','.$customerFName;
+				
+				
+				
 				$couponcode = $helperobj->CreateCustomCoupon();
+				
+				$this->sendmail($customerEmailId,$customerFName,$offeramount,$couponcode);
 				Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($row['customer_id'],$couponcode,$orderamount,$fromdate,$todate);
 					
-			}
+			} 
 		}
+		 
+			
 	
 	}
 	
@@ -160,9 +168,46 @@ class Aurigait_Voucher_Model_Cron{
 			}
 				
 		}
-		$retunamount = ($orderamount * $offeramount)/100;
+		
+		
+		if($this->offertype==1)
+			$retunamount = ($orderamount * $offeramount)/100;
+		else
+			$retunamount = $offeramount;
 	
 		return $retunamount ;
 	
+	}
+	
+	public function sendmail($customeremail,$customername,$amount,$couponcode)
+	{
+		$templateId = 1;
+		
+		$senderName = Mage::getStoreConfig('trans_email/ident_support/name');
+		$senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');
+		$sender = array('name' => $senderName,
+				'email' => $senderEmail);
+		
+		// Set recepient information
+		$recepientEmail =$customeremail;
+		$recepientName = $customername;
+		
+		// Get Store ID
+		$store = Mage::app()->getStore()->getId();
+		
+		// Set variables that can be used in email template. To get this variable write like {{var customerEmail}} in transactional Email.
+		$vars = array(	
+				'coupon_prize' => $amount,
+				'coupon_code' => $couponcode,
+				);
+		
+		$translate  = Mage::getSingleton('core/translate');
+		
+		// Send Transactional Email
+		Mage::getModel('core/email_template')
+		->addBcc($senderEmail)      // You can remove it if you don't need to send bcc
+		->sendTransactional($templateId, $sender, $recepientEmail, $recepientName, $vars, $storeId);
+		
+		$translate->setTranslateInline(true);
 	}
 }
