@@ -181,7 +181,7 @@ class Aurigait_Voucher_Model_Cron{
 	
 	public function sendmail($customeremail,$customername,$amount,$couponcode)
 	{
-		$templateId = 1;
+		$templateId = 2;
 		
 		$senderName = Mage::getStoreConfig('trans_email/ident_support/name');
 		$senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');
