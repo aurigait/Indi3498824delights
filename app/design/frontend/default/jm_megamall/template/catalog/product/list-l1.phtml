@@ -89,20 +89,52 @@
   
 </div>
 <?php endif; }*/ 
-$block=$this->getLayout()->createBlock('joomlart_jmproductsslider/list')->setTemplate("joomlart/jmproductsslider/horizontallist.phtml");
-$block->setCatsId(22)->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
+$_filters = Mage::getSingleton('Mage_Catalog_Block_Layer_State')->getActiveFilters();
+$catVal=array();
+$layer = Mage::getSingleton('catalog/layer');
+$cat_r=$layer->getCurrentCategory();
+foreach($_filters as $f)
+{	
+	if($f->getName()=='Category')
+		$catVal[]= $f->getValueString();	
+}
+
+$block=$this->getLayout()->createBlock('joomlart_jmproductsslider/L1list')->setTemplate("joomlart/jmproductsslider/horizontallist.phtml");
+$block->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
+
+$_category  = Mage::getSingleton('catalog/layer')->getCurrentCategory();
+
+$_subCaegories=explode(',',$_category->getChildren());
+
+foreach ($_subCaegories as $scatid)
+{
+	$layer->setCurrentCategory($scatid);
+	$count=count($block->getListProducts());
+
+	if($count && (empty($catVal) || in_array($scatid,$catVal)))
+	{
+		$_subcat = Mage::getModel('catalog/category')->load($scatid);
+		$block->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
 ?>
 <div class="list-type-slider">
 <div class="block block-cate sp-block-cate">
-<h1>Kitchen</h1>
-<p>Adrianan Papell Women’s Long Sleeve lace dress adrinna papel women’s long sleeve lace dress drianna papel women’s long sleeve</p>
+<h1><?php echo $_subcat->getName()?></h1>
+<p><?php echo $_subcat->getDescription()?></p>
 <ul>
 <li><a href="#">View All</a></li>
 </ul>
 </div>
 <div><?php echo $block->toHtml(); ?></div>
 </div>
+<?php 
+	
+	}}
+	$layer->setCurrentCategory($cat_r);
+	
+	?>
 
+
+<?php /*?>
 <div class="list-type-slider">
 <div class="block block-cate sp-block-cate">
 <h1>Dining</h1>
@@ -113,3 +145,4 @@ $block->setCatsId(22)->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setI
 </div>
 <div><?php echo $block->toHtml(); ?></div>
 </div>
+*/?>

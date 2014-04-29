@@ -53,16 +53,15 @@
 	// echo $this->getLayout()->createBlock('cms/block')->setBlockId('tiles-1')->toHtml();
 $_category  = $this->getCurrentCategory();
 $_subCaegories=explode(',',$_category->getChildren());
-$block=$this->getLayout()->createBlock('joomlart_jmproductsslider/list')->setTemplate("joomlart/jmproductsslider/horizontallist.phtml");
-$block->setTitle(" ")->setNumberItems(3)->setItemwidth(165)->setItemheight(252)->setWidth(165)->setHeight(150);
 
 $_helper    = $this->helper('catalog/output');
 foreach ($_subCaegories as $scatid)
 {
+	$block=$this->getLayout()->createBlock('joomlart_jmproductsslider/list')->setTemplate("joomlart/jmproductsslider/horizontallist.phtml");
+	$block->setTitle(" ")->setNumberItems(3)->setItemwidth(165)->setItemheight(252)->setWidth(165)->setHeight(150);
 	$_subcat = Mage::getModel('catalog/category')->load($scatid);
 	if($_subcat->getData("is_tile"))
-	{
-		
+	{		
 ?>		
 
 <div class="tiles-categories">
@@ -70,13 +69,15 @@ foreach ($_subCaegories as $scatid)
 <h2><?php echo $_subcat->getName();?></h2>
 <p><?php echo $_subcat->getDescription(); ?></p>
 <ul>
-<li><a href="#">View All</a></li>
+<li><a href="<?php echo $_subcat->getUrl()?>">View All</a></li>
 </ul>
 </div>
 <div class="col2-set">
+<?php $img=$_subcat->getTilePageImage();if(!empty($img)){ ?>
 <div class="col-1"><img src="<?php  echo  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."catalog/category/".$_subcat->getTilePageImage(); ?>" alt="" /></div>
+<?php  } ?>
 <div class="col-2">
-<?php echo $block->setCatsId($scatid)->toHtml()?>
+<?php echo $block->setCatsid($scatid)->toHtml()?>
 </div>
 </div>
 </div>

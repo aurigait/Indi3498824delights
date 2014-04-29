@@ -9,12 +9,13 @@
 # This file may not be redistributed in whole or significant part.
 -------------------------------------------------------------------------*/ 
 
-class JoomlArt_JmProductsSlider_Block_List extends Mage_Catalog_Block_Product_Abstract 
+class JoomlArt_JmProductsSlider_Block_L1list extends Mage_Catalog_Block_Product_Abstract 
 {
 	var $_config = array();
 	
 	protected $_defaultToolbarBlock = 'catalog/product_list_toolbar';
 	protected $_productCollection;
+	protected $_category=null;
 	
 	public function __construct($attributes = array()){
 		$helper =  Mage::helper('joomlart_jmproductsslider/data');
@@ -102,7 +103,7 @@ class JoomlArt_JmProductsSlider_Block_List extends Mage_Catalog_Block_Product_Ab
 		
 	function getListProducts(){
 		$listall = null;
-		if(is_null($this->_productCollection)){
+		//if(is_null($this->_productCollection)){
 	      	switch ($this->_config['mode']){
 				case 'latest':				
 					$listall = $this->getListBestBuyProducts( 'updated_at', 'desc');				
@@ -132,7 +133,7 @@ class JoomlArt_JmProductsSlider_Block_List extends Mage_Catalog_Block_Product_Ab
 				
 			}
 			$this->_productCollection = $listall;
-        }   
+        //}   
 		return $this->_productCollection;
 	}	
 	
@@ -217,7 +218,7 @@ class JoomlArt_JmProductsSlider_Block_List extends Mage_Catalog_Block_Product_Ab
 
 		$product_coll=$this->getLayout()->createBlock('catalog/product_list')->getLoadedProductCollection();
 		
-		$products_collection = Mage::getResourceModel('catalog/product_collection')
+		$products_collection = $product_coll
 					->setStoreId($storeId)
 					->addAttributeToSelect('*')
 					->addStoreFilter($storeId)
@@ -226,7 +227,8 @@ class JoomlArt_JmProductsSlider_Block_List extends Mage_Catalog_Block_Product_Ab
 					->addAttributeToSort($fieldorder, $order);
 		
         if($this->_config['catsid']){
-        	$this->addCategoryIdsFilter($products_collection);
+        	
+        	$products_collection->addAttributeToFilter('category_id',$this->_config['catsid']);
         }              
 	   
 		if ($products_collection && $products_collection->getSize()){
@@ -499,18 +501,26 @@ class JoomlArt_JmProductsSlider_Block_List extends Mage_Catalog_Block_Product_Ab
 		$products_collection->joinField('category_id', 'catalog/category_product', 'category_id', 'product_id = entity_id', null, 'left')
 		            ->addAttributeToFilter('category_id',array($ctf))->groupByAttribute('entity_id');
     }
+    public function setCatid($id)
+    {
+    	
+    	$_category=$id;
+    
+    }
+    //Somesh Apply Layered Filter
+    function applyLayeredFilter($product_collection)
+    {
+    	$_filters = Mage::getSingleton('Mage_Catalog_Block_Layer_State')->getActiveFilters();
+    	if(!empty($_filters))
+    	{
+    		foreach($_filters as $f)
+    		{
+    			$product_collection->addAttributeToFilter($f->getName(),$f->getValueString());
+    				
+    		}
+    	}
+    	return $product_collection;
+    }
+    
+    
 }
-//Somesh Apply Layered Filter
-function applyLayeredFilter($product_collection)
-{
-	$_filters = Mage::getSingleton('Mage_Catalog_Block_Layer_State')->getActiveFilters();
-	if(!empty($_filters))
-	{
-		foreach($_filters as $f)
-		{
-			$product_collection->addAttributeToFilter($f->getName(),$f->getValueString());
-			
-		}
-	}
-	return $product_collection;
-} 
