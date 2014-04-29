@@ -43,10 +43,13 @@ class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartControl
             $codeLength = strlen($couponCode);
             $isCodeLengthValid = $codeLength && $codeLength <= Mage_Checkout_Helper_Cart::COUPON_CODE_MAX_LENGTH;
 
+            //echo $isCodeLengthValid ? $couponCode : '';
             $this->_getQuote()->getShippingAddress()->setCollectShippingRates(true);
             $this->_getQuote()->setCouponCode($isCodeLengthValid ? $couponCode : '')
                 ->collectTotals()
                 ->save();
+            
+            //echo $isCodeLengthValid.'@@'.$couponCode.'###'. $this->_getQuote()->getCouponCode();die;
 			
             if ($codeLength) {
                 if ($isCodeLengthValid && $couponCode == $this->_getQuote()->getCouponCode()) {

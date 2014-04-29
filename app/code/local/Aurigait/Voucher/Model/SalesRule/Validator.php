@@ -62,14 +62,15 @@ class Aurigait_Voucher_Model_SalesRule_Validator extends Mage_SalesRule_Model_Va
 					}
 	
 					// sandeep for add maximum amount of discount
-					$max_discount_amount = $rule->getMaxDiscountAmount();
+				/*	$max_discount_amount = $rule->getMaxDiscountAmount();
 					//  change discount if it is more than maximum amount of discount
-	
-					$discountAmount = $discountAmount>$max_discount_amount?$max_discount_amount:$discountAmount;
-					$baseDiscountAmount = $baseDiscountAmount>$max_discount_amount?$max_discount_amount:$baseDiscountAmount;
-					$originalDiscountAmount    = $originalDiscountAmount>$max_discount_amount?$max_discount_amount:$originalDiscountAmount;
-					$baseOriginalDiscountAmount = $baseOriginalDiscountAmount>$max_discount_amount?$max_discount_amount:$baseOriginalDiscountAmount;
-	
+					if($max_discount_amount>0)
+					{
+						$discountAmount = $discountAmount>$max_discount_amount?$max_discount_amount:$discountAmount;
+						$baseDiscountAmount = $baseDiscountAmount>$max_discount_amount?$max_discount_amount:$baseDiscountAmount;
+						$originalDiscountAmount    = $originalDiscountAmount>$max_discount_amount?$max_discount_amount:$originalDiscountAmount;
+						$baseOriginalDiscountAmount = $baseOriginalDiscountAmount>$max_discount_amount?$max_discount_amount:$baseOriginalDiscountAmount;
+					} */	
 					break;
 				case Mage_SalesRule_Model_Rule::TO_FIXED_ACTION:
 					$quoteAmount = $quote->getStore()->convertPrice($rule->getDiscountAmount());
@@ -90,14 +91,16 @@ class Aurigait_Voucher_Model_SalesRule_Validator extends Mage_SalesRule_Model_Va
 					$baseDiscountAmount = $qty * $rule->getDiscountAmount();
 	
 					// sandeep for add maximum amount of discount
-					$max_discount_amount = $rule->getMaxDiscountAmount();
+			/*		$max_discount_amount = $rule->getMaxDiscountAmount();
 					//  change discount if it is more than maximum amount of discount
-	
-					$discountAmount = $discountAmount>$max_discount_amount?$max_discount_amount:$discountAmount;
-					$baseDiscountAmount = $baseDiscountAmount>$max_discount_amount?$max_discount_amount:$baseDiscountAmount;
-					$originalDiscountAmount    = $originalDiscountAmount>$max_discount_amount?$max_discount_amount:$originalDiscountAmount;
-					$baseOriginalDiscountAmount = $baseOriginalDiscountAmount>$max_discount_amount?$max_discount_amount:$baseOriginalDiscountAmount;
-	
+					if($max_discount_amount>0)
+					{
+						$discountAmount = $discountAmount>$max_discount_amount?$max_discount_amount:$discountAmount;
+						$baseDiscountAmount = $baseDiscountAmount>$max_discount_amount?$max_discount_amount:$baseDiscountAmount;
+						$originalDiscountAmount    = $originalDiscountAmount>$max_discount_amount?$max_discount_amount:$originalDiscountAmount;
+						$baseOriginalDiscountAmount = $baseOriginalDiscountAmount>$max_discount_amount?$max_discount_amount:$baseOriginalDiscountAmount;
+					}
+	*/
 					break;
 	
 				case Mage_SalesRule_Model_Rule::CART_FIXED_ACTION:
