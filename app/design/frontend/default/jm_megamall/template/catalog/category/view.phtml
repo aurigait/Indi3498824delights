@@ -40,11 +40,11 @@
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
     }
 ?>
-<div class="list-banner-img">
 <?php if($_imgUrl): ?>
+<div class="list-banner-img">
     <?php echo $_imgHtml ?>
-<?php endif; ?>
 </div>
+<?php endif; ?>
 <div class="page-title category-title">
     <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
         <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>

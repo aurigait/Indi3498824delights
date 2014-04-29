@@ -48,6 +48,9 @@ var $ja = jQuery.noConflict();
 
 			$nav = $('<div class="jm-mainnav" />').appendTo($('<div id="off-canvas-nav"></div>').appendTo($("#jm-wrapper")));
             
+			
+			
+			 
             $searchbarHtml = $("#search_mini_form").parent().html();
             $searchbarHtml = $searchbarHtml.replace('search_mini_form', 'search_mini_form_offcanvas');
             $searchbarHtml = $searchbarHtml.replace('id="search"','id="search_offcanvas"').replace('search_autocomplete','search_autocomplete_offcanvas');
@@ -185,4 +188,29 @@ var $ja = jQuery.noConflict();
 
 		})
 	}
+	$(document).ready(function(){
+			$("#off-canvas-nav .childcontent").addClass("clearfix");
+			$("#off-canvas-nav ul.megamenu, #off-canvas-nav ul.megamenu ul").before("<span class='plus'>+</span>");
+			$("#off-canvas-nav ul.megamenu ul").hide();
+			
+		$('#off-canvas-nav ul.megamenu .plus').on('click',function(){
+				
+				obj=$(this);
+				//$(this).parent().find('ul').toggle();
+				//$("#off-canvas-nav  ul.megamenu ul").toggle();
+				$('#off-canvas-nav ul.megamenu .plus').each(function(index, element) {
+                    	if($(obj).parents($(this)).length <= 0)
+						{
+							$(this).html('+');
+							$(this).next('ul').hide();
+						}
+				});
+				//$('#off-canvas-nav ul.megamenu ul').hide();
+				$(this).next('ul').toggle();
+				if($(this).html()=='-')
+					$(this).html('+');
+				else
+					$(this).html('-');
+			});
+		});
 }(jQuery);

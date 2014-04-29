@@ -48,11 +48,13 @@ body{font-family: 'Open Sans', sans-serif;}
 .cms-home #jm-tops1.jm-position{ margin:0 0 18px 0;}
 #jm-tops1 .inner{ border-bottom:#f0f0f0 solid 1px; padding-bottom:18px;}
 
+.col-2 .jm-products-slider-horizon {border-left: 0 none; border-left: 1px solid #ebebeb; padding: 0 0 0 20px ; margin:0;}
 .col-2 .jm-products-slider-horizon li{ margin-right:19px; border:none;}
 .col-2 .jm-products-slider-horizon .product-image{ border:#ebebeb solid 1px; overflow:hidden;}
-.col-2 .jm-products-slider-horizon {border-left: 0 none; border-left: 1px solid #ebebeb; padding: 0 0 0 20px ; margin:0;}
 .col-2 .jm-products-slider-horizon li .product-information{ padding:0;}
 .col-2 .jm-products-slider-horizon .ratings{ margin:7px 0;}
+.col-2.left .jm-products-slider-horizon {padding:0; border-right: 1px solid #ebebeb; border-left:none; padding-right:20px;}
+.jm-products-slider-listing .block-title{ position:relative;}
 .jm-product-list .product-name{ font-size:13px;}
 
 .tiles-categories .col2-set{border: 1px solid #ebebeb; margin-bottom:40px;}
@@ -141,12 +143,18 @@ ul.megamenu{ margin:15px 20px;}
 .block-currency .block-content select:hover{color:#463c57}
 .products-grid li.item{ display:inline-block; width:24%!important; vertical-align:top; float:none;}
 
+#off-canvas-nav .megamenu .plus{position: absolute; right: 20px; top: 20px; background: #d4d4d4; padding:1px 10px 3px; font-size: 16px; line-height: 1; cursor:pointer;}
+#off-canvas-nav .megamenu .plus:hover{ background:#c6c6c6;}
+#off-canvas-nav .megamenu li{ position:relative;}
+#off-canvas-nav .megamenu .menu-i{ position:relative;}
+#off-canvas-nav .megamenu .menu-i:after{visibility: hidden;display: block; font-size: 0; content: " "; clear: both; height: 0;}
+#off-canvas-nav .megamenu .menu-i .plus{ right:0; top:7px;}
 
 @media only screen and (max-width: 985px) {
 .tiles-categories .col-1, .tiles-categories .col-2{ width:100%; text-align:center;}
 #select-language, .menu-region, .block-currency .block-content{ display:none;}
 .sp-block-cate ul, .sp-block-cate p{ width:100%;}	
-#jm-search{ top:113px; right:7px;}
+#jm-search{ top:103px; right:7px;}
 #jm-header #jm-search .btn-toggle{ right:0;}
 .form-search{ width:100%;}
 .form-search input.input-text, .form-search input.input-text:focus{ width:72%;}
