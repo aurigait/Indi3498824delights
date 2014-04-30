@@ -192,21 +192,16 @@ var $ja = jQuery.noConflict();
 			$("#off-canvas-nav .childcontent").addClass("clearfix");
 			$("#off-canvas-nav ul.megamenu, #off-canvas-nav ul.megamenu ul").before("<span class='plus'>+</span>");
 			$("#off-canvas-nav ul.megamenu ul").hide();
-			
-		$('#off-canvas-nav ul.megamenu .plus').on('click',function(){
-				
-				obj=$(this);
-				//$(this).parent().find('ul').toggle();
-				//$("#off-canvas-nav  ul.megamenu ul").toggle();
-				$('#off-canvas-nav ul.megamenu .plus').each(function(index, element) {
-                    	if($(obj).parents($(this)).length <= 0)
+			$('#off-canvas-nav ul.megamenu .plus').on('click',function(){
+			obj=$(this);
+			$('#off-canvas-nav ul.megamenu ul').each(function(index, element) {
+				if(!($(element).has(obj).length || $(obj).next('ul').has(element).length || $(obj).next('ul').is(element)))
 						{
-							$(this).html('+');
-							$(this).next('ul').hide();
+                			$(this).prev(".plus").html('+');
+							$(this).hide(300,{direction:"up"});
 						}
 				});
-				//$('#off-canvas-nav ul.megamenu ul').hide();
-				$(this).next('ul').toggle();
+			    $(this).next('ul').slideToggle(300);
 				if($(this).html()=='-')
 					$(this).html('+');
 				else
