@@ -108,7 +108,7 @@ ul.megamenu{ margin:15px 20px;}
 .jm-megamenu .megacol{ background:#FFF;}
 .block-currency{ background:none; height:auto; margin-right:60px;}
 .block-currency .block-content { overflow:hidden;}
-.block-currency .block-content select{ width:115%; border:none; color:#8d8d8d; font-size:11px; margin-top:4px; background:none; position:relative; appearance:none; -webkit-appearance:none; -moz-appearance:none; -mso-appearance:none;}
+.block-currency .block-content select{ width:115%; border:none; color:#454545; font-size:11px; margin-top:4px; background:none; position:relative; appearance:none; -webkit-appearance:none; -moz-appearance:none; -mso-appearance:none;}
 .block-currency .block-content:before{ position:absolute; left:0; top:9px; content:'|'; color:#d4d4d4;}
 .block-currency .block-content:after{ z-index:-1; position:absolute; right:70px; top:18px; content:'';  width: 0; height:0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 8px solid #9b9b9b;}
 
@@ -116,7 +116,7 @@ ul.megamenu{ margin:15px 20px;}
 #menu-banners .col-6{ width:46%; margin:15px 10px 0 0; display:inline-block;}
 #menu-banners a img:hover{opacity:0.9;}
 .cart-table tfoot td:first-of-type, .cart-table tfoot th:first-of-type, .cart-table td:first-of-type, .cart-table th:first-of-type{ padding:10px;}
-.form-search input.input-text, .form-search input.input-text:focus{ margin-left:5px; width:300px;}
+.form-search input.input-text, .form-search input.input-text:focus{ margin-left:5px; width:370px;}
 .block-progress{ background:#FFF; border:solid 1px #eeeeee;}
 .block-progress .block-title{ border-color:#eeeeee;}
 .block-progress dt{ color:#464646;}
@@ -130,7 +130,7 @@ ul.megamenu{ margin:15px 20px;}
 .list-type-slider .jm-products-slider-horizon{ margin-right:0;}
 .list-type-slider .jm-products-slider-horizon .ratings{ margin-left:0;}
 #narrow-by-list dd li.filter-cat.active .filter-subcat{ border-bottom:none;}
-.list-banner-img{ margin-bottom:40px;}
+.list-banner-img{ margin-bottom:20px;}
 .form-search button.button:hover{ background:#463c57; color:#FFF;}
 .jm-prev:hover, .jm-prev:focus, .jm-next:hover, .jm-next:focus{ border-color:#463c57;}
 .megamenu .menu-i ul li{ line-height:1.8;}
@@ -154,6 +154,12 @@ ul.megamenu{ margin:15px 20px;}
 .block-layered-nav .currently li span.label{ font-weight:normal;}
 #off-canvas-nav #menu-banners .col-6{ width:42%; margin:5px 5px 0 0;}
 .jm-megamenu ul.level0 li.haschild.active:after, .jm-megamenu ul.level0 li.haschild:hover:after{color:#463c57;}
+.page-title.category-title h1{ padding-top:0; padding-bottom:5px;}
+#jm-head a{ color:#454545;}
+.jm-products-slider-horizon .jm-prev, .jm-products-slider-horizon .jm-next, .jm-products-slider-vertical .jm-prev, .jm-products-slider-vertical .jm-next{ top:20px;}
+.list-categories .block-title, .list-categories .category-title{ padding:18px 0 10px;}
+#jm-breadcrumbs{padding: 10px 0 0;}
+#jm-mainbody{padding: 10px 0 40px;}
 
 
 @media only screen and (max-width: 985px) {
