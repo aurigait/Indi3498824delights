@@ -54,7 +54,7 @@ body{font-family: 'Open Sans', sans-serif;}
 .col-2 .jm-products-slider-horizon li .product-information{ padding:0;}
 .col-2 .jm-products-slider-horizon .ratings{ margin:7px 0;}
 .col-2.left .jm-products-slider-horizon {padding:0; border-right: 1px solid #ebebeb; border-left:none; padding-right:20px;}
-.jm-products-slider-listing .block-title{ position:relative;}
+/*.jm-products-slider-listing .block-title{ position:relative;}*/
 .jm-product-list .product-name{ font-size:13px;}
 
 .tiles-categories .col2-set{border: 1px solid #ebebeb; margin-bottom:40px;}
@@ -77,7 +77,7 @@ body{font-family: 'Open Sans', sans-serif;}
 .sp-block-cate { text-align:left; border:0; padding:0;}
 .sp-block-cate h2{ float:none; text-align:left; }
 .sp-block-cate p{ text-align:left; width:65%; display:inline-block;}
-.sp-block-cate ul{ width:34%; display:inline-block; margin-top:0; text-align:right; float:none;}
+.sp-block-cate ul{ width:34%; display:inline-block; margin-top:0; text-align:right; float:right;}
 .page-title a{ font-size:13px;}
 
 ul.megamenu{ margin:15px 20px;}
@@ -160,7 +160,10 @@ ul.megamenu{ margin:15px 20px;}
 .list-categories .block-title, .list-categories .category-title{ padding:18px 0 10px;}
 #jm-breadcrumbs{padding: 10px 0 0;}
 #jm-mainbody{padding: 10px 0 40px;}
+.jm-slider .products-grid button.jmquickview{top: 42%; margin: 0; position: relative;}
 
+/*quick view*/
+.product-essential{ padding:10px;}
 
 @media only screen and (max-width: 985px) {
 .tiles-categories .col-1, .tiles-categories .col-2{ width:100%; text-align:center;}
