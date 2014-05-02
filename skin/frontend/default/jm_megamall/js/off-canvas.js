@@ -190,7 +190,7 @@ var $ja = jQuery.noConflict();
 	}
 	$(document).ready(function(){
 			$("#off-canvas-nav .childcontent").addClass("clearfix");
-			$("#off-canvas-nav ul.megamenu, #off-canvas-nav ul.megamenu ul").before("<span class='plus'>+</span>");
+			$("#off-canvas-nav ul.megamenu ul").before("<span class='plus'>+</span>");
 			$("#off-canvas-nav ul.megamenu ul").hide();
 			$('#off-canvas-nav ul.megamenu .plus').on('click',function(){
 			obj=$(this);
@@ -198,10 +198,10 @@ var $ja = jQuery.noConflict();
 				if(!($(element).has(obj).length || $(obj).next('ul').has(element).length || $(obj).next('ul').is(element)))
 						{
                 			$(this).prev(".plus").html('+');
-							$(this).hide(300,{direction:"up"});
+							$(this).hide(200);
 						}
 				});
-			    $(this).next('ul').slideToggle(300);
+			    $(this).next('ul').toggle(300);
 				if($(this).html()=='-')
 					$(this).html('+');
 				else
