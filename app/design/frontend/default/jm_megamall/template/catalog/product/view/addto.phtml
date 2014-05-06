@@ -48,11 +48,11 @@ if($_compareUrl) : ?>
 
 <script>
 	jQuery(document).ready(function(){
-		jQuery('#user-remarks').click(function(e){
+		jQuery('#user-remarks').click(function(event){
 			jQuery('.tool-tip').toggle();
 			event.stopPropagation()
 			});
-			jQuery('.tool-tip').click(function(e){
+			jQuery('.tool-tip').click(function(event){
 				event.stopPropagation()
 				});
 			jQuery('html').click(function(){
