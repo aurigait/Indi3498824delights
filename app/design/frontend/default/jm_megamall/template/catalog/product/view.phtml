@@ -70,12 +70,18 @@
         </div>  
 
         <div class="product-shop">
-            <div class="product-name">
-                <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
-            </div>
-
-			<?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
-			
+        	<div class="c-section">
+                <div class="product-name">
+                    <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                </div>
+                <ul class="base-info">
+                    <li><label>From:</label> <strong>Ajmer</strong></li>
+                    <li><label>Brand:</label> <strong>Marvel T-Shirt</strong></li>
+                    <li><label>Used in following Festivels:</label> <strong>New Year, Holi</strong></li>
+                </ul>
+                <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
+			</div>
+            <div class="c-section">
 			<div class="jm-product-price">
 				<?php echo $this->getChildHtml('product_type_data') ?>
 			</div>
@@ -85,15 +91,30 @@
 			<?php else: ?>
 				<p class="availability out-of-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('Out of stock') ?></span></p>
 			<?php endif; ?>
-			
+			</div>
             <?php if ($this->canEmailToFriend()): ?>
                 <p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
             <?php endif; ?>
-            
+            <div class="c-section">
             <?php echo $this->getChildHtml('alert_urls') ?>
             <?php echo $this->getTierPriceHtml() ?>
             <?php echo $this->getChildHtml('extrahint') ?>
-
+			 <?php  if(!$_product->isGrouped()): ?>
+        <label for="qty"><?php echo $this->__('Qty:') ?></label>
+        <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+        <?php endif; ?>
+		<?php if ($_product->isSaleable() && $this->hasOptions()):?>
+        
+                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+            <?php endif;?>
+			
+			<?php if ($_product->isSaleable() && $this->hasOptions()):?>
+            
+				<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+                
+			<?php endif;?>
+			</div>
+            
             <?php if (!$this->hasOptions()):?>
                 <div class="add-to-box">
                     <?php if($_product->isSaleable()): ?>
@@ -108,20 +129,21 @@
                 </div>
             <?php endif; ?>
 			
-			<?php if ($_product->isSaleable() && $this->hasOptions()):?>
-                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
-            <?php endif;?>
 			
-			<?php if ($_product->isSaleable() && $this->hasOptions()):?>
-				<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
-			<?php endif;?>
-
-            <?php if ($_product->getShortDescription()):?>
+            <?php /* if ($_product->getShortDescription()):?>
                 <div class="short-description">
                     <h2><?php echo $this->__('Quick Overview') ?></h2>
                     <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
                 </div>
-            <?php endif;?>
+            <?php endif; */ ?>
+            
+            <ul class="tick-list">
+            	<li><i class="fa fa-check"></i> COD Availabel</li>
+                <li><i class="fa fa-check"></i> Returnable</li>
+                <li><i class="fa fa-check"></i> International Shipping</li>
+                <li><i class="fa fa-check"></i> Free Shipping</li>
+            </ul>
+            
 
             <?php echo $this->getChildHtml('other');?>
 			
@@ -201,15 +223,58 @@
     //]]>
     </script>
     </div>
+<div class="clearfix">
+	<div class="panel-right">
+    	<?php 
+	if($baseconfig['showupsell']):
 
+		$upsell_products = $this->getChild('upsell_products');
+		if($upsell_products) {
+			$upsell_products->setItemLimit("upsell",$baseconfig['upsellnumber']);
+			if($upsell_products = $this->getChildHtml('upsell_products')): ?>
+			   <?php echo $upsell_products; ?>
+			<?php endif;
+		}
+	endif;
+	?>
+    
+    <?php 
+		$related_products = $this->getChild('related_products');
+               if($related_products) {
+                       //$related_products->setItemLimit("related_products",$baseconfig['related_products']);
+                       if($related_products = $this->getChildHtml('related_products')): ?>
+                          <?php echo $related_products; ?>
+                       <?php endif;
+               }
+	
+	?>
+    
+    </div>
+	<div class="panel-center">
+    	<div class="c-section">
+	 <?php  if ($_product->getDescription()):?>
+                <div class="description">
+                    <h2><?php echo $this->__('Description') ?></h2>
+                    <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></div>
+                </div>
+            <?php endif;  ?>
+            </div>
+            
+            <h2>Video</h2>
+            <iframe src="//www.youtube.com/embed/k0kMxlLP0QU" frameborder="0" width="695" height="270"></iframe>
+            
+    </div>
+            
+            </div>
+            
     <div id="ja-tab-products" class="product-collateral">
 		<ul class="ja-tab-navigator clearfix">
-			<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+			<?php /* foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
 				<li><a href="<?php echo "#ja-tab-{$alias}"?>"><?php echo $alias; ?></a></li>
 			<?php endforeach;?>
 			<?php if($product_additional_data = $this->getChildHtml('product_additional_data')): ?>
 				<li><a href="#ja-tabitem-tags"><?php echo $this->__('Product Tags') ?></a></li>
-			<?php endif; ?>
+			<?php endif; */?>
 			<?php if($product_reviews = $this->getChildHtml('product_reviews')): ?>
 				<li><a href="#ja-tabitem-reviews"><?php echo $this->__('Product Reviews') ?></a></li>
 			<?php endif; ?>    
@@ -218,7 +283,7 @@
 			<?php endif; ?>
 		</ul>
 		<div class="ja-tab-content">
-			<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+			<?php /* foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
 			<div id="<?php echo "ja-tab-{$alias}"?>">
 			  <div class="box-collateral <?php echo "box-{$alias}"?>">
 				 <?php echo $html; ?>
@@ -229,7 +294,7 @@
 				<div id="ja-tabitem-tags">
 					<?php echo $product_additional_data; ?>
 				</div>
-				<?php endif;?>
+				<?php endif; */?>
 				
 				<?php if($product_reviews): ?>
 				<div id="ja-tabitem-reviews">
@@ -245,16 +310,5 @@
 		</div>
 	</div>
  
-	<?php 
-	if($baseconfig['showupsell']):
-
-		$upsell_products = $this->getChild('upsell_products');
-		if($upsell_products) {
-			$upsell_products->setItemLimit("upsell",$baseconfig['upsellnumber']);
-			if($upsell_products = $this->getChildHtml('upsell_products')): ?>
-			   <?php echo $upsell_products; ?>
-			<?php endif;
-		}
-	endif;
-	?>
+	
 </div>

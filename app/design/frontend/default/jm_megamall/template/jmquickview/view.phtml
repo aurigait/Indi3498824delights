@@ -38,7 +38,7 @@
 </script>
 
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
-<div class="product-view" style="width: 885px">
+<div class="product-view" style="width: 820px">
     <div class="product-essential">
     <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" class="product_addtocart_form" id="product_addtocart_form<?php echo $_product->getId(); ?>"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
         <div class="no-display">
@@ -56,7 +56,6 @@
 						<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
 					</a>
 				</h1>
-                <p><?php echo $_helper->productAttribute($_product, $_product->getBrand(), 'brand') ?></p>
             </div>
 
             <?php if ($this->canEmailToFriend()): ?>
@@ -68,9 +67,8 @@
             <?php echo $this->getChildHtml('product_type_data') ?>
             <?php echo $this->getTierPriceHtml() ?>
             <?php echo $this->getChildHtml('extrahint') ?>
-			<div>Available Sizes 1 2 3 4 5</div>
-            <div>International Shipping</div>
-            <div>Delivered in 2-5 business days</div>
+<!--            <div class="shipping-info">International Shipping</div>
+            <div class="dispatch-time">Delivered in 2-5 business days</div>-->
             <?php if ($_product->isSaleable() && !$this->hasOptions()):?>
                 <div class="add-to-box">
                     <?php if($_product->isSaleable()): ?>
@@ -96,11 +94,11 @@
             <?php if ($_product->getDescription()):?>
                 <div class="short-description">
                     <h2><?php echo $this->__('Quick Overview') ?></h2>
-                    <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'short_description') ?></div>
-                    <p><a href="<?php echo $_product->getUrl(); ?>">Read More</a></p>
+                    <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+                    <div class="read-more"><a href="<?php echo $_product->getUrl(); ?>">Read More</a></div>
                 </div>
             <?php endif;?>
-			<button class="button btn-cart"> See Complete Product Details</button>
+			<div class="text-right"><button class="button btn-cart"> See Complete Product Details</button></div>
             <?php echo $this->getChildHtml('other');?>
 
             <?php

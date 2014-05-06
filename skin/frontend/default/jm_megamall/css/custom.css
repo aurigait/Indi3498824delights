@@ -8,12 +8,18 @@ body{font-family: 'Open Sans', sans-serif;}
 .filter-subcat a, .jm-datetime, .block-tags .block-content a, .tags-list li a, #jm-error, #cboxCurrent, #jm-setting .btn-toggle, .info-inner, .product-options dd select, .ja-tab-content, .product-shop, .breadcrumbs, .vertical-mega-menu .jm-megamenu .mega-item-des, .jm-megamenu ul.level2 li.mega li.mega a.mega, .jm-megamenu ul.level2 li.mega li a, .product-name a, .ul-dropdown, #jm-bots1, .jm-legal, #jm-tops1 ul li, .select-box2 select, .shop-access .links, .lits-category select, .block-cart .summary, .old-price span.price, .products-grid .product-information, .list-categories .block-title span span, .list-categories .category-title h1 span, .block-cart .product-details .product-name a, .products-grid button.jmquickview, #button-btt{font-family: 'Open Sans', sans-serif;}
 .message h2, .products-list .add-to-links li a, #jm-error h3, #jm-error dl dt, .page-head-alt h2, #jm-setting .inner-toggle label, .contact-form .form-list label, .product-options dt label, .product-view .box-up-sell h2, .product-collateral h2, ul.ja-tab-navigator li, .product-essential h2, .product-view .product-shop .add-to-links, .add-to-cart label, .product-view .product-shop .availability, .jm-menu-top, span.price, .block-title, button.button, .page-title h1, .page-title h2, .block-cate h2, .toolbar label, .mycart-toggle span, button.btn-checkout, #jm-tops1 ul li span, .block-cart .subtotal, .block-cart span.price, .jm-slider li span.price, .account-login .content h2, .form-search button.button, .block-subscribe .input-box button, .list-categories .category-title h1, .jm-megamenu ul.level0 li.mega a.mega, .block-cate ul li a, .cart .totals td, .cart-table .product-name, .jm-megamenu .product-name a, .product-view .product-shop .price-box, #jm-error ul.none-disc li a{font-family: 'Open Sans', sans-serif; font-weight:600;}
 
+/*Global CSS*/
+.text-left{ text-align:left;}
+.text-center{ text-align:center;}
+.text-right{ text-align:right;}
+
 #logo{ margin:10px 0;}
 #jm-head {border-bottom:#d3d3d3 solid 1px;}
 #jm-tops2 .col3-set .col-3{ margin-left:10px;}
 #jm-tops2 .col3-set .col-3 iframe{ margin-bottom:5px;}
 #jm-tops2 .col3-set .col-2{margin:0; width: auto; overflow: hidden; height: 1%; float: none;}
 .jm-menu-top .jm-megamenu ul li a, .jm-menu-top .jm-megamenu ul li.active a, .jm-megamenu ul.level0 li.mega a.mega:hover, .jm-megamenu ul.level0 li.mega:hover > a.mega, .jm-megamenu ul.level0 li.mega a.mega {border-right: 1px solid #FFF;}
+.jm-megamenu ul.level0 li.mega.last a:hover{ border:none;}
 .jm-menu-top{ margin:0 0 10px;}
 .block-cate h2, .page-title.category-title h1{ text-transform:none; font-size:28px; font-weight:normal;}
 .block .block-title strong{ font-weight:600;}
@@ -157,13 +163,62 @@ ul.megamenu{ margin:15px 20px;}
 .page-title.category-title h1{ padding-top:0; padding-bottom:5px;}
 #jm-head a{ color:#454545;}
 .jm-products-slider-horizon .jm-prev, .jm-products-slider-horizon .jm-next, .jm-products-slider-vertical .jm-prev, .jm-products-slider-vertical .jm-next{ top:20px;}
+.list-categories .block-title{ position:relative;}
 .list-categories .block-title, .list-categories .category-title{ padding:18px 0 10px;}
 #jm-breadcrumbs{padding: 10px 0 0;}
 #jm-mainbody{padding: 10px 0 40px;}
 .jm-slider .products-grid button.jmquickview{top: 42%; margin: 0; position: relative;}
 
 /*quick view*/
-.product-essential{ padding:10px;}
+.product-essential{ padding:15px;}
+.product-view .product-shop .short-description h2{ margin-bottom:5px;}
+.product-view .product-shop .short-description .read-more { text-align:right;}
+.product-view .product-shop .short-description .read-more a{ text-decoration:underline;}
+#cboxLoadedContent{ margin:0;}
+#cboxPrevious, #cboxNext, #cboxCurrent{ display:none!important;}
+#cboxLoadedContent .product-view .product-shop{ width:400px;}
+.product-options dt, .product-options dd{ display:inline-block; margin-right:3px;}
+.product-options dd{ padding:0;}
+.product-options dd select{ width:auto; padding:5px;}
+.product-name a span{ display:block; line-height:1.5;}
+#cboxClose{ top:10px; right:10px;}
+
+/*Product detail page*/
+.product-view .product-img-box{ margin:0 20px 0 0;}
+.product-view .product-shop{ padding:0; width:655px;}
+.product-view .product-img-box .product-image-zoom{ border:#eaeaea solid 1px;}
+.product-shop .product-name h1{ margin:0 0 5px 0;}
+.product-view .product-shop .add-to-links { top:10px;}
+.product-view .product-shop .base-info li{ margin:5px 0;}
+.product-view .product-shop .ratings{ margin-bottom:0;}
+.product-view .product-shop .availability{ margin:0;}
+.product-view .product-shop .price-box{ margin:0;}
+.product-view .product-shop .add-to-links a, .product-view .box-up-sell h2{ text-transform:none;}
+.product-view .c-section{border-bottom:#eaeaea solid 1px; margin-bottom:15px; padding-bottom:15px;}
+.product-shop .product-options{ display:inline-block;}
+.product-shop .tick-list{ margin-bottom:15px;}
+.product-shop .tick-list i{ font-size:20px; margin-right:5px;}
+.product-shop .tick-list li{ display:inline-block; width:45%; font-size:14px; font-weight:bold; padding:5px 10px;}
+.product-view .panel-center{ overflow:hidden; height:1%;}
+.product-view .panel-center .description{ min-height:250px;}
+.product-view .panel-right{ float:right; width:375px; margin-left:20px;}
+.product-view .box-up-sell{ float:none; width:auto;  margin-bottom:20px;}
+.product-view .box-up-sell .products-grid li.item{ width:100%!important; position:relative; min-height:90px;}
+.product-view .box-up-sell .jmquickview{ display:none;}
+.product-view .box-up-sell .products-grid .product-image{ position:absolute; left:0; top:0; border:#eaeaea solid 1px;}
+.product-view .box-up-sell .product-name, .product-view .box-up-sell .price-box{padding-left:70px;}
+.product-view .box-up-sell .ratings{ display:none;}
+.product-view .block .block-title{ text-transform: none;}
+.product-view .panel-center .c-section{ margin-bottom:20px; padding-bottom:15px;}
+.list-type-slider .jm-products-slider-horizon .jm-next{ right:8px;}
+#jm-tops2 .jm-slider{ width:750px!important;}
+#jm-tops2 .jm-slider li{ min-height:138px;}
+.content-upsell{ padding:20px;}
+.product-view .tool-tip{ background: #f9f7f8; position: absolute; left: 27px; top: 25px; padding: 5px; border-color: #CCC;z-index:10;  }
+.product-view .fa-caret-up{}
+.product-view .tool-tip textarea{ width:220px; padding:5px 10px; }
+.product-view .product-shop .add-to-links li{ position:relative;}
+.product-view textarea:focus{ background:#FFF;}
 
 @media only screen and (max-width: 985px) {
 .tiles-categories .col-1, .tiles-categories .col-2{ width:100%; text-align:center;}

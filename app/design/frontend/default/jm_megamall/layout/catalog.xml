@@ -196,6 +196,13 @@ Product view
                 <action method="addReviewSummaryTemplate"><type>short</type><template>review/helper/summary_short.phtml</template></action>
                 <action method="addReviewSummaryTemplate"><type>...</type><template>...</template></action>
                 -->
+				 <block type="review/product_view_list" name="product.info.product_additional_data" as="product_reviews" template="review/product/view/list.phtml"></block>
+			 	<block type="review/form" name="product.review.form" as="review_form">
+					<block type="page/html_wrapper" name="product.review.form.fields.before" as="form_fields_before" translate="label">
+						<label>Review Form Fields Before</label>
+						<action method="setMayBeInvisible"><value>1</value></action>
+					</block>
+				</block>
                 <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml"/>
                 <block type="core/text_list" name="alert.urls" as="alert_urls" translate="label">
                     <label>Alert Urls</label>
