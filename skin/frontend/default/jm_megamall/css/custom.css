@@ -42,7 +42,7 @@ body{font-family: 'Open Sans', sans-serif;}
 .block-layered-content-filter, .block-layered-nav .currently li, .block-layered-nav-filter .actions a, .block-layered-nav-filter .actions a:hover{ background:none; color:#464646; }
 #narrow-by-list ol{ padding:10px 0;}
 #narrow-by-list dt{ background:#d4d4d4; border-bottom:#d4d4d4 solid 1px; text-transform:none; color:#464646; margin:0; padding:5px 0; font-size:14px; font-weight:normal;}
-#narrow-by-list dd li a{ padding:7px 0;}
+#narrow-by-list dd li a{ padding:3px 0; text-indent:20px;}
 #narrow-by-list dd li a, #narrow-by-list dd li a span.price, #narrow-by-list dd li a .special-price .price{ border:none; color:#454545;}
 #narrow-by-list dd{ border-bottom:#d4d4d4 solid 1px;}
 #narrow-by-list dd:last-child{ border:none;}
@@ -219,6 +219,12 @@ ul.megamenu{ margin:15px 20px;}
 .product-view .tool-tip textarea{ width:220px; padding:5px 10px; min-height:65px;}
 .product-view .product-shop .add-to-links li{ position:relative;}
 .product-view textarea:focus{ background:#FFF;}
+.product-collateral h2{ margin-bottom:0;}
+.product-view .box-reviews dt{ margin-top:15px; font-weight:bold;}
+#narrow-by-list dd li .filter-subcat span a{ display:block; background:none; color:#454545; margin-top:0;}
+#narrow-by-list dd li .filter-subcat span a:hover{ background:none; color:#454545;}
+.filter-subcat{ padding:0 20px;}
+#narrow-by-list dd li.filter-cat.active a{ color:#454545;}
 
 @media only screen and (max-width: 985px) {
 .tiles-categories .col-1, .tiles-categories .col-2{ width:100%; text-align:center;}
