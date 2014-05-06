@@ -40,9 +40,24 @@ if($_compareUrl) : ?>
     <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
 <?php endif;*/ ?>
 	
-    <li><span class="separator">|</span>  <a href="#">User Remarks</a> 
+    <li><span class="separator">|</span>  <a href="javascript:void(0);" id="user-remarks">User Remarks</a> 
     	<div class="tool-tip"><i class="fa fa-caret-up"></i> <textarea name="remarks" cols="" rows=""></textarea></div>
     </li>
 
 </ul>
 
+<script>
+	jQuery(document).ready(function(){
+		jQuery('#user-remarks').click(function(e){
+			jQuery('.tool-tip').toggle();
+			event.stopPropagation()
+			});
+			jQuery('.tool-tip').click(function(e){
+				event.stopPropagation()
+				});
+			jQuery('html').click(function(){
+					jQuery('.tool-tip').hide();
+					
+				});
+		});
+</script>
