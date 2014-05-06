@@ -215,7 +215,7 @@ ul.megamenu{ margin:15px 20px;}
 #jm-tops2 .jm-slider li{ min-height:138px;}
 .content-upsell{ padding:20px;}
 .product-view .tool-tip{ background: #f9f7f8; position: absolute; left: 27px; top: 25px; padding: 5px; border-color: #CCC;z-index:10; display:none;}
-.product-view .fa-caret-up{ position:absolute; left:14px; top:-10px; font-size:14px;}
+.product-view .tool-tip .fa-caret-up{ position:absolute; left:14px; top:-10px; font-size:14px;}
 .product-view .tool-tip textarea{ width:220px; padding:5px 10px; min-height:65px;}
 .product-view .product-shop .add-to-links li{ position:relative;}
 .product-view textarea:focus{ background:#FFF;}
