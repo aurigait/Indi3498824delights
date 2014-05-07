@@ -196,10 +196,10 @@ ul.megamenu{ margin:15px 20px;}
 .product-view .product-shop .price-box{ margin:0;}
 .product-view .product-shop .add-to-links a, .product-view .box-up-sell h2{ text-transform:none;}
 .product-view .c-section{border-bottom:#eaeaea solid 1px; margin-bottom:15px; padding-bottom:15px;}
-.product-shop .product-options{ display:inline-block;}
-.product-shop .tick-list{ margin-bottom:15px;}
-.product-shop .tick-list i{ font-size:20px; margin-right:5px;}
-.product-shop .tick-list li{ display:inline-block; width:45%; font-size:14px; font-weight:bold; padding:5px 10px;}
+.product-view .product-options{ display:inline-block;}
+.product-view .tick-list{ margin-bottom:15px;}
+.product-view .tick-list i{ font-size:20px; margin-right:5px;}
+.product-view .tick-list li{ display:inline-block; width:45%; font-size:14px; font-weight:bold; padding:5px 10px;}
 .product-view .panel-center{ overflow:hidden; height:1%;}
 .product-view .panel-center .description{ min-height:250px;}
 .product-view .panel-right{ float:right; width:375px; margin-left:20px;}
@@ -244,7 +244,9 @@ height: 24px; width: 24px;}
 .cart-table .item-options dd, .cart-table .item-options dt{ display:inline-block; padding-left:0; font-style:normal; margin-bottom:0; font-weight:bold;}
 .cart-table .user-remark{ color:#454545; font-size:14px;}
 .cart .page-title{ margin-bottom:5px; text-transform:none;}
-.cart .page-title h1{ font-size:26px; font-weight:normal;}
+.cart .page-title h1{ font-size:26px; font-weight:normal; padding-top:0;}
+.checkout-cart-index #jm-mainbody{ padding-top:0;}
+.breadcrumbs li{ display:inline-block; vertical-align:top;}
 
 @media only screen and (max-width: 985px) {
 .tiles-categories .col-1, .tiles-categories .col-2{ width:100%; text-align:center;}

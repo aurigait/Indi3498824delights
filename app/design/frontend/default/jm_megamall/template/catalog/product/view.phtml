@@ -129,7 +129,7 @@
                 </div>
             <?php endif; ?>
 			
-			</div>
+			
             <?php /* if ($_product->getShortDescription()):?>
                 <div class="short-description">
                     <h2><?php echo $this->__('Quick Overview') ?></h2>
@@ -140,15 +140,16 @@
             <ul class="tick-list"><?php $cod= $_product->getResource()->getAttribute('cod_available')->getFrontend()->getValue($_product);
 				 if($cod=='Yes'): ?>
             	<li><i class="fa fa-check"></i>COD Availabel</li><?php endif; ?>
-                <?php $returnable= $_product->getResource()->getAttribute('ga_returnable')->getFrontend()->getValue($_product);
+                <?php if($_product->getResource()->getAttribute('ga_returnable'))
+							$returnable= $_product->getResource()->getAttribute('ga_returnable')->getFrontend()->getValue($_product);
                 if($returnable=='Yes'): ?>
                 <li><i class="fa fa-check"></i>Returnable </li> <?php endif; ?>
-                <?php $intship= $_product->getResource()->getAttribute('ga_int_ship_allowed ')->getFrontend()->getValue($_product);
+                <?php if($_product->getResource()->getAttribute('ga_int_ship_allowed '))$intship= $_product->getResource()->getAttribute('ga_int_ship_allowed ')->getFrontend()->getValue($_product);
                 if($intship=='Yes'): ?>
                 <li><i class="fa fa-check"></i>International Shipping</li><?php endif; ?>
                 <li><i class="fa fa-check"></i>Free Shipping</li>
             </ul>
-            
+            </div>
 
             <?php echo $this->getChildHtml('other');?>
 			
