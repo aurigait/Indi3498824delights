@@ -38,12 +38,13 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php else: ?>
             <?php echo $this->escapeHtml($this->getProductName()) ?>
         <?php endif; ?>
-        </h2>
+        </h2> 
+		
         <?php if ($_options = $this->getOptionList()):?>
         <dl class="item-options">
             <?php foreach ($_options as $_option) : ?>
             <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
-            <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
+            <dt><?php echo $this->escapeHtml($_option['label']) ?> : </dt>
             <dd<?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif; ?>><?php echo $_formatedOptionValue['value'] ?>
                 <?php if (isset($_formatedOptionValue['full_view'])): ?>
                 <div class="truncated_full_value">
@@ -53,11 +54,16 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
                     </dl>
                 </div>
                 <?php endif; ?>
+               
             </dd>
             <?php endforeach; ?>
         </dl>
         <?php endif;?>
-        <?php if ($messages = $this->getMessages()): ?>
+          <?php if ($isVisibleProduct): ?>
+            <a href="<?php echo $this->helper('wishlist')->getAddUrl($_item->getId()); ?>" class="link-wishlist use-ajax"><?php echo $this->__('ADD TO WISHLIST'); ?></a>
+        <?php endif ?>
+		<div class="user-remark"><em> &quot;<?php echo $_item->getUserRemark();?>&quot; </em></div>
+		<?php if ($messages = $this->getMessages()): ?>
         <?php foreach ($messages as $message): ?>
             <p class="item-msg <?php echo $message['type'] ?>">* <?php echo $this->escapeHtml($message['text']) ?></p>
         <?php endforeach; ?>
@@ -72,13 +78,16 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item parameters') ?>"><?php echo $this->__('Edit') ?></a>
         <?php endif ?>
     </td>
-    <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
+    
+    <td>3-5 days</td>
+    <td>YES</td>
+    <?php /* if ($this->helper('wishlist')->isAllowInCart()) : ?>
     <td class="a-center">
         <?php if ($isVisibleProduct): ?>
             <a href="<?php echo $this->helper('wishlist')->getMoveFromCartUrl($_item->getId()); ?>" class="link-wishlist use-ajax"><?php echo $this->__('Move'); ?></a>
         <?php endif ?>
     </td>
-    <?php endif ?>
+    <?php endif */?>
 
     <?php if ($canApplyMsrp): ?>
         <td class="a-right"<?php if ($this->helper('tax')->displayCartBothPrices()): ?> colspan="2"<?php endif; ?>>
