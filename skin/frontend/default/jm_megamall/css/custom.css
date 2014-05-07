@@ -212,7 +212,7 @@ ul.megamenu{ margin:15px 20px;}
 .product-view .block .block-title{ text-transform: none;}
 .product-view .panel-center .c-section{ margin-bottom:20px; padding-bottom:15px;}
 .list-type-slider .jm-products-slider-horizon .jm-next{ right:8px;}
-#jm-tops2 .jm-slider{ width:750px!important;}
+/*#jm-tops2 .jm-slider{ width:750px!important;}*/
 #jm-tops2 .jm-slider li{ min-height:138px;}
 .content-upsell{ padding:20px;}
 .product-view .tool-tip{ background: #f9f7f8; position: absolute; left: 27px; top: 25px; padding: 5px; border-color: #CCC;z-index:10; display:none;}
@@ -232,7 +232,11 @@ ul.megamenu{ margin:15px 20px;}
 height: 24px; width: 24px;}
 #narrow-by-list dt .handle.active {background-position: 0 100%;  top:1px;}
 #narrow-by-list dt .handle:hover {background-position: 0 0;}
-
+#ja-tabitem-reviewform{ min-height:120px;}
+.product-shop .product-options{ margin-left:10px; vertical-align:top;}
+.product-options dt label{ margin-bottom:0;}
+.product-options dt{ vertical-align:top; margin-top:7px; margin-bottom:0;}
+.product-shop .input-text.qty{ padding:7px 10px;}
 
 @media only screen and (max-width: 985px) {
 .tiles-categories .col-1, .tiles-categories .col-2{ width:100%; text-align:center;}
