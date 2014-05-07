@@ -84,6 +84,7 @@ body{font-family: 'Open Sans', sans-serif;}
 .sp-block-cate h2{ float:none; text-align:left; }
 .sp-block-cate p{ text-align:left; width:65%; display:inline-block;}
 .sp-block-cate ul{ width:34%; display:inline-block; margin-top:0; text-align:right; float:right;}
+.sp-block-cate ul.scatclass{width:100%!important;}
 .page-title a{ font-size:13px;}
 
 ul.megamenu{ margin:15px 20px;}

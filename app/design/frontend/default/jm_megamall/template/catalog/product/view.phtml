@@ -75,8 +75,8 @@
                     <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
                 </div>
                 <ul class="base-info">
-                    <li><label>From:</label> <strong>Ajmer</strong></li>
-                    <li><label>Brand:</label> <strong>Marvel T-Shirt</strong></li>
+                    <li><label>From:</label> <strong><?php echo $_product->getResource()->getAttribute('region')->getFrontend()->getValue($_product);?></strong></li>
+                    <li><label>Brand:</label> <strong><?php echo $_product->getResource()->getAttribute('brand')->getFrontend()->getValue($_product);?></strong></li>
                     <li><label>Used in following Festivels:</label> <strong>New Year, Holi</strong></li>
                 </ul>
                 <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
@@ -137,11 +137,16 @@
                 </div>
             <?php endif; */ ?>
             
-            <ul class="tick-list">
-            	<li><i class="fa fa-check"></i> COD Availabel</li>
-                <li><i class="fa fa-check"></i> Returnable</li>
-                <li><i class="fa fa-check"></i> International Shipping</li>
-                <li><i class="fa fa-check"></i> Free Shipping</li>
+            <ul class="tick-list"><?php $cod= $_product->getResource()->getAttribute('cod_available')->getFrontend()->getValue($_product);
+				 if($cod=='Yes'): ?>
+            	<li><i class="fa fa-check"></i>COD Availabel</li><?php endif; ?>
+                <?php $returnable= $_product->getResource()->getAttribute('ga_returnable')->getFrontend()->getValue($_product);
+                if($returnable=='Yes'): ?>
+                <li><i class="fa fa-check"></i>Returnable </li> <?php endif; ?>
+                <?php $intship= $_product->getResource()->getAttribute('ga_int_ship_allowed ')->getFrontend()->getValue($_product);
+                if($intship=='Yes'): ?>
+                <li><i class="fa fa-check"></i>International Shipping</li><?php endif; ?>
+                <li><i class="fa fa-check"></i>Free Shipping</li>
             </ul>
             
 
@@ -261,9 +266,8 @@
             </div>
             
             <h2>Video</h2>
-            <iframe src="//www.youtube.com/embed/k0kMxlLP0QU" frameborder="0" width="695" height="270"></iframe>
-            
-    </div>
+            <iframe src="<?php echo $_product->getResource()->getAttribute('video')->getFrontend()->getValue($_product);?>" frameborder="0" width="695" height="270"></iframe>
+          </div>
             
             </div>
             

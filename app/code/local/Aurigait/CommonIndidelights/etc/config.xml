@@ -18,6 +18,25 @@
 	  </commonindidelights>
 	</models>
 	<resources>
+					 <festcateattr_setup>
+									<setup>
+										<module>Aurigait_CommonIndidelights</module>
+										<class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+									</setup>
+									<connection>
+										<use>core_setup</use>
+									</connection>
+					</festcateattr_setup>
+					<festcateattr_write>
+						<connection>
+							<use>core_write</use>
+						</connection>
+					</festcateattr_write>
+					<festcateattr_read>
+						<connection>
+							<use>core_read</use>
+						</connection>
+					</festcateattr_read>
 	  <categoryattribute1398663914_setup>
 		<setup>
 		  <module>Aurigait_CommonIndidelights</module>

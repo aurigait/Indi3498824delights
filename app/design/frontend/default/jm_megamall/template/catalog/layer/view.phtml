@@ -48,7 +48,7 @@
 	 <?php if($this->canShowOptions()): ?>
 		<!--<p class="block-subtitle"><?php // echo $this->__('Shopping Options') ?></p>-->
 		<dl id="narrow-by-list" class="<?php if ($this->getLayer()->getState()->getFilters()): ?> narrow-by-list-filter<?php endif; ?>">
-			<?php $_filters = $this->getFilters() ?>
+			<?php $_filters = $this->getFilters();?>
 			<?php foreach ($_filters as $_filter): ?>
 			<?php if($_filter->getItemsCount()): ?>
 				<dt><?php echo $this->__($_filter->getName()) ?></dt>
