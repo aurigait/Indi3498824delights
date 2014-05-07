@@ -33,15 +33,23 @@
     <li><a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
 <?php endif; ?>
 <?php
-    $_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product);
+    //$_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product);
+	$userRemark="";
+	$quote = Mage::getSingleton('checkout/session')->getQuote();
+	foreach($quote->getAllVisibleItems() as $item) {
+		if ($item->getData('product_id') == $_product->getId()) {
+	        $userRemark = $item->getData('user_remark');
+	        break;
+	    }
+	}
 ?>
 <?php /* Somesh:Remove it from layout 
 if($_compareUrl) : ?>
     <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
 <?php endif;*/ ?>
 	
-    <li><span class="separator">|</span>  <a href="javascript:void(0);" id="user-remarks">User Remarks</a> 
-    	<div class="tool-tip"><i class="fa fa-caret-up"></i> <textarea name="remarks" cols="" rows=""></textarea></div>
+    <li><span class="separator">|</span>  <a href="javascript:void(0);" id="user-remarks">User Note</a> 
+    	<div class="tool-tip"><i class="fa fa-caret-up"></i> <textarea name="user_remark" cols="" rows=""><?php echo $userRemark;?></textarea></div>
     </li>
 
 </ul>
