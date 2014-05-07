@@ -17,6 +17,28 @@
 		<resourceModel>commonindidelights_mysql4</resourceModel>
 	  </commonindidelights>
 	</models>
+	<events>
+	  <checkout_cart_product_add_after> <!-- identifier of the event we want to catch -->
+        <observers>
+          <add_cart_event> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>commonindidelights/observer</class> <!-- observers class alias -->
+            <method>addRemarkToQuote</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </add_cart_event>
+          
+        </observers>
+      </checkout_cart_product_add_after>
+    
+    	<sales_convert_quote_item_to_order_item>
+            <observers>
+                <quoteitem_set_custom_data>
+                    <class>commonindidelights/observer</class>
+                    <method>addRemarkToOrder</method>
+                </quoteitem_set_custom_data>
+            </observers>
+    	</sales_convert_quote_item_to_order_item>
+    </events>
 	<resources>
 					 <festcateattr_setup>
 									<setup>
@@ -56,6 +78,25 @@
 		  <use>core_read</use>
 		</connection>
 	  </categoryattribute1398663914_read>
+	  <salesattribute1399294199_setup>
+		<setup>
+		  <module>Aurigait_CommonIndidelights</module>
+		  <class>Mage_Sales_Model_Mysql4_Setup</class>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </salesattribute1399294199_setup>
+	  <salesattribute1399294199_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </salesattribute1399294199_write>
+	  <salesattribute1399294199_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </salesattribute1399294199_read>
 	</resources>
   </global>
 </config> 
