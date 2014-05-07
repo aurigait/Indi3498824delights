@@ -85,7 +85,6 @@ body{font-family: 'Open Sans', sans-serif;}
 .sp-block-cate h2{ float:none; text-align:left; }
 .sp-block-cate p{ text-align:left; width:65%; display:inline-block;}
 .sp-block-cate ul{ width:34%; display:inline-block; margin-top:0; text-align:right; float:right;}
-.sp-block-cate ul.scatclass{width:100%!important;}
 .page-title a{ font-size:13px;}
 
 ul.megamenu{ margin:15px 20px;}
@@ -238,6 +237,14 @@ height: 24px; width: 24px;}
 .product-options dt label{ margin-bottom:0;}
 .product-options dt{ vertical-align:top; margin-top:7px; margin-bottom:0;}
 .product-shop .input-text.qty{ padding:7px 10px;}
+
+/*Cart page*/
+.cart-table .product-name{ margin-bottom:10px;}
+.cart-table .link-wishlist{ font-weight:normal; display:inline-block; margin:2px 0; }
+.cart-table .item-options dd, .cart-table .item-options dt{ display:inline-block; padding-left:0; font-style:normal; margin-bottom:0; font-weight:bold;}
+.cart-table .user-remark{ color:#454545; font-size:14px;}
+.cart .page-title{ margin-bottom:5px; text-transform:none;}
+.cart .page-title h1{ font-size:26px; font-weight:normal;}
 
 @media only screen and (max-width: 985px) {
 .tiles-categories .col-1, .tiles-categories .col-2{ width:100%; text-align:center;}
