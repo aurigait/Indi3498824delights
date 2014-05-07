@@ -212,7 +212,7 @@ ul.megamenu{ margin:15px 20px;}
 .product-view .block .block-title{ text-transform: none;}
 .product-view .panel-center .c-section{ margin-bottom:20px; padding-bottom:15px;}
 .list-type-slider .jm-products-slider-horizon .jm-next{ right:8px;}
-/*#jm-tops2 .jm-slider{ width:750px!important;}*/
+#jm-tops2 .jm-slider{ width:725px!important;}
 #jm-tops2 .jm-slider li{ min-height:138px;}
 .content-upsell{ padding:20px;}
 .product-view .tool-tip{ background: #f9f7f8; position: absolute; left: 27px; top: 25px; padding: 5px; border-color: #CCC;z-index:10; display:none;}
