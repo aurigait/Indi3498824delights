@@ -169,14 +169,15 @@
 			?>
 
 			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('addshare')->toHtml() ?>
-			
-		</div>
+		
+        
+    </form>
+    	 <div class="clearer"></div>
+	</div>
 
        
 
-        <div class="clearer"></div>
-        
-    </form>
+       
     <script type="text/javascript">
     //<![CDATA[
         var productAddToCartForm = new VarienForm('product_addtocart_form');
@@ -228,9 +229,8 @@
         }.bind(productAddToCartForm);
     //]]>
     </script>
-    </div>
-<div class="clearfix">
-	<div class="panel-right">
+    <div class="clearfix">
+    		<div class="panel-right">
     	<?php 
 	if($baseconfig['showupsell']):
 
@@ -256,7 +256,7 @@
 	?>
     
     </div>
-	<div class="panel-center">
+				<div class="panel-center">
     	<div class="c-section">
 	 <?php  if ($_product->getDescription()):?>
                 <div class="description">
@@ -272,6 +272,10 @@
           </div>
             
             </div>
+    </div>
+    </div>
+<div class="clearfix">
+	
             
     <div id="ja-tab-products" class="product-collateral">
 		<ul class="ja-tab-navigator clearfix">

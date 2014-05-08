@@ -212,7 +212,7 @@ ul.megamenu{ margin:15px 20px;}
 .product-view .block .block-title{ text-transform: none;}
 .product-view .panel-center .c-section{ margin-bottom:20px; padding-bottom:15px;}
 .list-type-slider .jm-products-slider-horizon .jm-next{ right:8px;}
-#jm-tops2 .jm-slider{ width:725px!important;}
+#jm-tops2 .jm-slider{ width:720px!important;}
 #jm-tops2 .jm-slider li{ min-height:138px;}
 .content-upsell{ padding:20px;}
 .product-view .tool-tip{ background: #f9f7f8; position: absolute; left: 27px; top: 25px; padding: 5px; border-color: #CCC;z-index:10; display:none;}
@@ -230,8 +230,9 @@ ul.megamenu{ margin:15px 20px;}
 .block-layered-nav .block-content{ padding:0;}
 #narrow-by-list dt .handle{position: absolute; right: 15px; top:5px; padding:1px 0 3px; font-size: 16px; line-height: 1; cursor:pointer; width: 25px; text-align: center; color:#454545; background: url(../images/bg-accodior-shopby.png) no-repeat 0 -38px;
 height: 24px; width: 24px;}
-#narrow-by-list dt .handle.active {background-position: 0 100%;  top:1px;}
 #narrow-by-list dt .handle:hover {background-position: 0 0;}
+#narrow-by-list dt .handle.active {background-position: 0 100%;  top:1px;}
+
 #ja-tabitem-reviewform{ min-height:120px;}
 .product-shop .product-options{ margin-left:10px; vertical-align:top;}
 .product-options dt label{ margin-bottom:0;}
@@ -247,6 +248,12 @@ height: 24px; width: 24px;}
 .cart .page-title h1{ font-size:26px; font-weight:normal; padding-top:0;}
 .checkout-cart-index #jm-mainbody{ padding-top:0;}
 .breadcrumbs li{ display:inline-block; vertical-align:top;}
+
+.list-type-slider .sp-block-cate ul li{ display:inline-block;}
+.list-type-slider .sp-block-cate ul{ width:45%;}
+.list-type-slider .sp-block-cate p{ width:55%;}
+
+
 
 @media only screen and (max-width: 985px) {
 .tiles-categories .col-1, .tiles-categories .col-2{ width:100%; text-align:center;}
