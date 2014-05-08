@@ -1,0 +1,10 @@
+<?php 
+
+$rulesCollection =  $this->getallcoupon();
+
+foreach($rulesCollection as $rule){
+	$coupon = $rule->getCode();
+	
+	echo $coupon.'<br>';
+}
+?>

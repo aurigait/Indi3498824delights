@@ -77,6 +77,143 @@
         </voucher>
 	  </tabs>
 	  <sections>
+	  <invitationvoucher2  translate="label" module="voucher">                    
+		<label>Invitation Vouchers Type 2</label>
+		<tab>voucher</tab>
+		<frontend_type>text</frontend_type>
+		<sort_order>1</sort_order>
+		<show_in_default>1</show_in_default>
+		<show_in_website>1</show_in_website>
+		<show_in_store>1</show_in_store>            
+					<groups>
+				      <ginvitationvoucher2 translate="label"> 
+					  <label>Invitation Voucher Setting</label>
+					  <frontend_type>text</frontend_type>
+					  <sort_order>0</sort_order>
+					  <show_in_default>1</show_in_default>
+					  <show_in_website>1</show_in_website>
+					  <show_in_store>1</show_in_store>
+				       <fields>
+				       
+				         <offertype translate="label">
+                            <label>Apply as</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>voucher/system_config_source_Diyoptions13986598161</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </offertype>
+                          
+                          <offerprice translate="label">
+                            <label>Offer Discount Price</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment></comment>
+                          </offerprice>
+                          
+                          <friendacceptationperiod translate="label">
+                            <label>Permissible Friend acceptation period</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>Days from invitation sent</comment>
+                          </friendacceptationperiod>
+                         <friendpurchaseperiod translate="label">
+                            <label>Permissible Friend purchase period</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>Days from registration on Indidelights</comment>
+                          </friendpurchaseperiod>
+                        
+                     
+                         
+                            <maximumdiscountamout translate="label">
+                            <label>Maximum Disocunt Amount Permitted</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment></comment>
+                          </maximumdiscountamout>
+                          
+                            <minimumpurchaseamount translate="label">
+                            <label>Minimum Purchase Amount</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment></comment>
+                          </minimumpurchaseamount>
+                          
+                         
+                          
+                          
+                          
+                          <vouchervalidityperiod translate="label">
+                            <label>Voucher Validity Period</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>Days from issue of Voucher </comment>
+                          </vouchervalidityperiod>
+                          
+                            <voucherissueperiod translate="label">
+                            <label>Voucher Issue Period</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>Days after friend makes Purchase -  to avoid order cancellations</comment>
+                          </voucherissueperiod>
+                         
+                         <email_template translate="label">
+                            <label>Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_template>
+                        
+                          <icon translate="label">
+                            <label>Icon</label>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">voucher</upload_dir>
+                            <base_url type="media" scope_info="1">voucher</base_url>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </icon>
+                          <termsconditions translate="label">
+                            <label>Terms and Conditions</label>
+							<frontend_type>textarea</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </termsconditions>
+					   </fields>
+					   </ginvitationvoucher2>
+					</groups>
+		</invitationvoucher2>
+		
 		<invitationvoucher  translate="label" module="voucher">                    
 		<label>Invitation Vouchers</label>
 		<tab>voucher</tab>
@@ -94,10 +231,31 @@
 					  <show_in_website>1</show_in_website>
 					  <show_in_store>1</show_in_store>
 				       <fields>
-                          <friendacceptationperiod translate="label">
+				       
+				         <offertype translate="label">
+                            <label>Apply as</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>voucher/system_config_source_Diyoptions13986598160</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </offertype>
+                          
+                          <offerprice translate="label">
+                            <label>Offer Discount Price</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment></comment>
+                          </offerprice>
+                          
+                   <!--        <friendacceptationperiod translate="label">
                             <label>Permissible Friend acceptation period</label>
 							<frontend_type>text</frontend_type>
-                            <sort_order>0</sort_order>
+                            <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -121,21 +279,13 @@
                             <show_in_store>1</show_in_store>
 							<comment>Days after friend makes Purchase -  to avoid order cancellations</comment>
                           </voucherissueperiod>
-                          
-                          <offerprice translate="label">
-                            <label>Offer Discount Price</label>
-							<frontend_type>text</frontend_type>
-                            <sort_order>3</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-							<comment>% of friends' order value</comment>
-                          </offerprice>
-                          
+                    -->       
+                     
+                         
                             <maximumdiscountamout translate="label">
                             <label>Maximum Disocunt Amount Permitted</label>
 							<frontend_type>text</frontend_type>
-                            <sort_order>3</sort_order>
+                            <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -145,7 +295,7 @@
                             <minimumpurchaseamount translate="label">
                             <label>Minimum Purchase Amount</label>
 							<frontend_type>text</frontend_type>
-                            <sort_order>3</sort_order>
+                            <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -159,7 +309,7 @@
                           <vouchervalidityperiod translate="label">
                             <label>Voucher Validity Period</label>
 							<frontend_type>text</frontend_type>
-                            <sort_order>3</sort_order>
+                            <sort_order>6</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -169,9 +319,9 @@
                             <label>Icon</label>
                             <frontend_type>image</frontend_type>
                             <backend_model>adminhtml/system_config_backend_image</backend_model>
-                            <upload_dir config="system/filesystem/media" scope_info="1">catalog/product/watermark</upload_dir>
-                            <base_url type="media" scope_info="1">catalog/product/watermark</base_url>
-                            <sort_order>4</sort_order>
+                            <upload_dir config="system/filesystem/media" scope_info="1">voucher</upload_dir>
+                            <base_url type="media" scope_info="1">voucher</base_url>
+                            <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -179,11 +329,22 @@
                           <termsconditions translate="label">
                             <label>Terms and Conditions</label>
 							<frontend_type>textarea</frontend_type>
-                            <sort_order>5</sort_order>
+                            <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                           </termsconditions>
+                          
+                          <email_template translate="label">
+                            <label>Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </email_template>
+                        
 					   </fields>
 					   </ginvitationvoucher>
 					</groups>
@@ -494,6 +655,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                           </termsconditions>
+                          
+                          <email_template translate="label">
+                            <label>Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_template>
 					   </fields>
 					   </gwelcomevoucher>
 					</groups>

@@ -14,6 +14,8 @@
             <frontName>voucher</frontName>
           </args>
       </voucher>
+    
+      
     </routers>
 		<layout>
 		  <updates>
@@ -34,6 +36,7 @@
         </observers>
       </customer_register_success>
       
+      
       <sales_quote_collect_totals_after>
       	<observers>
       		<aurigait_voucher_observer>
@@ -44,10 +47,24 @@
       	</observers>
       	
       </sales_quote_collect_totals_after>
+      
+      <sales_order_invoice_save_after>
+      		<observers>
+      		<aurigait_voucher_observer>
+      		    <type>singleton</type>
+	            <class>voucher/observer</class>
+	            <method>UpdateCustomCoupon</method>
+      		</aurigait_voucher_observer>
+      	</observers>
+      	
+      </sales_order_invoice_save_after>
+       
     </events>
+    
 		
 		
   </frontend>
+  
   <global>
     <helpers>
       <voucher>
@@ -59,6 +76,11 @@
 		<class>Aurigait_Voucher_Block</class>
 	  </voucher>
 
+	<!--	    <adminhtml>
+				<rewrite>
+					<promo_quote_edit_form>Aurigait_Voucher_Block_Adminhtml_Promo_Quote_Edit_Form</promo_quote_edit_form>
+				</rewrite>
+			</adminhtml>
 		<adminhtml>
 			<rewrite>
 			     <promo_quote_edit_tab_actions>Aurigait_Voucher_Block_Adminhtml_Promo_Quote_Edit_Tab_Actions</promo_quote_edit_tab_actions>
@@ -68,7 +90,9 @@
 			<rewrite>
 				<promo_quote_edit_tab_main>Aurigait_Voucher_Block_Adminhtml_Promo_Quote_Edit_Tab_Main</promo_quote_edit_tab_main>
 			</rewrite>
-		</adminhtml>
+		</adminhtml> -->
+		
+		
 	</blocks>
 	<models>	  
 		<voucher>
@@ -81,6 +105,9 @@
 				<voucherlistcustomer>
 					<table>voucher_allcouponlist</table>
 			  	</voucherlistcustomer>
+			  	<invitefriend>
+					<table>voucher_referfriendlist</table>
+			  	</invitefriend>
         	</entities>
 	  	</voucher_mysql4>
 	    
@@ -89,6 +116,11 @@
 					<validator>Aurigait_Voucher_Model_SalesRule_Validator</validator>
 				</rewrite>
 		    </salesrule>
+		<!--     <sendfriend>
+				<rewrite>
+					<sendfriend>Aurigait_Voucher_Model_Sendfriend_Sendfriend</sendfriend>
+				</rewrite>
+			</sendfriend>  -->
 	</models>
 	<!-- <models>
 		<voucher>
@@ -113,14 +145,52 @@
                 <from><![CDATA[#^/checkout/cart/#]]></from> <!-- Mage_Checkout_CartController  -->
                 <to>/voucher/checkout_cart/</to> <!-- Aurigait_Voucher_Checkout_CartController  -->
             </aurigait_voucher_checkout_cartcontroller>
-    </rewrite>
-
-	<rewrite>        
-            <aurigait_voucher_adminhtml_promo_quotecontroller>
-                <from><![CDATA[#^/adminhtml/promo_quote/#]]></from> <!-- Mage_Adminhtml_Promo_QuoteController  -->
-                <to>/voucher/adminhtml_promo_quote/</to> <!-- Aurigait_Voucher_Adminhtml_Promo_QuoteController  -->
-            </aurigait_voucher_adminhtml_promo_quotecontroller>
+      
 	</rewrite>
+	
+	
+	
+ <!-- 	<rewrite>        
+            <aurigait_voucher_sendfriend_productcontroller>
+                <from><![CDATA[#^/sendfriend/product/#]]></from>   
+                <to>/voucher/sendfriend_product/</to>  
+            </aurigait_voucher_sendfriend_productcontroller>
+		</rewrite> -->
+	<events>
+	<adminhtml_promo_quote_edit_tab_main_prepare_form> <!-- identifier of the event we want to catch -->
+       <observers>
+         <adminhtml_promo_quote_edit_tab_main_prepare_form_handler> <!-- identifier of the event handler -->
+           <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+           <class>voucher/observer</class> <!-- observers class alias -->
+           <method>alterform</method>  <!-- observer's method to be called -->
+           <args></args> <!-- additional arguments passed to observer -->
+         </adminhtml_promo_quote_edit_tab_main_prepare_form_handler>
+         
+       </observers>
+     </adminhtml_promo_quote_edit_tab_main_prepare_form>
+     <adminhtml_block_salesrule_actions_prepareform> <!-- identifier of the event we want to catch -->
+       <observers>
+         <adminhtml_promo_quote_edit_tab_actions_prepare_form_handler> <!-- identifier of the event handler -->
+           <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+           <class>voucher/observer</class> <!-- observers class alias -->
+           <method>alterform2</method>  <!-- observer's method to be called -->
+           <args></args> <!-- additional arguments passed to observer -->
+         </adminhtml_promo_quote_edit_tab_actions_prepare_form_handler>
+         
+       </observers>
+     </adminhtml_block_salesrule_actions_prepareform>
+     <adminhtml_promo_quote_edit_form_prepare_form> <!-- identifier of the event we want to catch -->
+       <observers>
+         <adminhtml_promo_quote_edit_form_prepare_form_handler> <!-- identifier of the event handler -->
+           <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+           <class>voucher/observer</class> <!-- observers class alias -->
+           <method>alterform1</method>  <!-- observer's method to be called -->
+           <args></args> <!-- additional arguments passed to observer -->
+         </adminhtml_promo_quote_edit_form_prepare_form_handler>
+         
+       </observers>
+     </adminhtml_promo_quote_edit_form_prepare_form>
+     </events>
     
   </global>
      <crontab>
@@ -141,8 +211,17 @@
 		  <frontName>voucher</frontName>
 		</args>
 	  </voucher>
+	   <adminhtml>
+               <args>
+                   <modules>
+                       <Aurigait_Voucher before="Mage_Adminhtml">Aurigait_Voucher_Adminhtml</Aurigait_Voucher>
+                   </modules>
+               </args>
+           </adminhtml>
 	</routers>
   </admin>
+  
+  
   <adminhtml>
 	<menu>
 	  <voucher module="voucher">

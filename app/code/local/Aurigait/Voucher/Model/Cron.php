@@ -1,50 +1,6 @@
 <?php
 class Aurigait_Voucher_Model_Cron{	
-	public function settallinvitionvoucher()
-	{
-		//do something
-		try
-		{
-			$configValue = Mage::getStoreConfig('welcomevoucher/gwelcomevoucher/vouchervaliditypperiod');
-			
-			$coupon = Mage::getModel('salesrule/rule');
-			$coupon->setName('sandeep cdoe s')
-			->setDescription('this is a description')
-			->setFromDate(date('Y-m-d'))
-			->setToDate(date('Y-m-d'))
-			->setCouponType(2)
-			->setCouponCode($_coupon['code'])
-			->setUsesPerCoupon(1)
-			->setUsesPerCustomer(1)
-			->setCustomerGroupIds(array(1)) //an array of customer groupids
-			->setIsActive(1)
-			//serialized conditions.  the following examples are empty
-			->setConditionsSerialized('a:6:{s:4:"type";s:32:"salesrule/rule_condition_combine";s:9:"attribute";N;s:8:"operator";N;s:5:"value";s:1:"1";s:18:"is_value_processed";N;s:10:"aggregator";s:3:"all";}')
-			->setActionsSerialized('a:6:{s:4:"type";s:40:"salesrule/rule_condition_product_combine";s:9:"attribute";N;s:8:"operator";N;s:5:"value";s:1:"1";s:18:"is_value_processed";N;s:10:"aggregator";s:3:"all";}')
-			->setStopRulesProcessing(0)
-			->setIsAdvanced(1)
-			->setProductIds('')
-			->setSortOrder(0)
-			->setSimpleAction('by_percent')
-			->setDiscountAmount(100)
-			->setDiscountQty(null)
-			->setDiscountStep('0')
-			->setSimpleFreeShipping('0')
-			->setApplyToShipping('0')
-			->setIsRss(0)
-			->setWebsiteIds(array(1));
-			$coupon->save();
-			
-		}
-		catch (Exception $e) {
-			$this->_getSession()->addError($this->__('Error in code'));
-			Mage::logException($e);
-		}
-	} 
-	
-	
-	
-	
+		
 	protected $thresholdamount1;
 	protected $thresholdamount2;
 	protected $thresholdamount3;
@@ -63,8 +19,46 @@ class Aurigait_Voucher_Model_Cron{
 	
 	public function setUsercommulativeVoucher()
 	{
-	
 		
+		// user cumulative voucher code.
+		$customrule_type= 3;
+		$rulesCollection = Mage::getModel('salesrule/rule')->getCollection();
+		$rulesCollection->getSelect()->where('main_table.rule_type = "'.$customrule_type.'"');//$rulesCollection->load(true,true);die;
+		//	$oRule = Mage::getModel('salesrule/rule')->load($customrule_type,'rule_type');
+
+		$customer_array =array();
+		foreach($rulesCollection as $rul)
+		{
+			$thresholdperiod = $rul['purchase_days'];
+			$thresholdamount = $rul['threshold_amount'];
+			$todate = date('Y-m-d');
+			$fromdate = date('Y-m-d' , strtotime('-'.$this->voucherperiod.' days' ));
+            
+			$write = Mage::getSingleton('core/resource')->getConnection('core_write');
+			
+			$sql = "select customer_id , sum(base_subtotal ) as totalorderamount from sales_flat_order where status= 'complete' and created_at >'".$fromdate."' and created_at <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$thresholdamount."  ";
+			$data=$write->fetchAll($sql);
+				
+			$templateid =  $rul['email_template'];
+			$couponcode = $rul['code'];
+			foreach($data as $row)
+			{
+				$customerData = Mage::getModel('customer/customer')->load($row['customer_id']);
+					
+				$customerEmailId = $customerData->getEmail();
+				$customerFName = $customerData->getFirstname();
+				if(!in_array($customerEmailId, $customer_array))
+				{
+					$customer_array[]=$customerEmailId;
+					$this->sendmail($customerEmailId,$customerFName,$offeramount,$couponcode,$templateid);
+					Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($row['customer_id'],$couponcode,$row['totalorderamount'],$fromdate,$todate,5);
+				}
+					
+			}
+		}
+			
+	
+		/*
 		$this->voucherperiod  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/voucherperiod');
 		$this->thresholdamount1  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/thresholdamount1');
 		$this->offerprice1  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/offerprice1');
@@ -89,6 +83,11 @@ class Aurigait_Voucher_Model_Cron{
 		$minimumthreshold = min($this->thresholarr);
 	
 	
+		
+		$minimumthreshold = min($thresholdarray);
+		
+		
+		
 		$todate = date('Y-m-d');
 		$fromdate = date('Y-m-d' , strtotime('-'.$this->voucherperiod.' days' ));
 	
@@ -117,8 +116,9 @@ class Aurigait_Voucher_Model_Cron{
 			$helperobj->_offerprice =$offeramount;
 			$helperobj->_code ='CUST';
 			
-			//$stringData.= '##'.$row[customer_id].'@@'.$offeramount.'<br>/n';
-				
+			
+			
+			
 			$couponcreatedalready = Mage::getModel('voucher/voucherlistcustomer')->testcoupon($row['customer_id'],$orderamount,$fromdate,$minimumthreshold);
 	
 			if($couponcreatedalready>=0)
@@ -129,7 +129,7 @@ class Aurigait_Voucher_Model_Cron{
 	
 					$offeramount = $this->getOfferbyOrderamout($orderamount1);
 					$helperobj->_offerprice =$offeramount;
-				}
+				} 
 			//	$stringData.= '##'.$row[customer_id].'@@'.$offeramount.'<br>/n'.$offeramount;
 				
 				$stringData.=$customerEmailId.','.$customerFName;
@@ -146,12 +146,13 @@ class Aurigait_Voucher_Model_Cron{
 				$this->sendmail($customerEmailId,$customerFName,$offeramount,$couponcode);
 				Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($row['customer_id'],$couponcode,$orderamount,$fromdate,$todate);
 					
-			} 
+			}
+			
 		}
 		 
-			
+			*/
 	
-	}
+	} 
 	
 	public function getOfferbyOrderamout($orderamount)
 	{
@@ -179,9 +180,11 @@ class Aurigait_Voucher_Model_Cron{
 	
 	}
 	
-	public function sendmail($customeremail,$customername,$amount,$couponcode)
+	public function sendmail($customeremail,$customername,$amount,$couponcode,$templateid)
 	{
-		$templateId = 2;
+		$templateId =$templateid;
+		
+	//	$templateId =  Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/email_template');;
 		
 		$senderName = Mage::getStoreConfig('trans_email/ident_support/name');
 		$senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');
@@ -203,11 +206,239 @@ class Aurigait_Voucher_Model_Cron{
 		
 		$translate  = Mage::getSingleton('core/translate');
 		
-		// Send Transactional Email
-		Mage::getModel('core/email_template')
-		->addBcc($senderEmail)      // You can remove it if you don't need to send bcc
-		->sendTransactional($templateId, $sender, $recepientEmail, $recepientName, $vars, $storeId);
-		
+		if($templateId)
+		{
+			// Send Transactional Email
+			Mage::getModel('core/email_template')
+			->addBcc($senderEmail)      // You can remove it if you don't need to send bcc
+			->sendTransactional($templateId, $sender, $recepientEmail, $recepientName, $vars, $storeId);
+		}
 		$translate->setTranslateInline(true);
+	}
+	
+	public function createcouponforreferal($senderinfo,$customerName)
+	{
+		$friendacceptationperiod  = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/friendacceptationperiod');
+	
+		$offertype  = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/offertype');
+		$offerprice = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/offerprice');
+		$vouchervalidityperiod  = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/vouchervalidityperiod');
+	
+		$iconimage  = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/icon');
+		$termsconditions  = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/termsconditions');
+	
+		$maximumdiscountamout  = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/maximumdiscountamout');
+		$minimumpurchaseamount  = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/minimumpurchaseamount');
+	
+		$helperobj = Mage::Helper('voucher/data');
+	
+		$helperobj->_fromdate ='';
+		$helperobj->_todate = '';
+		if($vouchervalidityperiod >=0)
+		{
+			$helperobj->_fromdate = 	date('Y-m-d');
+			$helperobj->_todate =  date('Y-m-d' , strtotime('+'.$vouchervalidityperiod.' days' ));
+		}
+		if($offertype==1)
+		{
+			$helperobj->_actiontype ="by_percent";
+		}
+		else if($offertype==2)
+		{
+			$helperobj->_actiontype ="by_fixed";
+		}
+	
+		$helperobj->_couponname = 'Invititaion Voucher';
+	
+		$helperobj->_ruletype = 5;
+	
+		$helperobj->_iconimage = 'voucher/'.$iconimage;
+		$helperobj->_termsconditions = $termsconditions;
+	
+		$helperobj->_maximumdiscountamout = $maximumdiscountamout;
+		$helperobj->_minimumpurchaseamount = $minimumpurchaseamount;
+	
+		$helperobj->_offerprice =$offerprice;
+	
+		$helperobj->_emailtemplate =Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/email_template');
+	
+		$helperobj->_code ='CUST';
+		$helperobj->_friendnamecode = substr($customerName, 0,4);
+		foreach($senderinfo as $sender)
+		{
+	
+			$couponcode = $helperobj->CreateCustomCoupon();
+			$this->mailinvitevoucher($couponcode,$sender);
+		}
+		//	echo "doe";die;
+	
+	}
+	
+	
+	//  code for generate invitation vouchers
+	
+	public function demoAction()
+	{
+		 
+	
+		$friendacceptationperiod  = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/friendacceptationperiod');
+		$friendpurchaseperiod = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/friendpurchaseperiod');
+		$voucherissueperiod = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/voucherissueperiod');
+	
+		try
+		{
+				
+			$odercompletedate = date('Y-m-d' , strtotime('-'.$voucherissueperiod.' days'));
+				
+			$order = Mage::getModel('sales/order')->getCollection();
+				
+			$order->getSelect('main_table.customer_id')->where('main_table.status NOT IN ( "canceled" , "holded")  and main_table.created_at = "'.$odercompletedate.'" ');
+				
+			foreach ($order as $orderrow)
+			{
+				$customerData = Mage::getModel('customer/customer')->load($orderrow->getCustomerId())->getData();
+				$registerdate = strtotime($customerData['created_at']);
+	
+				$response = Mage::getModel('invitefriend/invitefriend')->checkcustomerbyreferal($customerData['email']);
+				if($response)
+				{
+					$referaldate = strtotime($response['senddate']);
+						
+					$friendacceptationperiod = $friendacceptationperiod;
+					$friendacceptationdate  =  $referaldate + ( (24*60*60) * $friendacceptationperiod);
+						
+					if($registerdate<=$friendacceptationdate)
+					{
+						$orderinfo = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('customer_id',$orderrow->getCustomerId());
+	
+						$firstorderdate = $registerdate + ( (24*60*60) * $friendpurchaseperiod);
+						$orderdate = $orderrow->getCreatedAtTimestamp();
+						if($orderdate<=$firstorderdate)
+						{
+							Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
+							$this->createcouponforreferaltype2($response['sender_id'],$orderrow->getBaseSubtotal());
+	
+						}
+	
+					}
+						
+				}
+			}
+				
+			//$this->CreateCouponInvit();
+		}
+		catch (Exception $e) {
+			$this->_getSession()->addError($this->__('Error in code'));
+			Mage::logException($e);
+		}
+	}
+	
+	public function createcouponforreferaltype2($customerid,$orderamount)
+	{
+	
+		$offerprice = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/offerprice');
+		$maximumdiscountamout = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/maximumdiscountamout');
+		$minimumpurchaseamount = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/minimumpurchaseamount');
+		$vouchervalidityperiod = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/vouchervalidityperiod');
+	
+		$helperobj = Mage::Helper('voucher/data');
+	
+		$helperobj->_fromdate ='';
+		$helperobj->_todate = '';
+		if($vouchervalidityperiod >=0)
+		{
+			$helperobj->_fromdate = 	date('Y-m-d');
+			$helperobj->_todate =  date('Y-m-d' , strtotime('+'.$vouchervalidityperiod.' days' ));
+		}
+	
+		$helperobj->_offerprice =$offerprice ;
+	
+		if($offertype==1)
+		{
+			$helperobj->_actiontype ="by_percent";
+		}
+		else if($offertype==2)
+		{
+			$helperobj->_actiontype ="by_fixed";
+		}
+		else if($offertype==3)
+		{
+			$helperobj->_offerprice = $this->getOfferbyOrderamoutinvit($orderamount,$offerprice);
+			$helperobj->_actiontype ="by_fixed";
+				
+		}
+		$iconimage  = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/icon');
+		$termsconditions  = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/termsconditions');
+	
+	
+	
+	
+	
+		$helperobj->_couponname = 'Invititaion Voucher Type 2';
+	
+		$helperobj->_ruletype = 5;
+	
+		$helperobj->_iconimage = 'voucher/'.$iconimage;
+		$helperobj->_termsconditions = $termsconditions;
+	
+		$helperobj->_maximumdiscountamout = $maximumdiscountamout;
+		$helperobj->_minimumpurchaseamount = $minimumpurchaseamount;
+	
+		$helperobj->_offerprice =$offerprice;
+	
+		$helperobj->_emailtemplate =Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/email_template');
+	
+		$helperobj->_code ='INVITE';
+		$helperobj->_friendnamecode = substr($customerName, 0,4);
+		 
+		$couponcode = $helperobj->CreateCustomCoupon();
+		$customerData = Mage::getModel('customer/customer')->load($customerid);
+		$this->mailinvitevoucher($couponcode,$customerData);
+		Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($customerid,$couponcode,'',$helperobj->_fromdate,$helperobj->_todate,3);
+	}
+	
+	public function mailinvitevoucher($couponcode,$senderdata)
+	{
+	
+	
+		$senderName = Mage::getStoreConfig('trans_email/ident_support/name');
+		$senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');
+		$sender = array('name' => $senderName,
+				'email' => $senderEmail);
+	
+		$customerdata = $senderdata;
+	
+		$recepientEmail = $customerdata['sender_emailid'];
+		$registerdemail =  $customerdata['receiver_emailid'] ;
+	
+		$store = Mage::app()->getStore()->getId();
+			
+		$oCoupon = Mage::getModel('salesrule/coupon')->load($couponcode, 'code');
+		$oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
+	
+		$templateId = $oRule['email_template'];
+		//$templateId = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/email_template');
+	
+		$vars = array(
+				'coupon_prize' => $oRule['discount_amount'],
+				'coupon_code' =>$couponcode,
+				'name' => $recepientName,
+				'email' => $recepientEmail,
+		);
+	
+		$translate  = Mage::getSingleton('core/translate');
+	
+		if($templateId)
+		{
+			// Send Transactional Email
+			/*	Mage::getModel('core/email_template')
+			 ->addBcc($senderEmail)      // You can remove it if you don't need to send bcc
+			->sendTransactional($templateId, $sender, $recepientEmail, $recepientName, $vars, $storeId);
+			*/
+		}
+		$translate->setTranslateInline(true);
+	
+	
+			
 	}
 }

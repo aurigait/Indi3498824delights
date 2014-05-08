@@ -2,6 +2,8 @@
 class Aurigait_Voucher_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public $_code;
+    
+    public $_friendnamecode = '';
 	
     public $_couponname;
     
@@ -19,7 +21,13 @@ class Aurigait_Voucher_Helper_Data extends Mage_Core_Helper_Abstract
 	
 	public $_maximumdiscountamout;
 	
+	public $_ruletype;
 	
+	public $_iconimage;
+	
+	public $_termsconditions;
+	
+	public $_emailtemplate;
 	
 	public function test()	
 	{
@@ -30,7 +38,7 @@ class Aurigait_Voucher_Helper_Data extends Mage_Core_Helper_Abstract
 	// to get coupon code
 	public function getCouponCode()
 	{
-		$friendname = "";
+		$friendname = $this->_friendnamecode;
 	
 			
 		$salecoupon = Mage::getModel('salesrule/coupon');
@@ -79,7 +87,7 @@ class Aurigait_Voucher_Helper_Data extends Mage_Core_Helper_Abstract
 		
 		$coupon = Mage::getModel('salesrule/rule');
 		$coupon->setName($this->_couponname)
-		->setDescription('')
+		->setDescription($this->_termsconditions)
 		->setFromDate($this->_fromdate)
 		->setToDate($this->_todate)
 		->setCouponType(2)
@@ -93,12 +101,15 @@ class Aurigait_Voucher_Helper_Data extends Mage_Core_Helper_Abstract
 		->setStopRulesProcessing(0)
 		->setIsAdvanced(1)
 		->setProductIds('')
+		->setRuleType($this->_ruletype)
 		->setSortOrder(0)
+		->setIconimage($this->_iconimage)
 		->setSimpleAction($this->_actiontype)
 		->setDiscountAmount($this->_offerprice)
 		->setDiscountQty(null)
 		->setMaxDiscountAmount($this->_maximumdiscountamout)
 		->setDiscountStep('0')
+		->setEmailTemplate($this->_emailtemplate)
 		->setSimpleFreeShipping('0')
 		->setApplyToShipping('0')
 		->setIsRss(0)

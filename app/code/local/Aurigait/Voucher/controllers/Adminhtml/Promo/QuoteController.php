@@ -1,10 +1,15 @@
-<?php
+<?php 
 require_once "Mage/Adminhtml/controllers/Promo/QuoteController.php";  
 class Aurigait_Voucher_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Promo_QuoteController
 {
 
 	 public function saveAction()
     {	
+    	
+    
+    		//print_r($oRule);
+    		
+    	 
         if ($this->getRequest()->getPost()) {
             try {
                 /** @var $model Mage_SalesRule_Model_Rule */
@@ -33,7 +38,31 @@ class Aurigait_Voucher_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Pr
                     $this->_redirect('*/*/edit', array('id'=>$model->getId()));
                     return;
                 }
-
+                
+                if(isset($_FILES['iconimage']['name']) && $_FILES['iconimage']['name'] != '')
+                {
+                
+                	try
+                	{
+                		$uploaderFile = new Varien_File_Uploader('iconimage');
+                		$uploaderFilepath = Mage::getBaseDir('media') . DS . 'voucher' . DS ;
+                		$uploaderFile->save($uploaderFilepath, $_FILES['iconimage']['name'] );
+                	}catch (Exception $e)
+                	{
+                		
+                	}
+                	$data['iconimage'] =   'voucher'. DS. $_FILES['iconimage']['name'];
+                }
+                else
+                {
+                	unset($data['iconimage'] );
+                }
+           //     echo "<pre>";
+            //    print_r($data);die;
+                if (isset($data['rule_type'])) {
+                	$data['rule_type'] = $data['rule_type'];
+                }
+                
                 if (isset($data['simple_action']) && $data['simple_action'] == 'by_percent'
                 && isset($data['discount_amount'])) {
                     $data['discount_amount'] = min(100,$data['discount_amount']);

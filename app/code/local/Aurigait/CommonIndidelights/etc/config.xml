@@ -5,6 +5,18 @@
       <version>0.1.0</version>
     </Aurigait_CommonIndidelights>
   </modules>
+  <frontend>
+  	<routers>
+ 		<contacts>
+	      	<args>
+                 <modules>
+                     <Aurigait_CommonIndidelights before="Mage_Contacts">Aurigait_CommonIndidelights</Aurigait_CommonIndidelights>
+                 </modules>
+            </args>
+      	</contacts>
+  	</routers>
+  	
+  </frontend>
   <global>
     <helpers>
       <commonindidelights>
@@ -17,6 +29,8 @@
 		<resourceModel>commonindidelights_mysql4</resourceModel>
 	  </commonindidelights>
 	</models>
+	
+ 
 	<events>
 	  <checkout_cart_product_add_after> <!-- identifier of the event we want to catch -->
         <observers>

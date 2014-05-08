@@ -1,0 +1,57 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">   
+  <voucher_index_index>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/2columns-left.phtml</template></action>   
+    </reference>
+    <reference name="left">   
+      <block type="voucher/left" name="voucher_left" template="voucher/left.phtml"/>   
+    </reference>   
+    <reference name="content">   
+      <block type="voucher/index" name="voucher_index" template="voucher/index.phtml"/>   
+    </reference>   
+  </voucher_index_index>   
+    
+  <voucher_index_referallist>
+  
+    <update handle="customer_account"/>
+  	<reference name="content">   
+      <block type="voucher/referal" name="voucher_referal" template="voucher/referallist.phtml"/>   
+    </reference>   
+  </voucher_index_referallist>
+  
+  <voucher_index_voucherlist>
+  
+    <update handle="customer_account"/>
+  	<reference name="content">   
+      <block type="voucher/voucherlist" name="voucher_voucher" template="voucher/voucherlist.phtml"/>   
+    </reference>   
+  </voucher_index_voucherlist>
+    
+   <checkout_cart_index>
+    
+   <reference name="checkout.cart">   
+      <block type="voucher/left" name="voucher_left" template="voucher/left.phtml"/>   
+    </reference>   
+    </checkout_cart_index>
+    
+    
+
+     <customer_account>
+       <reference name="customer_account_navigation">
+          
+            
+			<action method="addLink" translate="label" module="customer">
+			<name>Referallink</name>   
+			<path>voucher/index/referallist</path>  
+			<label>My Referals</label></action>  
+			
+			<action method="addLink" translate="label" module="voucher">
+			<name>Myvoucherlink</name>   
+			<path>voucher/index/voucherlist</path>  
+			<label>My Voucher</label></action>  
+       </reference>
+   </customer_account>
+   
+</layout>   
+	
