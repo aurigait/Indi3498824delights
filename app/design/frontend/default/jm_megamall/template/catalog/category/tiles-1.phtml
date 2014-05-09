@@ -74,7 +74,7 @@ foreach ($_subCaegories as $scatid)
 </div>
 <div class="col2-set">
 <?php $img=$_subcat->getTilePageImage();if(!empty($img)){ ?>
-<div class="col-1"><img src="<?php  echo  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."catalog/category/".$_subcat->getTilePageImage(); ?>" alt="" /></div>
+<div class="col-1"><a href="<?php echo $_subcat->getUrl()?>"><img src="<?php  echo  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."catalog/category/".$_subcat->getTilePageImage(); ?>" alt="" /></a></div>
 <?php  } ?>
 <div class="col-2">
 <?php echo $block->setCatsid($scatid)->toHtml()?>

@@ -75,9 +75,18 @@
                     <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
                 </div>
                 <ul class="base-info">
-                    <li><label>From:</label> <strong><?php echo $_product->getResource()->getAttribute('region')->getFrontend()->getValue($_product);?></strong></li>
-                    <li><label>Brand:</label> <strong><?php echo $_product->getResource()->getAttribute('brand')->getFrontend()->getValue($_product);?></strong></li>
-                    <li><label>Used in following Festivels:</label> <strong>New Year, Holi</strong></li>
+                <?php $from= $_product->getResource()->getAttribute('region')->getFrontend()->getValue($_product);
+                if(!empty($from)){
+                ?>
+                    <li><label>From:</label> <strong><?php echo $from; ?></strong></li>
+                <?php } ?>
+                <?php $brand= $_product->getResource()->getAttribute('brand')->getFrontend()->getValue($_product);
+                if(!(empty($brand) || $brand=="No")){
+                ?>
+                    <li><label>Brand:</label> <strong><?php echo $brand; ?></strong></li>
+                 <?php } ?>
+                 
+                 <!--    <li><label>Used in following Festivels:</label> <strong>New Year, Holi</strong></li> -->
                 </ul>
                 <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
 			</div>
@@ -265,12 +274,14 @@
                 </div>
             <?php endif;  ?>
             </div>
+            <?php $video= $_product->getResource()->getAttribute('video')->getFrontend()->getValue($_product);
+            if(!empty($video)){
+            ?>
             <div id="product-video">
-            	
             <h2>Video</h2>
-            <iframe src="<?php echo $_product->getResource()->getAttribute('video')->getFrontend()->getValue($_product);?>" frameborder="0" width="695" height="270"></iframe>
+            <iframe src="<?php echo $video;?>" frameborder="0" width="695" height="270"></iframe>
           </div>
-            
+            <?php } ?>
             </div>
     </div>
     </div>
