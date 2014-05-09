@@ -246,13 +246,13 @@ class Aurigait_Voucher_Model_Observer
 		$fieldset1->addField('purchase_days', 'text', array(
 				'name' => 'purchase_days',
 				'label' => Mage::helper('salesrule')->__('Purchase Period (c)'),
-				'note' =>'Purchase done in days',
+				'note' =>'Purchase done in days (for user cumulative vouchers)',
 		));
 		
 		$fieldset1->addField('threshold_amount', 'text', array(
 				'name' => 'threshold_amount',
 				'label' => Mage::helper('salesrule')->__('Threshold Amount'),
-				'note' =>'Total order amount in c days ',
+				'note' =>'Total order amount in c days (for user cumulative vouchers)',
 		));
 		
 		

@@ -31,7 +31,7 @@
    <checkout_cart_index>
     
    <reference name="checkout.cart">   
-      <block type="voucher/left" name="voucher_left" template="voucher/left.phtml"/>   
+      <block type="voucher/allvoucher" name="voucher_alllistvoucher" template="voucher/allvoucher.phtml"/>   
     </reference>   
     </checkout_cart_index>
     

@@ -15,7 +15,7 @@ if(count($vouchers)>0): ?>
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($vouchers as $voucher): ?>  	 		 	
+    <?php foreach ($vouchers as $voucher):  if($voucher['voucher_status']==1) { ?>  	 		 	
         <tr>
             <td><?php echo $voucher['voucher_code']; ?>&nbsp;</td>
             <td><?php echo date("D, j M, Y", strtotime($voucher['vc_fromdate'])); ?>&nbsp;</td>
@@ -23,7 +23,7 @@ if(count($vouchers)>0): ?>
             <td><?php echo $voucher['offer_amount']; ?>&nbsp;</td>
             
         </tr>
-    <?php endforeach ?>
+    <?php } endforeach ?>
     </tbody>
 </table>
 <script type="text/javascript">decorateTable('my-orders-table')</script>
