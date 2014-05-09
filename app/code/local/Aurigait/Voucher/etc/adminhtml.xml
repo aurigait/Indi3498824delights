@@ -16,6 +16,10 @@
 											<title>Invitation Vouchers Section</title>
 											<sort_order>1</sort_order>
 										</invitationvoucher>
+										<invitationvoucher2 translate="title" module="voucher">
+											<title>Invitation Vouchers 2 Section</title>
+											<sort_order>1</sort_order>
+										</invitationvoucher2>
 										<admindefiend translate="title" module="voucher">
 											<title>Admin Voucher Section</title>
 											<sort_order>2</sort_order>

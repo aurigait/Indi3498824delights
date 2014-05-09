@@ -1,0 +1,60 @@
+<?php 
+
+$rulesCollection =  $this->getallcoupon();
+
+?> 
+
+<div class="block block-discount discount">
+    <div class="block-title"><strong><span><?php echo $this->__('Available Discount Codes') ?></span></strong></div>
+	<?php if(count($rulesCollection)>0): ?>
+    <div class="block-content discount-form">
+        <table class="data-table" id="allvouchers-table" >
+		    <thead>
+		        <tr>
+		            <th><?php echo  ('Coupon Code') ?></th>
+		            <th><?php echo  ('Coupon Value') ?></th>
+		            <th><?php echo  ('Coupon Condition') ?></th>
+		            <th><?php echo  ('Expiry Date') ?></th>
+		             
+		        </tr>
+		    </thead>
+		    <tbody>
+         <?php 
+			foreach($rulesCollection as $voucher)
+			{
+				?>
+				<tr>
+		            <td><?php echo $voucher['voucher_code']; ?>&nbsp;</td>
+		            <td><?php echo  $voucher['offer_amount']; ?>&nbsp;</td>
+		            <td><?php echo  $voucher['offer_amount']; ?>&nbsp;</td>
+		            <td><?php echo date("D, j M, Y", strtotime($voucher['vc_todate'])); ?>&nbsp;</td>
+		        </tr>
+				<?php  
+		    	 
+			}
+			
+			?>
+			</tbody>
+		</table>
+    </div>
+    <script type="text/javascript">decorateTable('allvouchers-table')</script>
+    <?php else: ?>
+    	<p><?php echo $this->__('Currenty No Coupon available.') ?></p>
+	<?php endif ?>
+    </div>
+ 
+<script type="text/javascript">
+//<![CDATA[
+var discountForm = new VarienForm('discount-coupon-form');
+discountForm.submit = function (isRemove) {
+    if (isRemove) {
+        $('coupon_code').removeClassName('required-entry');
+        $('remove-coupone').value = "1";
+    } else {
+        $('coupon_code').addClassName('required-entry');
+        $('remove-coupone').value = "0";
+    }
+    return VarienForm.prototype.submit.bind(discountForm)();
+}
+//]]>
+</script>

@@ -1,0 +1,35 @@
+<div class="page-title">
+    <h1><?php echo $this->__('My Vouchers') ?></h1>
+</div>
+<?php 
+$vouchers = $this->getAllvoucher();
+if(count($vouchers)>0): ?>
+<table class="data-table" id="my-orders-table" >
+    <thead>
+        <tr>
+            <th><?php echo  ('Voucher Code') ?></th>
+            <th><?php echo  ('Start Date') ?></th>
+            <th><?php echo  ('End Date') ?></th>
+            <th><?php echo  ('Offer Amount') ?></th>
+            
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($vouchers as $voucher):  if($voucher['voucher_status']==1) { ?>  	 		 	
+        <tr>
+            <td><?php echo $voucher['voucher_code']; ?>&nbsp;</td>
+            <td><?php echo date("D, j M, Y", strtotime($voucher['vc_fromdate'])); ?>&nbsp;</td>
+            <td><?php echo date("D, j M, Y", strtotime($voucher['vc_todate']));?>&nbsp;</td>
+            <td><?php echo $voucher['offer_amount']; ?>&nbsp;</td>
+            
+        </tr>
+    <?php } endforeach ?>
+    </tbody>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table')</script>
+<?php else: ?>
+    <p><?php echo $this->__('You have No Coupons.') ?></p>
+<?php endif ?>
+<div class="buttons-set">
+    <p class="back-link"><a href="<?php echo $this->getUrl('customer/account') ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+</div>

@@ -24,40 +24,49 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php 
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+?>
+
 <div class="jm-contacts">
 	<div class="page-title">
 		<h1><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
 	</div>
 		<div class="ct-contacts clearfix">
 		<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
-		<form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post">
+		<form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post" enctype="multipart/form-data">
 				<div class="contact-form">
 					<div class="contact-inner">
 						<ul class="form-list">
 							<li>
 								<label for="subject" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Subject') ?></label>
 								
-								 <select name="subject" id="subject" title=""   class="required-entry input-box" > 
+								 <select name="subject" id="subject" title=""   class="required-entry input-box" onchange="hideorderno(this.value)"> 
 				                   <option value="" selected>Please select the subject of your inquiry...</option>
 				                   <option value="inquiry">Inquiry</option>
 				                   <option value="business">Business</option>
 				                   <option value="careers">Careers</option>
 				                   <option value="complains">Complains</option>
-				                   <option value="returnrequest">Return Request</option>
+				                  <?php if($customer->getId())
+							        {
+							        ?> <option value="returnrequest">Return Request</option>
+							        <?php 
+							        }
+							        ?>
 				                  </select>
 							
 							</li>	
 							<?php 
-							$customer = Mage::getSingleton('customer/session')->getCustomer();
+							
 							if($customer->getId())
 							{
 								$orders = Mage::getResourceModel('sales/order_collection')
-								->addFieldToSelect('entity_id')
+								 
 								->addFieldToFilter('customer_id', $customer->getId());
 								if($orders->getSize()>=1)
 								{
 									?>
-									<li>
+									<li style="display:none" id="order_info">
 									<label for="order_id" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Order Id') ?> </label>
 									<select name="order_id" id="order_id" title=""   class="required-entry input-box" > 
 					                   <option value="" selected>Please select Order id to return</option>
@@ -65,7 +74,7 @@
 											foreach($orders as $ordersrow)
 											{ ?>
 												
-												<option value="<?php echo ($ordersrow->getEntityId());?>"><?php echo ($ordersrow->getEntityId());?></option>
+												<option value="<?php echo ($ordersrow->getRealOrderId());?>"><?php echo ($ordersrow->getRealOrderId());?></option>
 									   <?php }
 										 ?>
 					                   
@@ -98,6 +107,12 @@
 								</div>
 							</li>
 							<li>
+								<label for="uploadfile"  > <?php echo Mage::helper('contacts')->__('Upload file') ?></label>
+								<div class="input-box">
+									<input name="uploadfile" id="uploadfile" title="<?php echo Mage::helper('contacts')->__('Upload file') ?>"   class="input-file" type="file" />
+								</div>
+							</li>	
+							<li>
 								<label for="comment" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Comment') ?></label>
 								<div class="input-box">
 									<textarea name="comment" id="comment" title="<?php echo Mage::helper('contacts')->__('Comment') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
@@ -116,7 +131,19 @@
 		<script type="text/javascript">
 		//<![CDATA[
 			var contactForm = new VarienForm('contactForm', true);
+			function hideorderno(val)
+	           {
+					if(val=='returnrequest')
+					{
+						$('order_info').show();
+					}
+					else
+					{
+						$('order_info').hide();
+					}
+	            }
 		//]]>
 		</script>
+		 
 	</div>
 </div>

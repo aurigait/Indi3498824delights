@@ -80,6 +80,12 @@ class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartControl
 	public function checkcustomcondition($couponcode)
 	{
 		
+		//Mage::getModel('voucher/voucherlistcustomer')->vouchertype();
+		
+		$oCoupon = Mage::getModel('salesrule/coupon')->load($couponcode, 'code');
+		$oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
+		
+		$customrule_type = $oRule->getRuleType();
 		
 		if($couponcode == Aurigait_Voucher_IndexController::WELCOMECODE)
 		{
@@ -131,12 +137,20 @@ class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartControl
 				return -1;
 			}
 		}
-		else if(substr($couponcode,0,4) == Aurigait_Voucher_IndexController::CUSTCODE)
+		//else if(substr($couponcode,0,4) == Aurigait_Voucher_IndexController::CUSTCODE)
+		else if($customrule_type ==3)	
 		{
+			// for user cumulatie
+			
 			$customer = Mage::getSingleton('customer/session')->getCustomer();
 			if ( $customer->getId())
 			{	
-			    $isValiduser =  Mage::getModel('voucher/voucherlistcustomer')->checkCustomerByCoupon($customer->getId(),$couponcode);
+				
+				$ThresholdAmount =  $oRule->getThresholdAmount();
+				$PurchaseDays =  $oRule->getPurchaseDays();
+				$isValiduser =  Mage::getModel('voucher/voucherlistcustomer')->cehckCustomerforUsercoupon($customer->getId(),$purchase_days,$ThresholdAmount);
+				
+			    
 				if(!$isValiduser)
 				{
 					$this->_getSession()->addError(
