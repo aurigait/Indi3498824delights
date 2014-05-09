@@ -103,9 +103,7 @@ $block=$this->getLayout()->createBlock('joomlart_jmproductsslider/L1list')->setT
 $block->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
 
 $_category  = Mage::getSingleton('catalog/layer')->getCurrentCategory();
-
 $_subCaegories=explode(',',$_category->getChildren());
-
 foreach ($_subCaegories as $scatid)
 {
 	$layer->setCurrentCategory($scatid);
@@ -119,11 +117,22 @@ foreach ($_subCaegories as $scatid)
 <div class="list-type-slider">
 <div class="block block-cate sp-block-cate">
 <h1><?php echo $_subcat->getName()?></h1>
+<?php
+	if($_subcat->hasChildren())
+	{
+		echo "<ul class='scatclass'>";
+		foreach ($_subcat->getChildrenCategories() as $scat)
+		{
+			echo "<li><a href='".$scat->getURL()."'>".$scat->getName()."</a></li>";
+		}
+		echo "</ul>";		
+	}
+?>
+
 <p><?php echo $_subcat->getDescription()?></p>
-<ul>
-<li><a href="#">View All</a></li>
-</ul>
+
 </div>
+
 <div><?php echo $block->toHtml(); ?></div>
 </div>
 <?php 

@@ -55,8 +55,8 @@ $_categories  = Mage::getModel('catalog/category')->getCollection()
 ->addAttributeToSelect('*')->addFieldToFilter("is_tile",1);
 foreach ($_categories as $scat)
 {
-	
-	if(!empty($scat->getTilePageImage()))
+	$val=$scat->getTilePageImage();
+	if(!empty($val))
 	{
 ?>		
 <div class="col-4">

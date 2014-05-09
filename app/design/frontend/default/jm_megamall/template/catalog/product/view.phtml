@@ -75,8 +75,8 @@
                     <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
                 </div>
                 <ul class="base-info">
-                    <li><label>From:</label> <strong>Ajmer</strong></li>
-                    <li><label>Brand:</label> <strong>Marvel T-Shirt</strong></li>
+                    <li><label>From:</label> <strong><?php echo $_product->getResource()->getAttribute('region')->getFrontend()->getValue($_product);?></strong></li>
+                    <li><label>Brand:</label> <strong><?php echo $_product->getResource()->getAttribute('brand')->getFrontend()->getValue($_product);?></strong></li>
                     <li><label>Used in following Festivels:</label> <strong>New Year, Holi</strong></li>
                 </ul>
                 <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
@@ -113,7 +113,7 @@
 				<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
                 
 			<?php endif;?>
-			
+			</div>
             
             <?php if (!$this->hasOptions()):?>
                 <div class="add-to-box">
@@ -129,7 +129,7 @@
                 </div>
             <?php endif; ?>
 			
-			</div>
+			
             <?php /* if ($_product->getShortDescription()):?>
                 <div class="short-description">
                     <h2><?php echo $this->__('Quick Overview') ?></h2>
@@ -137,13 +137,19 @@
                 </div>
             <?php endif; */ ?>
             
-            <ul class="tick-list">
-            	<li><i class="fa fa-check"></i> COD Availabel</li>
-                <li><i class="fa fa-check"></i> Returnable</li>
-                <li><i class="fa fa-check"></i> International Shipping</li>
-                <li><i class="fa fa-check"></i> Free Shipping</li>
+            <ul class="tick-list"><?php $cod= $_product->getResource()->getAttribute('cod_available')->getFrontend()->getValue($_product);
+				 if($cod=='Yes'): ?>
+            	<li><i class="fa fa-check"></i>COD Availabel</li><?php endif; ?>
+                <?php if($_product->getResource()->getAttribute('ga_returnable'))
+							$returnable= $_product->getResource()->getAttribute('ga_returnable')->getFrontend()->getValue($_product);
+                if($returnable=='Yes'): ?>
+                <li><i class="fa fa-check"></i>Returnable </li> <?php endif; ?>
+                <?php if($_product->getResource()->getAttribute('ga_int_ship_allowed '))$intship= $_product->getResource()->getAttribute('ga_int_ship_allowed ')->getFrontend()->getValue($_product);
+                if($intship=='Yes'): ?>
+                <li><i class="fa fa-check"></i>International Shipping</li><?php endif; ?>
+                <li><i class="fa fa-check"></i>Free Shipping</li>
             </ul>
-            
+            </div>
 
             <?php echo $this->getChildHtml('other');?>
 			
@@ -163,14 +169,15 @@
 			?>
 
 			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('addshare')->toHtml() ?>
-			
-		</div>
+		
+        
+    </form>
+    	 <div class="clearer"></div>
+	</div>
 
        
 
-        <div class="clearer"></div>
-        
-    </form>
+       
     <script type="text/javascript">
     //<![CDATA[
         var productAddToCartForm = new VarienForm('product_addtocart_form');
@@ -222,9 +229,8 @@
         }.bind(productAddToCartForm);
     //]]>
     </script>
-    </div>
-<div class="clearfix">
-	<div class="panel-right">
+    <div class="clearfix">
+    		<div class="panel-right">
     	<?php 
 	if($baseconfig['showupsell']):
 
@@ -250,7 +256,7 @@
 	?>
     
     </div>
-	<div class="panel-center">
+				<div class="panel-center">
     	<div class="c-section">
 	 <?php  if ($_product->getDescription()):?>
                 <div class="description">
@@ -260,13 +266,16 @@
             <?php endif;  ?>
             </div>
             <div id="product-video">
-            	<h2>Video</h2>
-            	<iframe src="//www.youtube.com/embed/k0kMxlLP0QU" frameborder="0" width="695" height="270"></iframe>
-            </div>
+            	
+            <h2>Video</h2>
+            <iframe src="<?php echo $_product->getResource()->getAttribute('video')->getFrontend()->getValue($_product);?>" frameborder="0" width="695" height="270"></iframe>
+          </div>
             
+            </div>
     </div>
-            
-            </div>
+    </div>
+<div class="clearfix">
+	
             
     <div id="ja-tab-products" class="product-collateral">
 		<ul class="ja-tab-navigator clearfix">

@@ -70,7 +70,7 @@ body{font-family: 'Open Sans', sans-serif;}
 .tiles-categories .col-2{ width:55%; padding:10px 0 0 0;}
 .tiles-categories .col-2 .jm-products-slider-horizon { border:none; padding:0 25px;}
 .tiles-categories .block-title{ background:none; margin:0; padding:0;}
-.tiles-categories .jm-products-slider-horizon .jm-prev, .tiles-categories .jm-products-slider-horizon .jm-next{ top:45%; z-index:100; right:-1px;}
+.tiles-categories .jm-products-slider-horizon .jm-prev, .tiles-categories .jm-products-slider-horizon .jm-next{ top:45%; z-index:97; right:-1px;}
 .tiles-categories .jm-products-slider-horizon .jm-prev{ left:-5px; }
 .tiles-categories .col-2 .jm-products-slider-horizon .product-image{ border:0;}
 
@@ -98,8 +98,9 @@ ul.megamenu{ margin:15px 20px;}
 -webkit-transition: all .3s linear;}*/
 .megamenu .menu-region{ position: absolute; left: 100%; top: -15px; background: #ebebeb; bottom: -15px; padding: 15px 20px; box-shadow:1px 1px 1px 1px #d1d1d1; min-width:150px; z-index:100; }
 
+.top-contact{ position:relative;}
 .top-contact:hover .c-tooltip{ display:block;}
-.c-tooltip{ display:none; position:absolute; left:-32%; top:39px; background:#463c57; color:#fffffd; padding:17px 15px; z-index:100; font-size:14px; border-radius:5px; display:none;}
+.c-tooltip{ display:none; position:absolute; left:-90px; top:27px; background:#463c57; color:#fffffd; padding:17px 15px; z-index:100; font-size:14px; border-radius:5px; display:none;}
 .c-tooltip span{ display:block; margin:0 0 10px 0;}
 .c-tooltip span:last-child{ margin:0;}
 .c-tooltip .fa-caret-up{ position: absolute; left: 49%; top: -12px; color: #463c57; font-size: 18px;}
@@ -111,6 +112,7 @@ ul.megamenu{ margin:15px 20px;}
 .goog-te-gadget-simple{ border:0!important; line-height:1; height:25px;}
 .goog-te-menu-value { font-size:11px;}
 .goog-te-menu-value span{ border:0!important;}
+.shop-access .links li.first{ padding-left:10px !important;}
 .childcontent-inner.clearfix:after{ display:none;}
 .jm-megamenu .megacol{ background:#FFF;}
 .block-currency{ background:none; height:auto; margin-right:60px;}
@@ -196,10 +198,10 @@ ul.megamenu{ margin:15px 20px;}
 .product-view .product-shop .price-box{ margin:0;}
 .product-view .product-shop .add-to-links a, .product-view .box-up-sell h2{ text-transform:none;}
 .product-view .c-section{border-bottom:#eaeaea solid 1px; margin-bottom:15px; padding-bottom:15px;}
-.product-shop .product-options{ display:inline-block;}
-.product-shop .tick-list{ margin-bottom:15px;}
-.product-shop .tick-list i{ font-size:20px; margin-right:5px;}
-.product-shop .tick-list li{ display:inline-block; width:45%; font-size:14px; font-weight:bold; padding:5px 10px;}
+.product-view .product-options{ display:inline-block;}
+.product-view .tick-list{ margin-bottom:15px;}
+.product-view .tick-list i{ font-size:20px; margin-right:5px;}
+.product-view .tick-list li{ display:inline-block; width:45%; font-size:14px; font-weight:bold; padding:5px 10px;}
 .product-view .panel-center{ overflow:hidden; height:1%;}
 .product-view .panel-center .description{ min-height:250px;}
 .product-view .panel-right{ float:right; width:375px; margin-left:20px;}
@@ -212,7 +214,7 @@ ul.megamenu{ margin:15px 20px;}
 .product-view .block .block-title{ text-transform: none;}
 .product-view .panel-center .c-section{ margin-bottom:20px; padding-bottom:15px;}
 .list-type-slider .jm-products-slider-horizon .jm-next{ right:8px;}
-#jm-tops2 .jm-slider{ width:750px!important;}
+#jm-tops2 .jm-slider{ width:720px!important;}
 #jm-tops2 .jm-slider li{ min-height:138px;}
 .content-upsell{ padding:20px;}
 .product-view .tool-tip{ background: #f9f7f8; position: absolute; left: 27px; top: 25px; padding: 5px; border-color: #CCC;z-index:10; display:none;}
@@ -230,8 +232,35 @@ ul.megamenu{ margin:15px 20px;}
 .block-layered-nav .block-content{ padding:0;}
 #narrow-by-list dt .handle{position: absolute; right: 15px; top:5px; padding:1px 0 3px; font-size: 16px; line-height: 1; cursor:pointer; width: 25px; text-align: center; color:#454545; background: url(../images/bg-accodior-shopby.png) no-repeat 0 -38px;
 height: 24px; width: 24px;}
-#narrow-by-list dt .handle.active {background-position: 0 100%;  top:1px;}
 #narrow-by-list dt .handle:hover {background-position: 0 0;}
+#narrow-by-list dt .handle.active {background-position: 0 100%;  top:1px;}
+
+#ja-tabitem-reviewform{ min-height:120px;}
+.product-shop .product-options{ margin-left:10px; vertical-align:top;}
+.product-options dt label{ margin-bottom:0;}
+.product-options dt{ vertical-align:top; margin-top:7px; margin-bottom:0;}
+.product-shop .input-text.qty{ padding:7px 10px;}
+
+/*Cart page*/
+.cart-table .product-name{ margin-bottom:10px;}
+.cart-table .link-wishlist{ font-weight:normal; display:inline-block; margin:2px 0; }
+.cart-table .item-options dd, .cart-table .item-options dt{ display:inline-block; padding-left:0; font-style:normal; margin-bottom:0; font-weight:bold;}
+.cart-table .user-remark{ color:#454545; font-size:14px;}
+.cart .page-title{ margin-bottom:5px; text-transform:none;}
+.cart .page-title h1{ font-size:26px; font-weight:normal; padding-top:0;}
+.checkout-cart-index #jm-mainbody{ padding-top:0;}
+.breadcrumbs li{ display:inline-block; vertical-align:top;}
+
+.list-type-slider .sp-block-cate ul li{ display:inline-block;}
+.list-type-slider .sp-block-cate ul{ width:45%;}
+.list-type-slider .sp-block-cate p{ width:55%;}
+
+/*login*/
+.customer-account-login .account-login{ width:75%; float:left;}
+.customer-account-login .gs-login{ float:left; width:24%; vertical-align:top; margin-top: 39px; border-top: solid 1px #ebebeb; border-left: solid 1px #ebebeb; min-height: 250px; text-align:center; padding:63px 0 0 0;}
+.customer-account-login .gs-login li{ margin:10px 0;}
+#checkout-step-login .gs-login-checkout{ text-align:left; margin-top:20px;}
+#checkout-step-login .gs-login-checkout li{ margin-right:10px;}
 
 
 @media only screen and (max-width: 985px) {
@@ -260,6 +289,8 @@ height: 24px; width: 24px;}
 .product-view .panel-center{ overflow:visible; height:auto;}
 .product-view .product-shop{ width:auto;}
 .product-view #product-video{ display:none;}
+.customer-account-login .account-login{ width:100%; float:left;}
+.customer-account-login .gs-login{ float:none; width:100%; border:none; text-align:center;}
 }
 
 

@@ -32,7 +32,8 @@
 <?php $_links = $this->getLinks(); ?>
 <?php if(count($_links)>0): ?>
 <ul class="links"<?php if($this->getName()): ?> id="<?php echo $this->getName() ?>"<?php endif;?>>
-	 <li  class="first"><a href="#" class="top-contact">Contact Us <span class="c-tooltip"> <i class="fa fa-caret-up"></i> <span>Mail : admin@indidelights.com</span> <span>Call : 0987654321</span></span></a></li>
+	 <li  class="first"><a href="#" class="top-contact">Contact Us <span class="c-tooltip"> <i class="fa fa-caret-up"></i> <span>Mail :
+<?php echo  Mage::getStoreConfig('trans_email/ident_normalcust/email');?></span> <span>Call : <?php echo  Mage::getStoreConfig('trans_email/ident_normalcust/mobilenumber');?></span></span></a></li>
     <?php foreach($_links as $_link): ?>
         <?php if ($_link instanceof Mage_Core_Block_Abstract):?>
             <?php echo $_link->toHtml() ?>

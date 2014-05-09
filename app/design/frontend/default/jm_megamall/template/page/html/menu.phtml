@@ -37,7 +37,8 @@ foreach ($attributes as $attribute) {
 		//$result = $this->getLayout()->createBlock($filterBlockName)->setLayer($layer)->setAttributeModel($attribute)->init();
 		$result=Mage::getModel($filterBlockName)->setAttributeModel($attribute)->setLayer($layer);
 		//echo "<pre>";print_r($result->getData())."<br/>";
-		if(!empty($result->getItems()))
+		$resitem=$result->getItems();
+		if(!empty($resitem))
 		{
 			//print_r($option);
 			?>

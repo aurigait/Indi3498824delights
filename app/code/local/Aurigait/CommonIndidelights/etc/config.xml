@@ -26,6 +26,7 @@
 	<models>
 	  <commonindidelights>
 		<class>Aurigait_CommonIndidelights_Model</class>
+		 <!--<class>Aurigait_CommonIndidelights_Model_Attribute_Source_Type</class>-->
 		<resourceModel>commonindidelights_mysql4</resourceModel>
 	  </commonindidelights>
 	</models>
@@ -54,7 +55,7 @@
     	</sales_convert_quote_item_to_order_item>
     </events>
 	<resources>
-	  <categoryattribute1398663914_setup>
+	 <categoryattribute1398663914_setup>
 		<setup>
 		  <module>Aurigait_CommonIndidelights</module>
 		  <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
@@ -73,6 +74,28 @@
 		  <use>core_read</use>
 		</connection>
 	  </categoryattribute1398663914_read>
+	 <!--
+	  <testsetup1234_setup>
+			 <setup>
+			   <module>Aurigait_CommonIndidelights</module>
+			   <class>Mage_Sales_Model_Mysql4_Setup</class>
+			 </setup>
+			 <connection>
+			   <use>core_setup</use>
+			 </connection>
+		   </testsetup1234_setup>
+		   <testsetup1234_write>
+			 <connection>
+			   <use>core_write</use>
+			 </connection>
+		   </testsetup1234_write>
+		   <testsetup1234_read>
+			 <connection>
+			   <use>core_read</use>
+			 </connection>
+		   </testsetup1234_read>
+		   -->
+	 
 	  <salesattribute1399294199_setup>
 		<setup>
 		  <module>Aurigait_CommonIndidelights</module>
@@ -92,6 +115,6 @@
 		  <use>core_read</use>
 		</connection>
 	  </salesattribute1399294199_read>
-	</resources>
+		</resources>
   </global>
 </config> 
