@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Aurigait_CodPerProduct>
+      <version>0.1.0</version>
+    </Aurigait_CodPerProduct>
+  </modules>
+  <global>
+    <helpers>
+      <codperproduct>
+        <class>Aurigait_CodPerProduct_Helper</class>
+      </codperproduct>
+    </helpers>
+	<models>
+	  <codperproduct>
+		<class>Aurigait_CodPerProduct_Model</class>
+		<resourceModel>codperproduct_mysql4</resourceModel>
+	  </codperproduct>
+	</models>
+    <events>
+	  <payment_method_is_active> <!-- identifier of the event we want to catch -->
+        <observers>
+          <payment_method_is_active_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>codperproduct/observer</class> <!-- observers class alias -->
+            <method>PaymentMethodIsActive</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </payment_method_is_active_handler>
+        </observers>
+      </payment_method_is_active>
+    </events>
+  </global>
+</config> 

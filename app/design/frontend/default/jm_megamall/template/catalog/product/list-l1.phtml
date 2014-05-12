@@ -116,7 +116,7 @@ foreach ($_subCaegories as $scatid)
 ?>
 <div class="list-type-slider">
 <div class="block block-cate sp-block-cate">
-<h1><?php echo $_subcat->getName()?></h1>
+<h1><a href='<?php echo $_subcat->getURL();?>' ><?php echo $_subcat->getName()?></a></h1>
 <?php
 	if($_subcat->hasChildren())
 	{
