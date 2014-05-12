@@ -19,9 +19,10 @@ $rulesCollection =  $this->getallcoupon();
 		        </tr>
 		    </thead>
 		    <tbody>
-         <?php 
+         <?php  
 			foreach($rulesCollection as $voucher)
-			{
+			{ if($voucher['voucher_status']==1)
+				{
 				?>
 				<tr>
 		            <td><?php echo $voucher['voucher_code']; ?>&nbsp;</td>
@@ -30,7 +31,7 @@ $rulesCollection =  $this->getallcoupon();
 		            <td><?php echo date("D, j M, Y", strtotime($voucher['vc_todate'])); ?>&nbsp;</td>
 		        </tr>
 				<?php  
-		    	 
+				} 
 			}
 			
 			?>

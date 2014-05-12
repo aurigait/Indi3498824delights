@@ -34,18 +34,18 @@ CREATE TABLE IF NOT EXISTS `voucher_allcouponlist` (
 ALTER TABLE `voucher_allcouponlist` ADD `orderamount` DOUBLE NOT NULL AFTER `customer_id` ;
 ALTER TABLE `voucher_allcouponlist` ADD `voucher_type` INT( 4 ) NOT NULL DEFAULT '1' COMMENT '3:user cumulative, 5: Invitation type 1, 6: invitation type 2' AFTER `dateofcreation` ;
 
-
-CREATE TABLE IF NOT EXISTS `voucher_referfriendlist` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `sender_id` int(11) NOT NULL,
-  `sender_emailid` varchar(30) NOT NULL,
-  `receiver_emailid` varchar(30) NOT NULL,
-  `senddate` date NOT NULL,
-  `register_status` int(2) NOT NULL,
-  `status` int(2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
+	
+	CREATE TABLE IF NOT EXISTS `voucher_referfriendlist` (
+	  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+	  `sender_id` int(11) NOT NULL,
+	  `sender_emailid` varchar(30) NOT NULL,
+	  `receiver_emailid` varchar(30) NOT NULL,
+	  `senddate` date NOT NULL,
+	  `register_status` int(2) NOT NULL,
+	  `status` int(2) NOT NULL,
+	  PRIMARY KEY (`id`)
+	) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+	
 
 
 SQLTEXT;

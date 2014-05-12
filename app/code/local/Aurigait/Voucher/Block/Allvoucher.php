@@ -10,7 +10,7 @@ class Aurigait_Voucher_Block_Allvoucher extends Mage_Core_Block_Template{
 	public function getallcoupon()
 	{
 		$rulesCollection = array();
-		$rulesCollection = Mage::getModel('salesrule/rule')->getCollection()->getData();//$rulesCollection->load(true,true);
+		//$rulesCollection = Mage::getModel('salesrule/rule')->getCollection()->getData();//$rulesCollection->load(true,true);
 		//$rulesCollection->getSelect()->where('rule_coupons.expiration_date > now()');
 	//	echo "<pre>";print_r($rulesCollection);
 		

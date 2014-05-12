@@ -1,4 +1,4 @@
-<?php
+<?php 
 class Aurigait_Invitefriend_IndexController extends Mage_Core_Controller_Front_Action{
     
 	public function AbcAction()
@@ -12,33 +12,6 @@ class Aurigait_Invitefriend_IndexController extends Mage_Core_Controller_Front_A
      *
      * @return Mage_Sendfriend_ProductController
      */
-    public function preDispatch()
-    {
-    	parent::preDispatch();
-    
-    	/* @var $helper Mage_Sendfriend_Helper_Data */
-    	$helper = Mage::helper('sendfriend');
-    	/* @var $session Mage_Customer_Model_Session */
-    	$session = Mage::getSingleton('customer/session');
-    
-    	if (!$helper->isEnabled()) {
-    		$this->norouteAction();
-    		return $this;
-    	}
-    
-    	if (!$helper->isAllowForGuest() && !$session->authenticate($this)) {
-    		$this->setFlag('', self::FLAG_NO_DISPATCH, true);
-    		if ($this->getRequest()->getActionName() == 'sendemail') {
-    			$session->setBeforeAuthUrl(Mage::getUrl('*/*/send', array(
-    					'_current' => true
-    			)));
-    			Mage::getSingleton('catalog/session')
-    			->setSendfriendFormData($this->getRequest()->getPost());
-    		}
-    	}
-    
-    	return $this;
-    }
     
     
     /**
