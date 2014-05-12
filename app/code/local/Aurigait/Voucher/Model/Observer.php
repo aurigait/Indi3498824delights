@@ -45,13 +45,23 @@ class Aurigait_Voucher_Model_Observer
 		
 		$couponCode = 'WELCOME';
 		$oCoupon = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
+		
 		$oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
 		
+	/*	$customrule_type= 2;
+		$rulesCollection = Mage::getModel('salesrule/rule')->getCollection();
+		$rulesCollection->getSelect()->where('main_table.rule_type = "'.$customrule_type.'"')->limit(1);
+	*/	
+		
 		$templateId = $oRule['email_template'];
+		
+		$helperobj = Mage::Helper('voucher/customhelper');
+		
+		$discount_amount = $helperobj->getCouponvalue($couponCode);
 		//$templateId = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/email_template');
 		
 		$vars = array(	
-				'coupon_prize' => $oRule['discount_amount'],
+				'coupon_prize' => $discount_amount,
 				'coupon_code' =>$couponCode,
 				'name' => $recepientName,
 				'email' => $recepientEmail,
@@ -62,10 +72,10 @@ class Aurigait_Voucher_Model_Observer
 		
 		
 		// Send Transactional Email
-	/*	Mage::getModel('core/email_template')
+		Mage::getModel('core/email_template')
 		->addBcc($senderEmail)      // You can remove it if you don't need to send bcc
 		->sendTransactional($templateId, $sender, $recepientEmail, $recepientName, $vars, $storeId);
-	*/	
+	
 		$translate->setTranslateInline(true);
 	 
 		

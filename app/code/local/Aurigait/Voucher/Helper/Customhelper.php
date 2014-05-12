@@ -28,10 +28,10 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 					
 				$ThresholdAmount =  $oRule->getThresholdAmount();
 				$PurchaseDays =  $oRule->getPurchaseDays();
-				$isValiduser =  Mage::getModel('voucher/voucherlistcustomer')->cehckCustomerforUsercoupon($customer->getId(),$purchase_days,$ThresholdAmount);
-					
+				$isValiduser =  Mage::getModel('voucher/voucherlistcustomer')->cehckCustomerforUsercoupon($customer->getId(),$PurchaseDays,$ThresholdAmount);
+			
 				if(!$isValiduser)
-				{
+				{		
 					$ref['voucher_status'] =0;
 				}
 				else

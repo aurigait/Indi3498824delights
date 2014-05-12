@@ -78,7 +78,7 @@
 	  </tabs>
 	  <sections>
 	  <invitationvoucher2  translate="label" module="voucher">                    
-		<label>Invitation Vouchers Type 2</label>
+		<label>Invitation Vouchers  </label>
 		<tab>voucher</tab>
 		<frontend_type>text</frontend_type>
 		<sort_order>1</sort_order>
@@ -214,7 +214,7 @@
 					</groups>
 		</invitationvoucher2>
 		
-		<invitationvoucher  translate="label" module="voucher">                    
+	<!-- 	<invitationvoucher  translate="label" module="voucher">                    
 		<label>Invitation Vouchers</label>
 		<tab>voucher</tab>
 		<frontend_type>text</frontend_type>
@@ -252,34 +252,7 @@
 							<comment></comment>
                           </offerprice>
                           
-                   <!--        <friendacceptationperiod translate="label">
-                            <label>Permissible Friend acceptation period</label>
-							<frontend_type>text</frontend_type>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-							<comment>Days from invitation sent</comment>
-                          </friendacceptationperiod>
-                          <friendpurchaseperiod translate="label">
-                            <label>Permissible Friend purchase period</label>
-							<frontend_type>text</frontend_type>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-							<comment>Days from registration on Indidelights</comment>
-                          </friendpurchaseperiod>
-                          <voucherissueperiod translate="label">
-                            <label>Voucher Issue Period</label>
-							<frontend_type>text</frontend_type>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-							<comment>Days after friend makes Purchase -  to avoid order cancellations</comment>
-                          </voucherissueperiod>
-                    -->       
+                       
                      
                          
                             <maximumdiscountamout translate="label">
@@ -349,7 +322,8 @@
 					   </ginvitationvoucher>
 					</groups>
 		</invitationvoucher>
-		<admindefiend  translate="label" module="voucher">                    
+		 -->
+		<!--  <admindefiend  translate="label" module="voucher">                    
 		<label>Admin Defined Vouchers</label>
 		<tab>voucher</tab>
 		<frontend_type>text</frontend_type>
@@ -367,8 +341,7 @@
 					  <show_in_store>1</show_in_store>
 				       <fields>
                       
-                      
-                        <!--     <maximumdiscountamout translate="label">
+                            <maximumdiscountamout translate="label">
                             <label>Maximum Disocunt Amount Permitted</label>
 							<frontend_type>text</frontend_type>
                             <sort_order>0</sort_order>
@@ -376,7 +349,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
 							<comment></comment>
-                          </maximumdiscountamout> -->
+                          </maximumdiscountamout> 
                           
                           
                           <icon translate="label">
@@ -401,8 +374,8 @@
 					   </fields>
 					   </gadmindefiend>
 					</groups>
-		</admindefiend>
-		
+		</admindefiend>  -->
+	<!-- 	
 		<ordercumulative  translate="label" module="voucher">                    
 		<label>Order Cumulative Voucher</label>
 		<tab>voucher</tab>
@@ -444,9 +417,9 @@
 					   </gordercumulative>
 					</groups>
 		</ordercumulative>		
+		 -->
 		
-		
-		<usercumulativevouchers  translate="label" module="voucher">                    
+	<!-- 	<usercumulativevouchers  translate="label" module="voucher">                    
 		<label>User Cumulative Purchase Vouchers</label>
 		<tab>voucher</tab>
 		<frontend_type>text</frontend_type>
@@ -590,6 +563,7 @@
 					   </gusercumulativevouchers>
 					</groups>
 		</usercumulativevouchers>
+		 -->
 		<welcomevoucher  translate="label" module="voucher">                    
 		<label>Welcome Voucher</label>
 		<tab>voucher</tab>
@@ -607,7 +581,15 @@
 					  <show_in_website>1</show_in_website>
 					  <show_in_store>1</show_in_store>
 				       <fields>
-				       
+							<vouchervaliditypperiod translate="label">
+	                            <label>Voucher Validity Period</label>
+								<frontend_type>text</frontend_type>
+	                            <sort_order>1</sort_order>
+	                            <show_in_default>1</show_in_default>
+	                            <show_in_website>1</show_in_website>
+	                            <show_in_store>1</show_in_store>
+	                            <comment>In days only </comment>
+                           </vouchervaliditypperiod>
 				  <!--     <welcomediscode translate="label">
                             <label>Weclome discount Code</label>
 							<frontend_type>text</frontend_type>
@@ -626,16 +608,8 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
 							<comment></comment>
-                          </maximumdiscountamout> -->
-                          <vouchervaliditypperiod translate="label">
-                            <label>Voucher Validity Period</label>
-							<frontend_type>text</frontend_type>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>In days only </comment>
-                          </vouchervaliditypperiod>
+                          </maximumdiscountamout> 
+                          
                           <icon translate="label">
                             <label>Icon</label>
                             <frontend_type>image</frontend_type>
@@ -664,7 +638,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </email_template>
+                        </email_template>-->
 					   </fields>
 					   </gwelcomevoucher>
 					</groups>

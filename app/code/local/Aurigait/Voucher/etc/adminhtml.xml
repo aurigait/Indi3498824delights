@@ -12,25 +12,25 @@
 											<title>Welcome Voucher Section</title>
 											<sort_order>0</sort_order>
 										</welcomevoucher>
-										<invitationvoucher translate="title" module="voucher">
+									<!-- 	<invitationvoucher translate="title" module="voucher">
 											<title>Invitation Vouchers Section</title>
 											<sort_order>1</sort_order>
-										</invitationvoucher>
+										</invitationvoucher> -->
 										<invitationvoucher2 translate="title" module="voucher">
-											<title>Invitation Vouchers 2 Section</title>
+											<title>Invitation Vouchers  </title>
 											<sort_order>1</sort_order>
 										</invitationvoucher2>
 										<admindefiend translate="title" module="voucher">
 											<title>Admin Voucher Section</title>
 											<sort_order>2</sort_order>
 										</admindefiend>
-										<usercumulativevouchers translate="title" module="voucher">
+									<!-- 	<usercumulativevouchers translate="title" module="voucher">
 											<title>User Cumulative Purchase Vouchers Section</title>
 											<sort_order>3</sort_order>
-										</usercumulativevouchers>
+										</usercumulativevouchers> 
 										<ordercumulative translate="title" module="voucher">
 											<title>Order Cumulative Voucher Section</title>
-											<sort_order>4</sort_order>
+											<sort_order>4</sort_order>-->
 										</ordercumulative>
 									</children>
 									<children>

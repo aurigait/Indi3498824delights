@@ -53,8 +53,8 @@ class Aurigait_Invitefriend_Model_Invitefriend extends Mage_Core_Model_Abstract
     	$write = Mage::getSingleton('core/resource')->getConnection('core_write');
     	$sql = "select  * from  {$this->thistablename()} where  receiver_emailid = '".$customeremail."' and status= 1  and register_status = 0 order by senddate desc limit 0,1 " ;
     	//echo $sql;
-    	$senderinfo = $write->fetch($sql);
-    	 
+    	$senderinfo = $write->fetchRow($sql);
+    	
     	if($senderinfo)
     	{
     		return $senderinfo;
@@ -81,6 +81,8 @@ class Aurigait_Invitefriend_Model_Invitefriend extends Mage_Core_Model_Abstract
     		return false;
     	}
     }
+    
+    
     
 }
 	 

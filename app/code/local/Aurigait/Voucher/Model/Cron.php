@@ -32,7 +32,7 @@ class Aurigait_Voucher_Model_Cron{
 			$thresholdperiod = $rul['purchase_days'];
 			$thresholdamount = $rul['threshold_amount'];
 			$todate = date('Y-m-d');
-			$fromdate = date('Y-m-d' , strtotime('-'.$this->voucherperiod.' days' ));
+			$fromdate = date('Y-m-d' , strtotime('-'.$thresholdperiod.' days' ));
             
 			$write = Mage::getSingleton('core/resource')->getConnection('core_write');
 			
@@ -47,6 +47,11 @@ class Aurigait_Voucher_Model_Cron{
 					
 				$customerEmailId = $customerData->getEmail();
 				$customerFName = $customerData->getFirstname();
+				
+				$helperobj = Mage::Helper('voucher/customhelper');
+				
+				$offeramount = $helperobj->getCouponvalue($couponcode);
+				
 				if(!in_array($customerEmailId, $customer_array))
 				{
 					$customer_array[]=$customerEmailId;
@@ -277,7 +282,7 @@ class Aurigait_Voucher_Model_Cron{
 	
 	//  code for generate invitation vouchers
 	
-	public function demoAction()
+	public function setInvitationvoucher()
 	{
 		 
 	
@@ -292,14 +297,14 @@ class Aurigait_Voucher_Model_Cron{
 				
 			$order = Mage::getModel('sales/order')->getCollection();
 				
-			$order->getSelect('main_table.customer_id')->where('main_table.status NOT IN ( "canceled" , "holded")  and main_table.created_at = "'.$odercompletedate.'" ');
+			$order->getSelect('main_table.customer_id')->where('main_table.status NOT IN ( "canceled" , "holded")  and date(main_table.created_at) = "'.$odercompletedate.'" ');
 				
 			foreach ($order as $orderrow)
 			{
 				$customerData = Mage::getModel('customer/customer')->load($orderrow->getCustomerId())->getData();
 				$registerdate = strtotime($customerData['created_at']);
 	
-				$response = Mage::getModel('invitefriend/invitefriend')->checkcustomerbyreferal($customerData['email']);
+				$response = Mage::getModel('invitefriend/invitefriend')->checkcustomerbylastreferal($customerData['email']);
 				if($response)
 				{
 					$referaldate = strtotime($response['senddate']);
@@ -394,7 +399,7 @@ class Aurigait_Voucher_Model_Cron{
 		$couponcode = $helperobj->CreateCustomCoupon();
 		$customerData = Mage::getModel('customer/customer')->load($customerid);
 		$this->mailinvitevoucher($couponcode,$customerData);
-		Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($customerid,$couponcode,'',$helperobj->_fromdate,$helperobj->_todate,3);
+		Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($customerid,$couponcode,'',$helperobj->_fromdate,$helperobj->_todate,$helperobj->_ruletype);
 	}
 	
 	public function mailinvitevoucher($couponcode,$senderdata)

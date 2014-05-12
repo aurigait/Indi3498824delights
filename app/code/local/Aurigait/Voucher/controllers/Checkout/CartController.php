@@ -87,7 +87,7 @@ class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartControl
 		
 		$customrule_type = $oRule->getRuleType();
 		
-		if($couponcode == Aurigait_Voucher_IndexController::WELCOMECODE)
+		if($customrule_type == 2)
 		{
 			
 			$customer = Mage::getSingleton('customer/session')->getCustomer();
@@ -150,22 +150,21 @@ class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartControl
 				$PurchaseDays =  $oRule->getPurchaseDays();
 				$isValiduser =  Mage::getModel('voucher/voucherlistcustomer')->cehckCustomerforUsercoupon($customer->getId(),$purchase_days,$ThresholdAmount);
 				
-			    
 				if(!$isValiduser)
 				{
 					$this->_getSession()->addError(
-							$this->__('You are not valid person to use  "%s" coupon .', Mage::helper('core')->escapeHtml($couponCode))
+							$this->__('You are not valid person to use  "%s" coupon .', Mage::helper('core')->escapeHtml($couponcode))
 					);
 					$this->_goBack();
 					return -1;
 				}
 				else
-					return true;
+					return 1;
 			}
 			else
 			{
 				$this->_getSession()->addError(
-						$this->__('Use Coupon code "%s" after login .', Mage::helper('core')->escapeHtml($couponCode))
+						$this->__('Use Coupon code "%s" after login .', Mage::helper('core')->escapeHtml($couponcode))
 				);
 				$this->_goBack();
 				return -1;

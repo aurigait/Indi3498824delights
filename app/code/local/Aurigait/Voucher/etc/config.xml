@@ -199,6 +199,11 @@
                 <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
                 <run><model>voucher/cron::setUsercommulativeVoucher</model></run>
             </voucher_setUsercommulativeVoucher>
+            
+            <voucher_setInvitationvoucher>
+                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
+                <run><model>voucher/cron::setInvitationvoucher</model></run>
+            </voucher_setInvitationvoucher>
         </jobs>
     </crontab>
   
