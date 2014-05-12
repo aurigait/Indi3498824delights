@@ -320,4 +320,10 @@ Default layout, loads most of the pages
             <action method="setIsHandle"><applied>1</applied></action>
         </reference>
     </page_three_columns>
+     <customer_logged_out>
+        <reference name="top.links">
+            <remove name="wishlist_link"/>
+        </reference>
+     </customer_logged_out>
+     
 </layout>

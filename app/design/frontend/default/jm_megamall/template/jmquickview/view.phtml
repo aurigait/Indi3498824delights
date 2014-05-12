@@ -98,7 +98,7 @@
                     <div class="read-more"><a href="<?php echo $_product->getUrl(); ?>">Read More</a></div>
                 </div>
             <?php endif;?>
-			<div class="text-right"><button class="button btn-cart"> See Complete Product Details</button></div>
+			<div class="text-right"><button type="button" class="button" onClick="window.location = '<?php echo $_product->getUrl(); ?>';"> See Complete Product Details</button></div>
             <?php echo $this->getChildHtml('other');?>
 
             <?php
@@ -131,7 +131,7 @@
     var productAddToCartForm = new VarienForm("product_addtocart_form<?php echo $_product->getId(); ?>");
 
     productAddToCartForm.submit = function (button, url) {
-
+    	alert("here");return false;
         if (this.validator.validate()) {
 
             var form = this.form;
@@ -158,6 +158,7 @@
     }.bind(productAddToCartForm);
 
     productAddToCartForm.submitLight = function (button, url) {
+       
         if (this.validator) {
             var nv = Validation.methods;
             delete Validation.methods['required-entry'];

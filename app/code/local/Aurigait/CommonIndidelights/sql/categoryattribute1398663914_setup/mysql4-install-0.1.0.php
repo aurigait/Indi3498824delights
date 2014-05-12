@@ -1,7 +1,7 @@
 <?php
 $installer = $this;
 $installer->startSetup();
-/*
+
 $installer->addAttribute("catalog_category", "is_tile",  array(
     "type"     => "int",
     "backend"  => "",
@@ -24,7 +24,7 @@ $installer->addAttribute("catalog_category", "is_tile",  array(
     "note"       => ""
 
 	));
-
+/*
 $installer->addAttribute("catalog_category", "home_tile_img",  array(
     "type"     => "varchar",
     "backend"  => "catalog/category_attribute_backend_image",
@@ -47,7 +47,7 @@ $installer->addAttribute("catalog_category", "home_tile_img",  array(
     "note"       => ""
 
 	));
-
+*/
 $installer->addAttribute("catalog_category", "tile_page_image",  array(
     "type"     => "varchar",
     "backend"  => "catalog/category_attribute_backend_image",
@@ -70,6 +70,6 @@ $installer->addAttribute("catalog_category", "tile_page_image",  array(
     "note"       => ""
 
 	));
-*/
+
 $installer->endSetup();
 	 
