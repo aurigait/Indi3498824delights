@@ -128,7 +128,7 @@ ul.megamenu{ margin:15px 20px;}
 #menu-banners .col-6{ width:46%; margin:15px 10px 0 0; display:inline-block;}
 #menu-banners a img:hover{opacity:0.9;}
 .cart-table tfoot td:first-of-type, .cart-table tfoot th:first-of-type, .cart-table td:first-of-type, .cart-table th:first-of-type{ padding:10px;}
-.form-search input.input-text, .form-search input.input-text:focus{ margin-left:5px; width:405px;}
+.form-search input.input-text, .form-search input.input-text:focus{ margin-left:5px; width:465px;}
 .block-progress{ background:#FFF; border:solid 1px #eeeeee;}
 .block-progress .block-title{ border-color:#eeeeee;}
 .block-progress dt{ color:#464646;}
@@ -207,7 +207,6 @@ ul.megamenu{ margin:15px 20px;}
 .product-view .tick-list i{ font-size:20px; margin-right:5px;}
 .product-view .tick-list li{ display:inline-block; width:45%; font-size:14px; font-weight:bold; padding:5px 10px;}
 .product-view .panel-center{ overflow:hidden; height:1%;}
-.product-view .panel-center .description{ min-height:250px;}
 .product-view .panel-right{ float:right; width:375px; margin-left:20px;}
 .product-view .box-up-sell{ float:none; width:auto;  margin-bottom:20px;}
 .product-view .box-up-sell .products-grid li.item{ width:100%!important; position:relative; min-height:90px;}
@@ -266,6 +265,7 @@ height: 24px; width: 24px;}
 .customer-account-login .gs-login li{ margin:10px 0;}
 #checkout-step-login .gs-login-checkout{ text-align:left; margin-top:20px;}
 #checkout-step-login .gs-login-checkout li{ margin-right:10px;}
+#jm-mycart{ margin-left:0;}
 
 
 @media only screen and (max-width: 985px) {
