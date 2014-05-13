@@ -3,7 +3,7 @@ class Aurigait_Voucher_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public $_code;
     
-    public $_friendnamecode = '';
+    public $_friendnamecode ;
 	
     public $_couponname;
     

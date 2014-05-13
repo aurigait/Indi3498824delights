@@ -43,31 +43,36 @@ class Aurigait_Voucher_Model_Observer
 		$store = Mage::app()->getStore()->getId();
 		
 		
-		$couponCode = 'WELCOME';
+	/*	$couponCode = 'WELCOME';
 		$oCoupon = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
 		
 		$oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
+	*/	 
+		$customrule_type= 2;
+		//$rulesCollection = Mage::getModel('salesrule/rule')->getCollection();
+		//$rulesCollection->getSelect()->where('main_table.rule_type = "'.$customrule_type.'"')->limit(1);
 		
-	/*	$customrule_type= 2;
-		$rulesCollection = Mage::getModel('salesrule/rule')->getCollection();
-		$rulesCollection->getSelect()->where('main_table.rule_type = "'.$customrule_type.'"')->limit(1);
-	*/	
-		
+		$oRule = Mage::getModel('salesrule/rule')->load($customrule_type,'rule_type');
+		$couponCode = ($oRule['coupon_code']);
+ 
 		$templateId = $oRule['email_template'];
 		
 		$helperobj = Mage::Helper('voucher/customhelper');
 		
 		$discount_amount = $helperobj->getCouponvalue($couponCode);
 		//$templateId = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/email_template');
+		$iconimage = Mage::getBaseDir('media') . DS . 'voucher' . DS .$oRule['iconimage'];
 		
 		$vars = array(	
 				'coupon_prize' => $discount_amount,
 				'coupon_code' =>$couponCode,
+				'coupon_image' =>$iconimage,
 				'name' => $recepientName,
 				'email' => $recepientEmail,
 				);
 		
 		$translate  = Mage::getSingleton('core/translate');
+		
 		
 		
 		
@@ -216,11 +221,11 @@ class Aurigait_Voucher_Model_Observer
 				'required' => true,
 				'options'    => array(
 						0 => 'Please Selete Voucher type',
-						1 => 'Admin Defiend Voucher',
+						1 => 'Admin Defined Voucher',
 						2 => 'Welcome Voucher',
 						3 => 'User Cumulative Voucher',
 						4 => 'Order Cumulative Voucher',
-						5 => 'Invitaion Voucher',
+						5 => 'Invitation Voucher',
 				),
 		));
 		
