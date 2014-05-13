@@ -36,7 +36,7 @@ class Aurigait_Voucher_Model_Cron{
             
 			$write = Mage::getSingleton('core/resource')->getConnection('core_write');
 			
-			$sql = "select customer_id , sum(base_subtotal ) as totalorderamount from sales_flat_order where status= 'complete' and created_at >'".$fromdate."' and created_at <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$thresholdamount."  ";
+			$sql = "select customer_id , sum(base_subtotal ) as totalorderamount from sales_flat_order where status= 'complete' and date(created_at) >'".$fromdate."' and date(created_at) <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$thresholdamount."  ";
 			$data=$write->fetchAll($sql);
 				
 			$templateid =  $rul['email_template'];
@@ -345,7 +345,8 @@ class Aurigait_Voucher_Model_Cron{
 		$maximumdiscountamout = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/maximumdiscountamout');
 		$minimumpurchaseamount = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/minimumpurchaseamount');
 		$vouchervalidityperiod = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/vouchervalidityperiod');
-	
+		$offertype =  Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/offertype');
+		
 		$helperobj = Mage::Helper('voucher/data');
 	
 		$helperobj->_fromdate ='';
@@ -445,5 +446,13 @@ class Aurigait_Voucher_Model_Cron{
 	
 	
 			
+	}
+	
+	public function getOfferbyOrderamoutinvit($orderamount,$offerprice)
+	{
+		$retunamount = ($orderamount * $offerprice)/100;
+	
+		return $retunamount ;
+	
 	}
 }

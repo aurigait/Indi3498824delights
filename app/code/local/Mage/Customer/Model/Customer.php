@@ -599,12 +599,23 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $storeId = $this->_getWebsiteStoreId($this->getSendemailStoreId());
         }
 
-        // by sandeep jan to add  coupon info
-        $couponCode = 'WELCOME';
+        // by sandeep jain to add  coupon info
+     /*   $couponCode = 'WELCOME';
         $oCoupon = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
         $oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
+	*/
+        $customrule_type= 2;
+        
+        $oRule = Mage::getModel('salesrule/rule')->load($customrule_type,'rule_type');
+        $couponCode = ($oRule['coupon_code']);
+        
+        
         $discount_amount =  $oRule['discount_amount'];
         
+        
+        $helperobj = Mage::Helper('voucher/customhelper');
+        
+        $discount_amount = $helperobj->getCouponvalue($couponCode);
         
         $this->_sendEmailTemplate($types[$type], self::XML_PATH_REGISTER_EMAIL_IDENTITY,
             array('customer' => $this, 'back_url' => $backUrl ,'coupon_code'=> $couponCode,'coupon_prize' => $discount_amount ), $storeId);

@@ -70,8 +70,8 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 			->addFieldToSelect('*')
 			->addFieldToFilter('customer_id',$customer->getId());
 				
-			if(!$orders->getSize())
-			{
+		//	if(!$orders->getSize())
+		//	{
 				$configValue = Mage::getStoreConfig('welcomevoucher/gwelcomevoucher/vouchervaliditypperiod');
 					
 				$daygap = ($configValue * 24 * 60 * 60);
@@ -95,11 +95,11 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 				{
 					return false;
 				}
-			}
+	/*		}
 			else
 			{
 				return false;
-			}
+			} */
 		}
 		else
 		{

@@ -97,8 +97,8 @@ class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartControl
 				
 			if ( $customer->getId())
 			{
-				if(!$orders->getSize())
-				{
+			//	if(!$orders->getSize())
+			//	{
 					$configValue = Mage::getStoreConfig('welcomevoucher/gwelcomevoucher/vouchervaliditypperiod');
 						
 					$daygap = ($configValue * 24 * 60 * 60);
@@ -117,7 +117,7 @@ class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartControl
 					}
 					else
 						return 1;
-				}
+			/*	}
 				else
 				{
 					// has already  placed an order
@@ -126,7 +126,7 @@ class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartControl
 					);
 					$this->_goBack();
 					return -1;
-				}
+				} */
 			}
 			else
 			{

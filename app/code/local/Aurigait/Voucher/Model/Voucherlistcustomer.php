@@ -68,7 +68,7 @@ class Aurigait_Voucher_Model_Voucherlistcustomer extends Mage_Core_Model_Abstrac
     	$write = Mage::getSingleton('core/resource')->getConnection('core_write');
     	$todate = date('Y-m-d');
     	$fromdate = date('Y-m-d' , strtotime('-'.$voucherperiod.' days' ));
-    	$sql = "select  sum(base_subtotal ) as totalorderamount from sales_flat_order where status= 'complete' and created_at >'".$fromdate."' and created_at <='".$todate."'   and customer_id ='".$customerid."'  group by customer_id having totalorderamount >= ".$minimumthreshold."  ";
+    	$sql = "select  sum(base_subtotal ) as totalorderamount from sales_flat_order where status= 'complete' and date(created_at) >'".$fromdate."' and date(created_at) <='".$todate."'   and customer_id ='".$customerid."'  group by customer_id having totalorderamount >= ".$minimumthreshold."  ";
     	$isvalid = $write->fetchone($sql);
     	if($isvalid>=$minimumthreshold)
     	{

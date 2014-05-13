@@ -41,8 +41,9 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 	
 			$write = Mage::getSingleton('core/resource')->getConnection('core_write');
 				
-			$sql = "select customer_id , sum(grand_total ) as totalorderamount from sales_flat_order where status= 'complete' and created_at >'".$fromdate."' and created_at <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$thresholdamount."  ";
-		 	$data=$write->fetchAll($sql);
+			$sql = "select customer_id , sum(grand_total ) as totalorderamount from sales_flat_order where status= 'complete' and date(created_at) >'".$fromdate."' and created_at <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$thresholdamount."  ";
+
+			$data=$write->fetchAll($sql);
 	 
 			$templateid =  $rul['email_template'];
 			$couponcode = $rul['code'];
@@ -329,8 +330,9 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 						$orderdate = $orderrow->getCreatedAtTimestamp();
 						if($orderdate<=$firstorderdate)
 						{
-							Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
+						
 							$this->createcouponforreferaltype2($response['sender_id'],$orderrow->getBaseSubtotal());
+						//	Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
 	
 						}
 	
@@ -354,7 +356,9 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 		$maximumdiscountamout = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/maximumdiscountamout');
 		$minimumpurchaseamount = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/minimumpurchaseamount');
 		$vouchervalidityperiod = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/vouchervalidityperiod');
-	
+		$offertype =  Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/offertype');
+		
+		
 		$helperobj = Mage::Helper('voucher/data');
 	
 		$helperobj->_fromdate ='';
@@ -365,7 +369,7 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 			$helperobj->_todate =  date('Y-m-d' , strtotime('+'.$vouchervalidityperiod.' days' ));
 		}
 	
-		$helperobj->_offerprice =$offerprice ;
+		
 	
 		if($offertype==1)
 		{
@@ -376,11 +380,14 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 			$helperobj->_actiontype ="by_fixed";
 		}
 		else if($offertype==3)
-		{
-			$helperobj->_offerprice = $this->getOfferbyOrderamoutinvit($orderamount,$offerprice);
+		{  
+			$offerprice = $this->getOfferbyOrderamoutinvit($orderamount,$offerprice);
 			$helperobj->_actiontype ="by_fixed";
+			 
 	
 		}
+		
+		$helperobj->_offerprice =$offerprice ;
 		$iconimage  = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/icon');
 		$termsconditions  = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/termsconditions');
 	
@@ -455,6 +462,12 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 	
 			
 	}
+	public function getOfferbyOrderamoutinvit($orderamount,$offerprice)
+	{
+		$retunamount = ($orderamount * $offerprice)/100;
 	
+		return $retunamount ;
+	
+	}
 }
 ?>
