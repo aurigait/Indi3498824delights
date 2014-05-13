@@ -2,6 +2,29 @@
 $installer = $this;
 $installer->startSetup();
 
+$installer->addAttribute('catalog_product', 'product_occasion', array(
+		
+		  'input'             => 'multiselect',
+		  'backend'           => 'eav/entity_attribute_backend_array',
+		  "frontend" => "",
+		  "label"    => "Product Occasions (tiles)",
+		  "class"    => "",
+		  "source"   => "commonindidelights/eav_entity_attribute_source_options",
+		  "global"   => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+		  "visible"  => true,
+		  "required" => false,
+		  "is_user_defined"  => "1",
+		  "default" => "0",
+		  "searchable" => false,
+		  "filterable" => false,
+		  "comparable" => false,
+		  "used_for_sort_by" => true,
+		  "visible_on_front"  => false,
+		  "unique"     => false,
+		  "system" => true,
+		  "note"       => ""
+));
+
 $installer->addAttribute("catalog_category", "is_tile",  array(
     "type"     => "int",
     "backend"  => "",
