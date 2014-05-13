@@ -131,9 +131,9 @@
     var productAddToCartForm = new VarienForm("product_addtocart_form<?php echo $_product->getId(); ?>");
 
     productAddToCartForm.submit = function (button, url) {
-    	alert("here");return false;
+    	
         if (this.validator.validate()) {
-
+        	
             var form = this.form;
             var oldUrl = form.action;
 

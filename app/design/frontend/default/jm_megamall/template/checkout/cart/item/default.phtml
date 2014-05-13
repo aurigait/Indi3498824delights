@@ -28,6 +28,8 @@
 $_item = $this->getItem();
 $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
 $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
+$_product=Mage::getModel("catalog/product")->load($_item->getProduct()->getId());
+
 ?>
 <tr>
     <td><?php if ($this->hasProductUrl()):?><a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><?php endif;?><img src="<?php echo $this->getProductThumbnail()->resize(110,110); ?>" width="110" height="110" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a><?php endif;?></td>
@@ -61,8 +63,10 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif;?>
           <?php if ($isVisibleProduct): ?>
             <a href="<?php echo $this->helper('wishlist')->getAddUrl($_item->getId()); ?>" class="link-wishlist use-ajax"><?php echo $this->__('ADD TO WISHLIST'); ?></a>
-        <?php endif ?>
+        <?php endif; 
+        if(!empty($_item->getUserRemark())) { ?>
 		<div class="user-remark"><em> &quot;<?php echo $_item->getUserRemark();?>&quot; </em></div>
+		<?php } ?>
 		<?php if ($messages = $this->getMessages()): ?>
         <?php foreach ($messages as $message): ?>
             <p class="item-msg <?php echo $message['type'] ?>">* <?php echo $this->escapeHtml($message['text']) ?></p>
@@ -79,8 +83,8 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif ?>
     </td>
     
-    <td>3-5 days</td>
-    <td>YES</td>
+    <td><?php echo $_product->getResource()->getAttribute('ga_estimate_shipping')->getFrontend()->getValue($_product); ?></td>
+    <td><?php echo $_product->getAttributeText('cod_available'); ?></td>
     <?php /* if ($this->helper('wishlist')->isAllowInCart()) : ?>
     <td class="a-center">
         <?php if ($isVisibleProduct): ?>

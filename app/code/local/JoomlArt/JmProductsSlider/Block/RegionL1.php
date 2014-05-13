@@ -216,7 +216,7 @@ class JoomlArt_JmProductsSlider_Block_RegionL1 extends Mage_Catalog_Block_Produc
         
 		$storeId = Mage::app()->getStore()->getId();
 
-		//$product_coll=$this->getLayout()->createBlock('catalog/product_list')->getLoadedProductCollection();
+		$product_coll=$this->getLayout()->createBlock('catalog/product_list')->getLoadedProductCollection();
 		
 		$products_collection = Mage::getResourceModel('catalog/product_collection')
 					->setStoreId($storeId)
