@@ -299,6 +299,10 @@ height: 24px; width: 24px;}
 #jm-head .btn-toggle{ top:-1px;}
 }
 
+@media only screen and (max-width: 568px) {
+.list-type-slider .sp-block-cate p, .list-type-slider .sp-block-cate ul{ width:100%; text-align:left;}	
+.jm-products-slider-horizon li .item-slider{ left:38px;}
+}
 
 @media only screen and (max-width: 480px){
 .quick-access .btn-toggle {right: 80px !important;}
