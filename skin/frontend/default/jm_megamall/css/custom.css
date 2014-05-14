@@ -31,6 +31,7 @@ body{font-family: 'Open Sans', sans-serif;}
 #jm-search{border: 1px solid #c8c8c8; margin:45px 187px 0 0;}
 #jm-mycart .btn-toggle{ top:12px;}
 #jm-head #jm-mycart .inner-toggle.active{ top:113px;}
+#jm-header #jm-mycart .inner-toggle.active{top:91px;}
 
 #jm-search .select-box select{ line-height:normal;}
 .lits-category{border-right: none;}
