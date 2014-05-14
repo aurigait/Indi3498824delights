@@ -28,10 +28,11 @@ body{font-family: 'Open Sans', sans-serif;}
 .form-search button.button{ margin:0; background:#d4d4d4; border-color:#d4d4d4; color:#463c57;}
 #jm-bots1 a, #jm-bots1 .block-aboutus ul li a, #jm-bots1 ul.list-info li a, #jm-footer .jm-legal a{color:#009bcb;}
 #jm-bots1 button.button{ background:#d4d4d4; color:#463c57; }
-#jm-search{border: 1px solid #c8c8c8; margin:45px 187px 0 0;}
+#jm-search{border: 1px solid #c8c8c8; margin:45px 162px 0 0;}
 #jm-mycart .btn-toggle{ top:12px;}
 #jm-head #jm-mycart .inner-toggle.active{ top:113px;}
 #jm-header #jm-mycart .inner-toggle.active{top:91px;}
+.filter-showsub{ top:2px;}
 
 #jm-search .select-box select{ line-height:normal;}
 .lits-category{border-right: none;}
@@ -129,7 +130,7 @@ ul.megamenu{ margin:15px 20px;}
 #menu-banners .col-6{ width:46%; margin:15px 10px 0 0; display:inline-block;}
 #menu-banners a img:hover{opacity:0.9;}
 .cart-table tfoot td:first-of-type, .cart-table tfoot th:first-of-type, .cart-table td:first-of-type, .cart-table th:first-of-type{ padding:10px;}
-.form-search input.input-text, .form-search input.input-text:focus{ margin-left:5px; width:465px;}
+.form-search input.input-text, .form-search input.input-text:focus{ margin-left:5px; width:485px;}
 .block-progress{ background:#FFF; border:solid 1px #eeeeee;}
 .block-progress .block-title{ border-color:#eeeeee;}
 .block-progress dt{ color:#464646;}

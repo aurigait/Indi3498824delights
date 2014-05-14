@@ -115,7 +115,7 @@ document.observe("dom:loaded", function() {
 			if(jQuery(this).scrollTop() == 0){
 				jQuery("#jm-head").removeClass("headscroll");
 				jQuery("#jm-quickaccess").before(jQuery("#jm-mycart"));
-				jQuery("#jm-search").css("margin-right",187);
+				jQuery("#jm-search").css("margin-right",162);
 			}else if(!jQuery("#jm-head").hasClass("headscroll")){
 				if(jQuery(window).width() > 984 ){
                     jQuery("#jm-search").before(jQuery("#jm-mycart"));
