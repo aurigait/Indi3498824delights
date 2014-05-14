@@ -189,7 +189,6 @@ class Aurigait_Voucher_Model_Cron{
 	{
 		$templateId =$templateid;
 		
-	//	$templateId =  Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/email_template');;
 		
 		$senderName = Mage::getStoreConfig('trans_email/ident_support/name');
 		$senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');

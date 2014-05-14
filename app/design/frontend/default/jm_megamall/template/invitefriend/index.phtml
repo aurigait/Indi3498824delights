@@ -100,6 +100,12 @@
         <div class="fieldset">
             <h2 class="legend"><?php echo $this->__('Recipient:') ?></h2>
             <ul class="form-list" id="recipients_options">
+            	<li class="wide">
+                    <label for="sender_message" class="required"><em>*</em><?php echo $this->__('Message:') ?></label>
+                    <div class="input-box">
+                        <textarea name="sender[message]" class="input-text required-entry" id="sender_message" cols="3" rows="3"><?php echo $this->escapeHtml($this->getMessage())?></textarea>
+                    </div>
+                </li>
                 <li class="fields">
                     <div class="field">
                         <label for="recipients_name" class="required"><em>*</em><?php echo $this->__('Name:') ?></label>

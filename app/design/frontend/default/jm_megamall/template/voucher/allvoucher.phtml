@@ -5,38 +5,25 @@ $rulesCollection =  $this->getallcoupon();
 ?> 
 
 <div class="block block-discount discount">
-    <div class="block-title"><strong><span><?php echo $this->__('Available Discount Codes') ?></span></strong></div>
+    <div class="block-title"><strong><span><?php echo $this->__('Coupons for You') ?></span></strong></div>
 	<?php if(count($rulesCollection)>0): ?>
     <div class="block-content discount-form">
-        <table class="data-table" id="allvouchers-table" >
-		    <thead>
-		        <tr>
-		            <th><?php echo  ('Coupon Code') ?></th>
-		            <th><?php echo  ('Coupon Value') ?></th>
-		            <th><?php echo  ('Coupon Condition') ?></th>
-		            <th><?php echo  ('Expiry Date') ?></th>
-		             
-		        </tr>
-		    </thead>
-		    <tbody>
+ 
          <?php  
 			foreach($rulesCollection as $voucher)
 			{ if($voucher['voucher_status']==1)
 				{
 				?>
-				<tr>
-		            <td><?php echo $voucher['voucher_code']; ?>&nbsp;</td>
-		            <td><?php echo  $voucher['offer_amount']; ?>&nbsp;</td>
-		            <td><?php echo  $voucher['offer_amount']; ?>&nbsp;</td>
-		            <td><?php echo date("D, j M, Y", strtotime($voucher['vc_todate'])); ?>&nbsp;</td>
-		        </tr>
+				<div>
+		             <div><h3><?php echo $voucher['voucher_code']; ?></h3></div>
+		             <div><?php echo  $voucher['description']; ?> </div>
+		        </div>
 				<?php  
 				} 
 			}
 			
 			?>
-			</tbody>
-		</table>
+			 
     </div>
     <script type="text/javascript">decorateTable('allvouchers-table')</script>
     <?php else: ?>

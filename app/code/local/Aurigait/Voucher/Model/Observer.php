@@ -198,10 +198,10 @@ class Aurigait_Voucher_Model_Observer
 		{
 			
 			// Send Transactional Email
-			/*	Mage::getModel('core/email_template')
+			 	Mage::getModel('core/email_template')
 				->addBcc($senderEmail)      // You can remove it if you don't need to send bcc
 			->sendTransactional($templateId, $sender, $recepientEmail, $recepientName, $vars, $storeId);
-			*/
+			 
 		}
 		$translate->setTranslateInline(true);
 	

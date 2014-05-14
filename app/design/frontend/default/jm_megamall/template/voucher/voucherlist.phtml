@@ -11,6 +11,7 @@ if(count($vouchers)>0): ?>
             <th><?php echo  ('Start Date') ?></th>
             <th><?php echo  ('End Date') ?></th>
             <th><?php echo  ('Offer Amount') ?></th>
+            <th><?php echo  ('Terms & Conditions') ?></th>
             
         </tr>
     </thead>
@@ -21,6 +22,7 @@ if(count($vouchers)>0): ?>
             <td><?php echo date("D, j M, Y", strtotime($voucher['vc_fromdate'])); ?>&nbsp;</td>
             <td><?php echo date("D, j M, Y", strtotime($voucher['vc_todate']));?>&nbsp;</td>
             <td><?php echo $voucher['offer_amount']; ?>&nbsp;</td>
+            <td><?php echo  $voucher['description']; ?>&nbsp;</td>
             
         </tr>
     <?php } endforeach ?>

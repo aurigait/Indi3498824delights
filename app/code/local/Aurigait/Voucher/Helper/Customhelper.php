@@ -21,6 +21,8 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 			$ref['offer_amount'] = $this->getCouponvalue($ref['voucher_code']);
 			$oCoupon = Mage::getModel('salesrule/coupon')->load($ref['voucher_code'], 'code');
 			$oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
+			
+			$ref['description'] =  $oRule->getDescription(); 
 			if($ref['voucher_type']==3)
 			{
 	
@@ -87,6 +89,7 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 							'vc_todate' => $totaldayspassed,
 							'voucher_type'=> 2,
 							'voucher_status'=> 1,
+							'description' =>$oRule->getDescription()
 								
 					);
 					return $welcomearr;
