@@ -7,6 +7,12 @@ class Aurigait_Voucher_Block_Allvoucher extends Mage_Core_Block_Template{
 		return "informations about my block !!" ;
 	}
 	
+	public function getAllvoucheratcart()
+	{
+		$helperobj = Mage::Helper('voucher/customhelper');
+		return $helperobj->getVoucherlistatcart();
+	}
+	
 	public function getallcoupon()
 	{
 		$rulesCollection = array();

@@ -232,7 +232,7 @@ class Aurigait_Voucher_Model_Observer
 		$fieldset->addField('email_template', 'select', array(
 				'label'     => 'Email Template',
 				'name'      => 'email_template',
-				'required' => true,
+				
 				'values'  =>Mage::getModel('adminhtml/system_config_source_email_template')->toOptionArray() 
 		));
 	

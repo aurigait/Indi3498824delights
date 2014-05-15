@@ -1,6 +1,11 @@
 <?php 
+//echo "<pre>";
+//$this->getAllvoucheratcart();
+//print_r($this->getAllvoucheratcart());
 
-$rulesCollection =  $this->getallcoupon();
+//die;
+
+$rulesCollection = $this->getAllvoucheratcart();// $this->getallcoupon();
 
 ?> 
 
@@ -11,38 +16,38 @@ $rulesCollection =  $this->getallcoupon();
  
          <?php  
 			foreach($rulesCollection as $voucher)
-			{ if($voucher['voucher_status']==1)
-				{
+			{  
+				$desc = substr($voucher['description'],0,500);
 				?>
-				<div>
+				<div style="border-bottom: 1px solid #ebebeb;">
 		             <div><h3><?php echo $voucher['voucher_code']; ?></h3></div>
-		             <div><?php echo  $voucher['description']; ?> </div>
+		             <div><?php echo  $voucher['offer_amount'].' Discount'; ?>
+		              <?php if($desc){ ?>
+		              	<span id="voucherdetailcall" style="cursor:pointer;float:right"  onclick="showdetail('<?php echo $voucher['voucher_code']; ?>');">Detail</span><?php }?>
+		              </div>
+		             <div id="voucherdescription<?php echo $voucher['voucher_code']; ?>" style="display:none;border: 1px solid #ebebeb;padding: 2px 5px;background: #fff" >
+		             	<?php echo $desc; ?>
+		             </div>
 		        </div>
 				<?php  
-				} 
+				 
 			}
 			
 			?>
 			 
     </div>
-    <script type="text/javascript">decorateTable('allvouchers-table')</script>
+    <script type="text/javascript">decorateTable('allvouchers-table');</script>
     <?php else: ?>
     	<p><?php echo $this->__('Currenty No Coupon available.') ?></p>
 	<?php endif ?>
     </div>
  
 <script type="text/javascript">
-//<![CDATA[
-var discountForm = new VarienForm('discount-coupon-form');
-discountForm.submit = function (isRemove) {
-    if (isRemove) {
-        $('coupon_code').removeClassName('required-entry');
-        $('remove-coupone').value = "1";
-    } else {
-        $('coupon_code').addClassName('required-entry');
-        $('remove-coupone').value = "0";
-    }
-    return VarienForm.prototype.submit.bind(discountForm)();
+function showdetail(id)
+{ 
+	$('voucherdescription'+id).toggle();	 	
+		
 }
-//]]>
+
+ 
 </script>

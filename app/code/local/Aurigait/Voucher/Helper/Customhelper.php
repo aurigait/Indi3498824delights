@@ -1,6 +1,90 @@
 <?php
 class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 {
+	
+	public function getVoucherlistatcart()
+	{
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		
+		$rulesCollection = Mage::getModel('salesrule/rule')->getCollection();//$rulesCollection->load(true,true);
+		
+		if($customer->getId())
+		{
+			$rulesCollection->getSelect()->where('( rule_coupons.expiration_date > now() or rule_coupons.expiration_date is NULL ) and main_table.is_active =1 ');
+		}
+		else
+		{
+			$rulesCollection->getSelect()->where('( rule_coupons.expiration_date > now() or rule_coupons.expiration_date is NULL ) and main_table.is_active =1 and main_table.rule_type in (1,4) ');
+		}
+		
+		//$rulesCollection->load(true,true);
+		//	print_r($rulesCollection);
+		$vouchercustomreturnarr = array();
+		
+		foreach($rulesCollection as $rule)
+		{
+			$vouchercustomarr = array();
+		// 	echo  $rule->getCode().'##'.$rule->getRuleType().'@@'.$rule->getTimesUsed().'@<br>';
+			$isValidcoupon = true;
+			if($customer->getId())
+			{
+				switch($rule->getRuleType())
+				{
+					case 2:
+						//for welcome voucher
+					    if($this->checkWelcomevoucher($customer,$rule->getCode()))
+						{
+							$isValidcoupon = true;
+						}
+						else
+						{
+							$isValidcoupon = false;
+						}
+						
+						break;
+					case 3:
+						//for user cumulative voucher
+						$ThresholdAmount =  $rule->getThresholdAmount();
+						$PurchaseDays =  $rule->getPurchaseDays();
+						$isValiduser =  Mage::getModel('voucher/voucherlistcustomer')->cehckCustomerforUsercoupon($customer->getId(),$PurchaseDays,$ThresholdAmount);
+							
+						if(!$isValiduser)
+						{
+							$isValidcoupon = false;
+						}
+						else
+						{
+							$isValidcoupon =true; 
+						}
+						break;
+					case 5:
+						//for invitation voucher
+						if(($rule->getTimesUsed()) && $rule->getTimesUsed()>=$oRule->getUsesPerCustomer() )
+						{
+							$isValidcoupon = false;
+						}
+						else
+						{
+							$isValidcoupon = true;
+						}
+						break;
+							
+						
+				}
+			}
+			
+			if($isValidcoupon && $rule->getCode())
+			{
+				$vouchercustomarr['voucher_code'] = $rule->getCode();
+				$vouchercustomarr['description'] = $rule->getDescription();
+				$vouchercustomarr['expiration_date'] = $rule->getToDate();
+				$vouchercustomarr['offer_amount'] = $this->getCouponValuebyrule($rule);
+				$vouchercustomreturnarr[] =$vouchercustomarr;
+			}
+			
+		} 
+		return $vouchercustomreturnarr;
+	}
 
 		
 	
@@ -18,15 +102,15 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 		foreach ($referal as $ref)
 		{
 	
-			$ref['offer_amount'] = $this->getCouponvalue($ref['voucher_code']);
+			
 			$oCoupon = Mage::getModel('salesrule/coupon')->load($ref['voucher_code'], 'code');
 			$oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
+			
+			$ref['offer_amount'] = $this->getCouponValuebyrule($oRule);
 			
 			$ref['description'] =  $oRule->getDescription(); 
 			if($ref['voucher_type']==3)
 			{
-	
-				
 					
 				$ThresholdAmount =  $oRule->getThresholdAmount();
 				$PurchaseDays =  $oRule->getPurchaseDays();
@@ -60,6 +144,22 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 		return $referalnewarray ;
 	}
 	
+	public function checkWelcomevoucher($customer,$code)
+	{
+		$orders = Mage::getResourceModel('sales/order_collection')
+		->addFieldToSelect('*')
+		->addFieldToFilter('customer_id',$customer->getId())
+		->addFieldToFilter('coupon_code',$code);
+		
+		if($orders->getSize()>=1)
+		{
+			return false;
+		}
+		else 
+			return true;
+		
+	}
+	
 	
 	public function getWelcomevoucher($customer)
 	{
@@ -73,7 +173,9 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 			->addFieldToFilter('customer_id',$customer->getId());
 				
 		//	if(!$orders->getSize())
-		//	{
+			if($this->checkWelcomevoucher($customer,$oRule->getCouponCode()))
+			{
+			
 				$configValue = Mage::getStoreConfig('welcomevoucher/gwelcomevoucher/vouchervaliditypperiod');
 					
 				$daygap = ($configValue * 24 * 60 * 60);
@@ -81,34 +183,50 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 	
 				$totaldayspassed =  $customer->getCreatedAtTimestamp() + $daygap;
 				if( strtotime(now()) <= $totaldayspassed)
-				{
-					$totaldayspassed =  date('Y-m-d' , $totaldayspassed);
-					$welcomearr = array(
-							'voucher_code' =>$oRule->getCouponCode(),
-							'vc_fromdate' =>$customer->getCreatedAt(),
-							'vc_todate' => $totaldayspassed,
-							'voucher_type'=> 2,
-							'voucher_status'=> 1,
-							'description' =>$oRule->getDescription()
-								
-					);
-					return $welcomearr;
-				}
+					{
+						$totaldayspassed =  date('Y-m-d' , $totaldayspassed);
+						$welcomearr = array(
+								'voucher_code' =>$oRule->getCouponCode(),
+								'vc_fromdate' =>$customer->getCreatedAt(),
+								'vc_todate' => $totaldayspassed,
+								'voucher_type'=> 2,
+								'voucher_status'=> 1,
+								'description' =>$oRule->getDescription()
+									
+						);
+						return $welcomearr;
+					}
 				else
 				{
 					return false;
 				}
-	/*		}
+	 		}
 			else
 			{
 				return false;
-			} */
+			} 
 		}
 		else
 		{
 			return false;
 		}
 			
+	}
+	
+	public function getCouponValuebyrule($oRule)
+	{
+		$currency_code = Mage::app()->getStore()->getCurrentCurrencyCode();
+		$currency_symbol = Mage::app()->getLocale()->currency( $currency_code )->getSymbol();
+		
+		if($oRule->getSimpleAction()=='by_percent')
+		{
+			$retrunstr = number_format($oRule->getDiscountAmount(),2)." %";
+		}
+		else
+		{
+			$retrunstr = number_format($oRule->getDiscountAmount(),2)." ".$currency_symbol;
+		}
+		return $retrunstr;
 	}
 	
 	public function getCouponvalue($couponcode)
