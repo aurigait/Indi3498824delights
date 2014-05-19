@@ -1,0 +1,19 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">   
+  <reviewproduct_index_index>   
+  		<label>Customer My Account Product Reviews</label>
+        <update handle="customer_account"/>
+    	<reference name="my.account.wrapper">
+       		<block type="reviewproduct/index" name="reviewproduct_index" template="reviewproduct/index.phtml"/>   
+ 		</reference>
+  </reviewproduct_index_index>   
+<customer_account>
+        <!-- Mage_Review -->
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="review"><name>reviewproduct</name><path>reviewproduct/index</path><label>Review Products</label></action>
+        </reference>
+
+    </customer_account>
+
+</layout>   
+	
