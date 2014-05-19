@@ -1,0 +1,86 @@
+<div id="layerbg" ></div>
+<div class="popBlock">
+	<div class="popclose"></div>
+	<div class="first-column"> 
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('landing-pic')->toHtml() ?>
+	</div>	
+	
+	<div class="second-column">
+		<div class="block-popup">
+		<form action="landingpage/registeruser/createPost" method="post" >
+		<h2><?php echo $this->__('CREATE AN ACCOUNT') ?></h2>
+		<ul class="form-list">
+        	<li class="fields">
+               	<div class="col">
+               			<input type="text" id="firstname" name="firstname" value="" title="First Name" maxlength="255" class="input-text required-entry" placeholder="First Name">
+	        	</div>	
+               		<div class="col">
+               	        <input type="text" name="email" id="email_address" value="" title="Email Address" class="input-text validate-email required-entry" placeholder="Email">
+                   </div>
+			</li>
+           	<li class="fields">
+				<div class="col">
+               			<input type="password" name="password" id="password" title="Password" class="input-text required-entry validate-password" placeholder="Password">
+                </div>
+                <div class="col">
+               	    	<input type="password" name="confirmation" title="Confirm Password" id="confirmation" class="input-text required-entry validate-cpassword" placeholder="Confirm Password">
+                </div>
+			</li>
+			<li class="fields">
+				<div class="col">
+               		<?php 
+						$country=$this->getLayout()->createBlock("directory/data");
+						echo $country->getCountryHtmlSelect("","country_id","country_id");
+					?>
+                </div>
+                <div class="col">
+               	            <select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" class="validate-select" style="display:none;">
+                                <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+                            </select>
+                            
+                            <input placeholder="Region" type="text" id="region" name="region" title="<?php echo $this->__('State/Province') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
+                        </div>
+				
+			</li>
+			<li>
+				<div class="col">
+               		<button type="submit" title="Submit" class="button"><span><span>Submit</span></span></button>
+        		</div>
+			</li>
+        </ul>
+        </form>
+	</div>
+                                                                                               
+    <div class="block-popup">
+      <h2><?php echo $this->__('Login') ?></h2>
+        <div class="col login-left">
+	      
+	        <form id="login-form" action="<?php echo $this->helper('customer')->getLoginPostUrl();?>" method="post">
+		            <?php  echo $this->getBlockHtml('formkey'); ?>
+		            <ul class="form-list">
+		               <li class="fields">
+		        		        <input type="text" class="input-text required-entry validate-email" id="login-email" name="login[username]" placeholder="Email"/>
+		                </li>
+		               <li class="fields">   
+		                        <input type="password" class="input-text required-entry" id="login-password" name="login[password]" placeholder="Password"/>
+		                </li>
+		            	<li>
+								<button type="submit" title="Submit" class="button"><span><span>Submit</span></span></button>
+	        			</li>
+		            </ul>
+		    </form>
+	    	</div>
+			<div class="col social-login">
+				<?php 
+					$gomage=$this->getLayout()->createBlock("gomage_social/login")->setTemplate('gomage/social/login.phtml')->setPlace("checkout");
+		echo $gomage->toHtml();
+				?>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+var region=<?php echo $this->helper('directory')->getRegionJson() ?>;		
+var billingRegionUpdater = new RegionUpdater('country_id', 'region', 'region_id', region, undefined, '');
+jQuery("#layerbg,.popclose").click(function(){jQuery(".popBlock").hide();jQuery("#layerbg").hide()});
+</script>
