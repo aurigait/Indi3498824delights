@@ -19,13 +19,15 @@ class Aurigait_Voucher_Model_Cron{
 	
 	public function setUsercommulativeVoucher()
 	{
-		
+	
 		// user cumulative voucher code.
 		$customrule_type= 3;
 		$rulesCollection = Mage::getModel('salesrule/rule')->getCollection();
-		$rulesCollection->getSelect()->where('main_table.rule_type = "'.$customrule_type.'"');//$rulesCollection->load(true,true);die;
+		$rulesCollection->getSelect()->where('main_table.rule_type = "'.$customrule_type.'"');
+		$rulesCollection->getSelect()->order('main_table.threshold_amount DESC');
+		 
 		//	$oRule = Mage::getModel('salesrule/rule')->load($customrule_type,'rule_type');
-
+	
 		$customer_array =array();
 		foreach($rulesCollection as $rul)
 		{
@@ -33,30 +35,37 @@ class Aurigait_Voucher_Model_Cron{
 			$thresholdamount = $rul['threshold_amount'];
 			$todate = date('Y-m-d');
 			$fromdate = date('Y-m-d' , strtotime('-'.$thresholdperiod.' days' ));
-            
+	
 			$write = Mage::getSingleton('core/resource')->getConnection('core_write');
-			
-			$sql = "select customer_id , sum(base_subtotal ) as totalorderamount from sales_flat_order where status= 'complete' and date(created_at) >'".$fromdate."' and date(created_at) <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$thresholdamount."  ";
-			$data=$write->fetchAll($sql);
 				
-			$templateid =  $rul['email_template'];
+			$sql = "select customer_id , sum(grand_total ) as totalorderamount from sales_flat_order where status= 'complete' and date(created_at) >'".$fromdate."' and date(created_at) <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$thresholdamount."  ";
+
+			$data=$write->fetchAll($sql);
+			
+			$templateid =  $rul['email_template']; 
 			$couponcode = $rul['code'];
+			
+		
 			foreach($data as $row)
 			{
+				 
 				$customerData = Mage::getModel('customer/customer')->load($row['customer_id']);
 					
 				$customerEmailId = $customerData->getEmail();
+				
 				$customerFName = $customerData->getFirstname();
 				
 				$helperobj = Mage::Helper('voucher/customhelper');
 				
 				$offeramount = $helperobj->getCouponvalue($couponcode);
 				
-				if(!in_array($customerEmailId, $customer_array))
+				
+				$isValiduser = Mage::getModel('voucher/voucherlistcustomer')->checkCustomerByCoupon($row['customer_id'],$couponcode);
+				if( $isValiduser!=1  && !in_array($customerEmailId, $customer_array))
 				{
 					$customer_array[]=$customerEmailId;
 					$this->sendmail($customerEmailId,$customerFName,$offeramount,$couponcode,$templateid);
-					Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($row['customer_id'],$couponcode,$row['totalorderamount'],$fromdate,$todate,5);
+					Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($row['customer_id'],$couponcode,$row['totalorderamount'],$fromdate,$todate,$customrule_type);
 				}
 					
 			}
@@ -64,7 +73,7 @@ class Aurigait_Voucher_Model_Cron{
 			
 	
 		/*
-		$this->voucherperiod  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/voucherperiod');
+			$this->voucherperiod  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/voucherperiod');
 		$this->thresholdamount1  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/thresholdamount1');
 		$this->offerprice1  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/offerprice1');
 		$this->thresholdamount2  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/thresholdamount2');
@@ -76,7 +85,7 @@ class Aurigait_Voucher_Model_Cron{
 		$this->alertamount  = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/alertamount');
 	
 		$this->offertype = Mage::getStoreConfig('usercumulativevouchers/gusercumulativevouchers/offertype');
-		
+	
 		$this->thresholarr = array($this->thresholdamount1,$this->thresholdamount2,$this->thresholdamount3);
 	
 		$this->thresholdamoutarry = array(
@@ -88,11 +97,11 @@ class Aurigait_Voucher_Model_Cron{
 		$minimumthreshold = min($this->thresholarr);
 	
 	
-		
+	
 		$minimumthreshold = min($thresholdarray);
-		
-		
-		
+	
+	
+	
 		$todate = date('Y-m-d');
 		$fromdate = date('Y-m-d' , strtotime('-'.$this->voucherperiod.' days' ));
 	
@@ -114,48 +123,48 @@ class Aurigait_Voucher_Model_Cron{
 			
 		foreach($data as $row)
 		{
-				
-			$orderamount  = number_format( $row['totalorderamount'],2);
-				
-			$offeramount = $this->getOfferbyOrderamout($orderamount);
-			$helperobj->_offerprice =$offeramount;
-			$helperobj->_code ='CUST';
-			
-			
-			
-			
-			$couponcreatedalready = Mage::getModel('voucher/voucherlistcustomer')->testcoupon($row['customer_id'],$orderamount,$fromdate,$minimumthreshold);
 	
-			if($couponcreatedalready>=0)
-			{
-				if($couponcreatedalready>0)
-				{
-					$orderamount1  = number_format( $couponcreatedalready,2);
+		$orderamount  = number_format( $row['totalorderamount'],2);
 	
-					$offeramount = $this->getOfferbyOrderamout($orderamount1);
-					$helperobj->_offerprice =$offeramount;
-				} 
-			//	$stringData.= '##'.$row[customer_id].'@@'.$offeramount.'<br>/n'.$offeramount;
-				
-				$stringData.=$customerEmailId.','.$customerFName;
-				$customerData = Mage::getModel('customer/customer')->load($row['customer_id']);
-				
-				$customerEmailId = $customerData->getEmail();
-				$customerFName = $customerData->getFirstname();
-				//$stringData.=$customerEmailId.','.$customerFName;
-				
-				
-				
-				$couponcode = $helperobj->CreateCustomCoupon();
-				
-				$this->sendmail($customerEmailId,$customerFName,$offeramount,$couponcode);
-				Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($row['customer_id'],$couponcode,$orderamount,$fromdate,$todate);
-					
-			}
+		$offeramount = $this->getOfferbyOrderamout($orderamount);
+		$helperobj->_offerprice =$offeramount;
+		$helperobj->_code ='CUST';
+			
+			
+			
+			
+		$couponcreatedalready = Mage::getModel('voucher/voucherlistcustomer')->testcoupon($row['customer_id'],$orderamount,$fromdate,$minimumthreshold);
+	
+		if($couponcreatedalready>=0)
+		{
+		if($couponcreatedalready>0)
+		{
+		$orderamount1  = number_format( $couponcreatedalready,2);
+	
+		$offeramount = $this->getOfferbyOrderamout($orderamount1);
+		$helperobj->_offerprice =$offeramount;
+		}
+		//	$stringData.= '##'.$row[customer_id].'@@'.$offeramount.'<br>/n'.$offeramount;
+	
+		$stringData.=$customerEmailId.','.$customerFName;
+		$customerData = Mage::getModel('customer/customer')->load($row['customer_id']);
+	
+		$customerEmailId = $customerData->getEmail();
+		$customerFName = $customerData->getFirstname();
+		//$stringData.=$customerEmailId.','.$customerFName;
+	
+	
+	
+		$couponcode = $helperobj->CreateCustomCoupon();
+	
+		$this->sendmail($customerEmailId,$customerFName,$offeramount,$couponcode);
+		Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($row['customer_id'],$couponcode,$orderamount,$fromdate,$todate);
 			
 		}
-		 
-			*/
+			
+		}
+			
+		*/
 	
 	} 
 	
@@ -249,7 +258,7 @@ class Aurigait_Voucher_Model_Cron{
 		}
 		else if($offertype==2)
 		{
-			$helperobj->_actiontype ="by_fixed";
+			$helperobj->_actiontype ="cart_fixed";
 		}
 	
 		$helperobj->_couponname = 'Invititaion Voucher';
@@ -319,7 +328,8 @@ class Aurigait_Voucher_Model_Cron{
 						$orderdate = $orderrow->getCreatedAtTimestamp();
 						if($orderdate<=$firstorderdate)
 						{
-							Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
+							$this->createcouponforreferaltype2($response['sender_id'],$orderrow->getBaseSubtotal(),$customerData['firstname']);
+							//Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
 							$this->createcouponforreferaltype2($response['sender_id'],$orderrow->getBaseSubtotal());
 	
 						}
@@ -337,7 +347,7 @@ class Aurigait_Voucher_Model_Cron{
 		}
 	}
 	
-	public function createcouponforreferaltype2($customerid,$orderamount)
+	public function createcouponforreferaltype2($customerid,$orderamount,$customerName)
 	{
 	
 		$offerprice = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/offerprice');
@@ -364,12 +374,12 @@ class Aurigait_Voucher_Model_Cron{
 		}
 		else if($offertype==2)
 		{
-			$helperobj->_actiontype ="by_fixed";
+			$helperobj->_actiontype ="cart_fixed";
 		}
 		else if($offertype==3)
 		{
 			$helperobj->_offerprice = $this->getOfferbyOrderamoutinvit($orderamount,$offerprice);
-			$helperobj->_actiontype ="by_fixed";
+			$helperobj->_actiontype ="cart_fixed";
 				
 		}
 		$iconimage  = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/icon');
@@ -436,10 +446,10 @@ class Aurigait_Voucher_Model_Cron{
 		if($templateId)
 		{
 			// Send Transactional Email
-			/*	Mage::getModel('core/email_template')
+				Mage::getModel('core/email_template')
 			 ->addBcc($senderEmail)      // You can remove it if you don't need to send bcc
 			->sendTransactional($templateId, $sender, $recepientEmail, $recepientName, $vars, $storeId);
-			*/
+			
 		}
 		$translate->setTranslateInline(true);
 	
