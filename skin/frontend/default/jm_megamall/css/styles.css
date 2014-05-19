@@ -784,7 +784,7 @@ input.input-text:focus,select:focus,textarea:focus {
 .form-list .customer-dob .dob-month {
 	width: 60px
 }
-
+styles.css
 .form-list .customer-dob .dob-day input.input-text,
 .form-list .customer-dob .dob-month input.input-text {
 	width: 46px
@@ -6050,7 +6050,8 @@ ul.ja-tab-navigator li.active a{
 
 .opc .buttons-set p.required {
 	margin: 0;
-	padding: 0 0 10px
+	padding: 0 0 10px;
+	display:none;
 }
 
 .opc .buttons-set .back-link small {
@@ -6152,7 +6153,7 @@ ul.ja-tab-navigator li.active a{
 /*.opc .active .step-title a { display:none; }*/
 
 .opc .step {
-	margin: 40px;
+	margin: 20px 40px; /*40px;*/
 	padding: 0;
 	position: relative
 }
