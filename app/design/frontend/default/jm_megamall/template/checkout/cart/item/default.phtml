@@ -63,8 +63,9 @@ $_product=Mage::getModel("catalog/product")->load($_item->getProduct()->getId())
         <?php endif;?>
           <?php if ($isVisibleProduct): ?>
             <a href="<?php echo $this->helper('wishlist')->getAddUrl($_item->getId()); ?>" class="link-wishlist use-ajax"><?php echo $this->__('ADD TO WISHLIST'); ?></a>
-        <?php endif; 
-        if(!empty($_item->getUserRemark())) { ?>
+        <?php endif;
+        $userremark = $_item->getUserRemark();
+        if(!empty($userremark)) { ?>
 		<div class="user-remark"><em> &quot;<?php echo $_item->getUserRemark();?>&quot; </em></div>
 		<?php } ?>
 		<?php if ($messages = $this->getMessages()): ?>

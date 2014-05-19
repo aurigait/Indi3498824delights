@@ -51,15 +51,17 @@ class Aurigait_Voucher_Model_Voucherlistcustomer extends Mage_Core_Model_Abstrac
     public function checkCustomerByCoupon($customerid,$couponcode)
     {
     	$write = Mage::getSingleton('core/resource')->getConnection('core_write');
-    	$sql = "select id from {$this->thistablename()} where  customer_id =  '".$customer_id."' and voucher_code =  '".$couponcode."' and status =1 ";
+    	$sql = "select id from {$this->thistablename()} where  customer_id =  '".$customerid."' and voucher_code =  '".$couponcode."' and status =1 ";
+    	
     	$oldorderamount = $write->fetchone($sql);
+    	
     	if($oldorderamount)
     	{
     		return true;
     	}
     	else
     	{
-    		return false;
+    		 return false;
     	}
     }
     

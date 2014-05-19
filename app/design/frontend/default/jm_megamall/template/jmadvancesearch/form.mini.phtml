@@ -44,6 +44,8 @@ $catalogSearchHelper =  $this->helper('catalogsearch');
 			</select>
 		</div>*/?>
 		<div class="form-search">
+			<input type="hidden" name="order" value="relevance">
+		    <input type="hidden" name="dir" value="desc">
 			<input type="text" maxlength="128" class="input-text " title="Name" value="" id="name" name="name">
 			<button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button>
 		</div>

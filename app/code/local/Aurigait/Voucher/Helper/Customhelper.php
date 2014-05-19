@@ -24,8 +24,10 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 		foreach($rulesCollection as $rule)
 		{
 			$vouchercustomarr = array();
-		// 	echo  $rule->getCode().'##'.$rule->getRuleType().'@@'.$rule->getTimesUsed().'@<br>';
+			//echo  $rule->getCode().'##'.$rule->getRuleType().'@@'.$rule->getTimesUsed().'@<br>'.$rule->getTimesUsed();
 			$isValidcoupon = true;
+			
+			
 			if($customer->getId())
 			{
 				switch($rule->getRuleType())
@@ -59,21 +61,38 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 						break;
 					case 5:
 						//for invitation voucher
-						if(($rule->getTimesUsed()) && $rule->getTimesUsed()>=$oRule->getUsesPerCustomer() )
+						 
+						$isValiduser = Mage::getModel('voucher/voucherlistcustomer')->checkCustomerByCoupon($customer->getId(),$rule->getCode());
+					 
+						if(($isValiduser !=1)  ) // && ($rule->getTimesUsed()) && $rule->getTimesUsed()>=$rule->getUsesPerCustomer() )
 						{
+							
 							$isValidcoupon = false;
 						}
 						else
 						{
-							$isValidcoupon = true;
+							if( $this->checkWelcomevoucher($customer,$rule->getCode()))
+							{
+								$isValidcoupon = true;
+							}
+							else
+							{
+								$isValidcoupon = false;
+							}
+							
 						}
 						break;
 							
 						
 				}
 			}
-			
-			if($isValidcoupon && $rule->getCode())
+			if(($rule->getTimesUsed()) && $rule->getTimesUsed()>=$rule->getUsesPerCustomer() )
+			{
+				$isValidcoupon = false;
+			}
+				
+				
+			if(($isValidcoupon) && $rule->getCode())
 			{
 				$vouchercustomarr['voucher_code'] = $rule->getCode();
 				$vouchercustomarr['description'] = $rule->getDescription();
@@ -129,7 +148,8 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 			else if($ref['voucher_type']==5 or $ref['voucher_type']==6)
 			{
 					
-				if(($oRule->getUsesPerCustomer()) && $oCoupon->getTimesUsed()>=$oRule->getUsesPerCustomer() )
+				//if(($oRule->getUsesPerCustomer()) && $oCoupon->getTimesUsed()>=$oRule->getUsesPerCustomer() )
+				if(!$this->checkWelcomevoucher($customer,$ref['voucher_code']))
 				{
 					$ref['voucher_status'] =0;
 				}
@@ -151,6 +171,7 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 		->addFieldToFilter('customer_id',$customer->getId())
 		->addFieldToFilter('coupon_code',$code);
 		
+		//echo ($orders->load(true,true));
 		if($orders->getSize()>=1)
 		{
 			return false;

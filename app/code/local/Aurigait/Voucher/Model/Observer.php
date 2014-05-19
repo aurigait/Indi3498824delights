@@ -75,14 +75,15 @@ class Aurigait_Voucher_Model_Observer
 		
 		
 		
+		if($templateId)
+		{
+			// Send Transactional Email
+			Mage::getModel('core/email_template')
+			->addBcc($senderEmail)      // You can remove it if you don't need to send bcc
+			->sendTransactional($templateId, $sender, $recepientEmail, $recepientName, $vars, $storeId);
 		
-		// Send Transactional Email
-		Mage::getModel('core/email_template')
-		->addBcc($senderEmail)      // You can remove it if you don't need to send bcc
-		->sendTransactional($templateId, $sender, $recepientEmail, $recepientName, $vars, $storeId);
-	
-		$translate->setTranslateInline(true);
-	 
+			$translate->setTranslateInline(true);
+		} 
 		
 		//$this->checkforreferafriend($customerdata);
 		 

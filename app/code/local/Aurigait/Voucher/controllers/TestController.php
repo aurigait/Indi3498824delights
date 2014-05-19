@@ -28,7 +28,9 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 		// user cumulative voucher code.
 		$customrule_type= 3;
 		$rulesCollection = Mage::getModel('salesrule/rule')->getCollection();
-		$rulesCollection->getSelect()->where('main_table.rule_type = "'.$customrule_type.'"');//$rulesCollection->load(true,true);die;
+		$rulesCollection->getSelect()->where('main_table.rule_type = "'.$customrule_type.'"');
+		$rulesCollection->getSelect()->order('main_table.threshold_amount DESC');
+		 
 		//	$oRule = Mage::getModel('salesrule/rule')->load($customrule_type,'rule_type');
 	
 		$customer_array =array();
@@ -41,14 +43,17 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 	
 			$write = Mage::getSingleton('core/resource')->getConnection('core_write');
 				
-			$sql = "select customer_id , sum(grand_total ) as totalorderamount from sales_flat_order where status= 'complete' and date(created_at) >'".$fromdate."' and created_at <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$thresholdamount."  ";
+			$sql = "select customer_id , sum(grand_total ) as totalorderamount from sales_flat_order where status= 'complete' and date(created_at) >'".$fromdate."' and date(created_at) <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$thresholdamount."  ";
 
 			$data=$write->fetchAll($sql);
-	 
-			$templateid =  $rul['email_template'];
+			
+			$templateid =  $rul['email_template']; 
 			$couponcode = $rul['code'];
+			
+		
 			foreach($data as $row)
 			{
+				 
 				$customerData = Mage::getModel('customer/customer')->load($row['customer_id']);
 					
 				$customerEmailId = $customerData->getEmail();
@@ -58,7 +63,10 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 				$helperobj = Mage::Helper('voucher/customhelper');
 				
 				$offeramount = $helperobj->getCouponvalue($couponcode);
-				if(!in_array($customerEmailId, $customer_array))
+				
+				
+				$isValiduser = Mage::getModel('voucher/voucherlistcustomer')->checkCustomerByCoupon($row['customer_id'],$couponcode);
+				if( $isValiduser!=1  && !in_array($customerEmailId, $customer_array))
 				{
 					$customer_array[]=$customerEmailId;
 					$this->sendmail($customerEmailId,$customerFName,$offeramount,$couponcode,$templateid);
@@ -307,7 +315,6 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 			 
 			foreach ($order as $orderrow)
 			{
-				
 			 
 				$customerData = Mage::getModel('customer/customer')->load($orderrow->getCustomerId())->getData();
 				$registerdate = strtotime($customerData['created_at']);
@@ -322,7 +329,7 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 					//$friendacceptationperiod = $friendacceptationperiod;
 					$friendacceptationdate  =  $referaldate + ( (24*60*60) * $friendacceptationperiod);
 					echo $registerdate.'<br>'.$friendacceptationdate;
-					if($registerdate<=$friendacceptationdate)
+					if( ($registerdate>=$referaldate )  && $registerdate<=$friendacceptationdate)
 					{
 						$orderinfo = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('customer_id',$orderrow->getCustomerId());
 	
@@ -331,8 +338,8 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 						if($orderdate<=$firstorderdate)
 						{
 						
-							$this->createcouponforreferaltype2($response['sender_id'],$orderrow->getBaseSubtotal());
-						//	Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
+							$this->createcouponforreferaltype2($response['sender_id'],$orderrow->getBaseSubtotal(),$customerData['firstname']);
+							Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
 	
 						}
 	
@@ -349,7 +356,7 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 		}
 	}
 	
-	public function createcouponforreferaltype2($customerid,$orderamount)
+	public function createcouponforreferaltype2($customerid,$orderamount,$customerName)
 	{
 	
 		$offerprice = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/offerprice');
@@ -377,12 +384,14 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 		}
 		else if($offertype==2)
 		{
-			$helperobj->_actiontype ="by_fixed";
+			$helperobj->_actiontype ="cart_fixed";
 		}
 		else if($offertype==3)
 		{  
 			$offerprice = $this->getOfferbyOrderamoutinvit($orderamount,$offerprice);
-			$helperobj->_actiontype ="by_fixed";
+
+			//$helperobj->_actiontype ="by_fixed";
+			$helperobj->_actiontype ="cart_fixed";
 			 
 	
 		}
@@ -411,6 +420,8 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 	
 		$helperobj->_code ='INVITE';
 		$helperobj->_friendnamecode = substr($customerName, 0,4);
+		
+		
 			
 		$couponcode = $helperobj->CreateCustomCoupon();
 		$customerData = Mage::getModel('customer/customer')->load($customerid);
@@ -426,10 +437,12 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 		$senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');
 		$sender = array('name' => $senderName,
 				'email' => $senderEmail);
-	
+	 
+		
 		$customerdata = $senderdata;
-	
-		$recepientEmail = $customerdata['sender_emailid'];
+	 
+		$recepientEmail = trim($customerdata['email']);
+		$recepientName = $customerdata['firstname'];
 		$registerdemail =  $customerdata['receiver_emailid'] ;
 	
 		$store = Mage::app()->getStore()->getId();
@@ -440,6 +453,8 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 		$templateId = $oRule['email_template'];
 		//$templateId = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/email_template');
 	
+		
+		
 		$vars = array(
 				'coupon_prize' => $oRule['discount_amount'],
 				'coupon_code' =>$couponcode,
@@ -451,13 +466,13 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 	
 		if($templateId)
 		{
-			// Send Transactional Email
-			/*	Mage::getModel('core/email_template')
-			 ->addBcc($senderEmail)      // You can remove it if you don't need to send bcc
+			Mage::getModel('core/email_template')
+			->addBcc($senderEmail)      // You can remove it if you don't need to send bcc
 			->sendTransactional($templateId, $sender, $recepientEmail, $recepientName, $vars, $storeId);
-			*/
+			
+			$translate->setTranslateInline(true);
 		}
-		$translate->setTranslateInline(true);
+		
 	
 	
 			
