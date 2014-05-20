@@ -20,11 +20,11 @@ class Aurigait_Landingpage_Block_Loginpopup extends Mage_Core_Block_Template {
 		
 		$cookie=Mage::getModel('core/cookie')->get("landing_step");
 		
-		if (! $this->helper('customer')->isLoggedIn() && empty($cookie)){
+	/*	if (! $this->helper('customer')->isLoggedIn() && empty($cookie)){
 			$this->setTemplate('landingpage/popup.phtml');
 			Mage::getModel('core/cookie')->set("landing_step",1);
 		}
-		
+		*/
 	}
 	public function isVisible() {
 

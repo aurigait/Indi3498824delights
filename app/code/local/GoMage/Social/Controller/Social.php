@@ -53,7 +53,7 @@ abstract class GoMage_Social_Controller_Social extends Mage_Core_Controller_Fron
         		 
         $customer->save();
         $customer->sendNewAccountEmail(); 
-        
+        Mage::dispatchEvent('customer_register_success', array('customer' => $customer));
         return $customer;
         
 	}

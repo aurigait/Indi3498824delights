@@ -96,6 +96,7 @@
 		
 	</div>
 </div>
+
 <script type="text/javascript">
 //<![CDATA[
 (function($) {
@@ -188,5 +189,21 @@
 <script type="text/javascript">
 function googleTranslateElementInit() {
  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false}, 'select-language');
+setTimeout('chnagelanguage()',2000);
+ 
+	
 }
 </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+<script type="text/javascript">
+
+function chnagelanguage()
+{
+	(jQuery('#select-language .goog-te-menu-value span:first-child' ).html('English '));
+	 
+} /*
+$(".goog-close-link").live("click",function(){
+	  alert("The paragraph was clicked.");
+	}); */
+</script>
