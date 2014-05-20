@@ -36,7 +36,22 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 						//for welcome voucher
 					    if($this->checkWelcomevoucher($customer,$rule->getCode()))
 						{
-							$isValidcoupon = true;
+							
+							$configValue = Mage::getStoreConfig('welcomevoucher/gwelcomevoucher/vouchervaliditypperiod');
+								
+							$daygap = ($configValue * 24 * 60 * 60);
+							$registerdate = $customer->getCreatedAtTimestamp();
+							
+							$totaldayspassed =  $customer->getCreatedAtTimestamp() + $daygap;
+							if( strtotime(now()) <= $totaldayspassed)
+							{
+								$isValidcoupon = true;
+							}
+							else
+							{
+								$isValidcoupon = false;
+							}
+							
 						}
 						else
 						{
@@ -86,7 +101,7 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 						
 				}
 			}
-			if(($rule->getTimesUsed()) && $rule->getTimesUsed()>=$rule->getUsesPerCustomer() )
+			if( ($rule->getUsesPerCustomer() >0 && ($rule->getRuleType() !=2 )) && ($rule->getTimesUsed()) && $rule->getTimesUsed()>=$rule->getUsesPerCustomer() )
 			{
 				$isValidcoupon = false;
 			}
