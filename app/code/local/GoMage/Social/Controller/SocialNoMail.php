@@ -116,6 +116,7 @@ abstract class GoMage_Social_Controller_SocialNoMail extends GoMage_Social_Contr
                         if ($customer && $customer->getId()){
                             $this->createSocial($profile->id, $customer->getId());
                             $customer->setConfirmation(true);
+                            Mage::dispatchEvent('customer_register_success', array('customer' => $customer));
                             if (!$customer->getConfirmation()) {
                                 $this->getSession()->loginById($customer->getId());
                             }

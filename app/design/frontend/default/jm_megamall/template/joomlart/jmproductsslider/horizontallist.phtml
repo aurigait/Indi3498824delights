@@ -51,7 +51,7 @@ if($configs['autorun']){
 <div class="block jm-products-slider-listing jm-products-slider-horizon" id="jmmainwrap-<?php echo $divid?>">
 	<?php if(isset($configs['title']) && $configs['title']!=''){?>
 	<div class="block-title"><strong><span><?php echo $configs['title']?> </span></strong>
-		<?php if (!$configs['use_scrollerbar']){ ?>
+		<?php if ( (!$configs['use_scrollerbar'] ) && (($_collectionSize) && count($listall->getItems())>4) ){ ?>
 		<div class="jm-prev">
 			<i class="fa fa-caret-left"></i>
 		</div>
@@ -62,7 +62,7 @@ if($configs['autorun']){
 	</div>
 	<?php }?>	
 
-	<?php if($_collectionSize){?>
+	<?php  if($_collectionSize){?>
 	
 		  <div class="jm-products-slider-content clearfix block-content <?php echo $classid; ?>" > 
 		  
