@@ -30,6 +30,11 @@
  *
  * @var $this Mage_Checkout_Block_Onepage_Payment_Methods
  */
+$cod_avail=Mage::registry('Cod_not_avail');
+if(cod_avail)
+{
+	echo $cod_avail;
+}
 ?>
 
 <?php

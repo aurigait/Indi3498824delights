@@ -12,6 +12,7 @@
  */
 ?>
 <?php
+	
 	$services = Mage::helper('gomage_social')->getServices($this->getPlace());
 ?>
 <?php if (count($services)): ?>
@@ -67,7 +68,7 @@
                      <?php echo $this->getServiceBlock($type, $type==  $last_type);?>
                     <?php break; ?>
                     <?php case (GoMage_Social_Model_Type::TWITTER): ?>
-                       <?php echo $this->getServiceBlock($type, $type==  $last_type);?>
+                       <?php  echo $this->getServiceBlock($type, $type==  $last_type);?>
                         <?php break; ?>
                     <?php case (GoMage_Social_Model_Type::TUMBLR): ?>
                         <?php echo $this->getServiceBlock($type, $type==  $last_type);?>
