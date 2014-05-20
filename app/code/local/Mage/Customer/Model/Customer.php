@@ -840,9 +840,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $errors[] = Mage::helper('customer')->__('The first name cannot be empty.');
         }
 
-        if (!Zend_Validate::is( trim($this->getLastname()) , 'NotEmpty')) {
+       /* //Somesh Remove validation
+        * if (!Zend_Validate::is( trim($this->getLastname()) , 'NotEmpty')) {
             $errors[] = Mage::helper('customer')->__('The last name cannot be empty.');
         }
+        */
 
         if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
             $errors[] = Mage::helper('customer')->__('Invalid email address "%s".', $this->getEmail());

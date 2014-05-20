@@ -1,3 +1,62 @@
+<script>
+
+
+	function submitReg(obj)
+	{
+		var status=1;
+		jQuery(obj).find(".required-entry").each(function(){
+			if(jQuery(this).val()=="")
+			{	status=0;
+				jQuery(this).addClass("error_pop");
+			}
+			else
+			{
+				jQuery(this).removeClass("error_pop");
+			}
+			});
+		 var pattern = /^[a-zA-Z0-9\-_]+(\.[a-zA-Z0-9\-_]+)*@[a-z0-9]+(\-[a-z0-9]+)*(\.[a-z0-9]+(\-[a-z0-9]+)*)*\.[a-z]{2,4}$/;
+		   
+		if(!pattern.test(jQuery('#email_address').val()) )
+		{	
+			status=0;
+			jQuery('#email_address').addClass("error_pop");
+		}
+		
+		if(jQuery('#confirmation').val() != jQuery('#password').val())
+		{	
+			status=0;
+			jQuery('#confirmation').addClass("error_pop");
+		}
+
+		if(status)
+			return true;
+		return false;
+		
+	}
+	function submitLogin()
+	{
+		 var pattern = /^[a-zA-Z0-9\-_]+(\.[a-zA-Z0-9\-_]+)*@[a-z0-9]+(\-[a-z0-9]+)*(\.[a-z0-9]+(\-[a-z0-9]+)*)*\.[a-z]{2,4}$/;
+		var status=1;
+		if(jQuery('#login-email').val()=="" || !pattern.test(jQuery('#login-email').val()) )
+		{	status=0;
+			jQuery('#login-email').addClass("error_pop");
+		}
+		
+		if(jQuery('#login-password').val() == "")
+		{	status=0
+			jQuery('#login-password').addClass("error_pop");
+
+		}
+		if(status)
+			return true;
+		return false;
+		
+
+	}
+
+	
+
+</script>
 <div id="layerbg" ></div>
 <div class="popBlock">
 	<div class="popclose"></div>
@@ -7,7 +66,7 @@
 	
 	<div class="second-column">
 		<div class="block-popup">
-		<form action="landingpage/registeruser/createPost" method="post" >
+		<form action="landingpage/registeruser/createPost" method="post" onSubmit="return submitReg(this)">
 		<h2><?php echo $this->__('CREATE AN ACCOUNT') ?></h2>
 		<ul class="form-list">
         	<li class="fields">
@@ -55,7 +114,7 @@
       <h2><?php echo $this->__('Login') ?></h2>
         <div class="col login-left">
 	      
-	        <form id="login-form" action="<?php echo $this->helper('customer')->getLoginPostUrl();?>" method="post">
+	        <form id="login-form" action="<?php echo $this->helper('customer')->getLoginPostUrl();?>" method="post" onSubmit="return submitLogin()">
 		            <?php  echo $this->getBlockHtml('formkey'); ?>
 		            <ul class="form-list">
 		               <li class="fields">
@@ -65,7 +124,7 @@
 		                        <input type="password" class="input-text required-entry" id="login-password" name="login[password]" placeholder="Password"/>
 		                </li>
 		            	<li>
-								<button type="submit" title="Submit" class="button"><span><span>Submit</span></span></button>
+						 		<button type="submit" title="Submit" class="button"><span><span>Submit</span></span></button>
 	        			</li>
 		            </ul>
 		    </form>
@@ -84,3 +143,5 @@ var region=<?php echo $this->helper('directory')->getRegionJson() ?>;
 var billingRegionUpdater = new RegionUpdater('country_id', 'region', 'region_id', region, undefined, '');
 jQuery("#layerbg,.popclose").click(function(){jQuery(".popBlock").hide();jQuery("#layerbg").hide()});
 </script>
+
+

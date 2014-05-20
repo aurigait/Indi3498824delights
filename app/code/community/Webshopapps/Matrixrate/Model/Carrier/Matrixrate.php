@@ -57,6 +57,15 @@ class Webshopapps_Matrixrate_Model_Carrier_Matrixrate
         if (!$this->getConfigFlag('active')) {
             return false;
         }
+        if(count($request->getAllItems())<2)
+        {
+        	$allItem=$request->getAllItems();
+        	if($allItem[0]->getQty()<2)
+        	{
+        		return false;
+        	}
+        }
+        
         
         // exclude Virtual products price from Package value if pre-configured
         if (!$this->getConfigFlag('include_virtual_price') && $request->getAllItems()) {
