@@ -120,15 +120,18 @@ foreach ($_subCaegories as $scatid)
 
 <p><?php echo $_subcat->getDescription()?></p>
 <?php
+	echo "<ul class='scatclass'>";
 	if($_subcat->hasChildren())
 	{
-		echo "<ul class='scatclass'>";
+		
 		foreach ($_subcat->getChildrenCategories() as $scat)
 		{
 			echo "<li><a href='".$scat->getURL()."'>".$scat->getName()."</a></li>";
 		}
-		echo "</ul>";		
+			
 	}
+	echo "<li><a href='".$_subcat->getURL()."'>View all</a></li>";
+	echo "</ul>";
 ?>
 
 </div>
