@@ -2825,6 +2825,11 @@ ul.ul-dropdown li a:hover img{
 	width: 100%
 }
 
+.filter-sub-category-child-inner{
+	
+	padding-left: 15px;
+}
+
 .filter-showsub{
 	background: url(../images/bg-accodior-shopby.png) no-repeat 0 -38px;
 	cursor: pointer;
