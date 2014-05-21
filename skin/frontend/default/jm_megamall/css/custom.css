@@ -89,8 +89,8 @@ body{font-family: 'Open Sans', sans-serif;}
 
 .sp-block-cate { text-align:left; border:0; padding:0;}
 .sp-block-cate h2{ float:none; text-align:left; }
-.sp-block-cate p{ text-align:left; width:65%; display:inline-block;}
-.sp-block-cate ul{ width:34%; display:inline-block; margin-top:0; text-align:right; float:right;}
+.sp-block-cate p{ text-align:left; margin-bottom:5px;}
+.sp-block-cate ul{ margin-top:0; text-align:right; float:right;}
 .page-title a{ font-size:13px;}
 
 ul.megamenu{ margin:15px 20px;}
@@ -258,8 +258,8 @@ height: 24px; width: 24px;}
 .breadcrumbs li{ display:inline-block; vertical-align:top;}
 
 .list-type-slider .sp-block-cate ul li{ display:inline-block;}
-.list-type-slider .sp-block-cate ul{ width:45%;}
-.list-type-slider .sp-block-cate p{ width:55%;}
+.list-type-slider .sp-block-cate ul{ }
+.list-type-slider .sp-block-cate p{ }
 .block-progress dd.complete{ color:#454545;}
 
 /*login*/
@@ -278,6 +278,8 @@ height: 24px; width: 24px;}
 .cart .discount .block-title{ font-size:14px;}
 .checkout-cart-index button, .checkout-onepage-index button, .cart-table button{ font-size:13px;}
 button.button{ padding:11px 16px;}
+.cart .discount .block-content, .cart .shipping .block-content{padding:5px 20px 20px;}
+.cart .totals td{padding:13px 0 10px;}
 
 /*LANDING PAGE */
 #layerbg {background-color: #fff;opacity: .8;filter: alpha(opacity=80);position: fixed;top: 0;left: 0;right: 0;bottom: 0;width: 100%;height: 100%;z-index: 9989;display: block;}
