@@ -66,7 +66,7 @@
 	
 	<div class="second-column">
 		<div class="block-popup">
-		<form action="landingpage/registeruser/createPost" method="post" onSubmit="return submitReg(this)">
+		<form action="<?php echo MAGE::getUrl('landingpage/registeruser/createPost');?>" method="post" onSubmit="return submitReg(this)">
 		<h2><?php echo $this->__('CREATE AN ACCOUNT') ?></h2>
 		<ul class="form-list">
         	<li class="fields">

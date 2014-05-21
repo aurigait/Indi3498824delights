@@ -38,7 +38,7 @@
     </div>
     <?php echo $this->getChildHtml('form_fields_before')?>
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-    <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="form-validate">
+    <form action="<?php echo MAGE::getUrl('landingpage/registeruser/createPost');// $this->getPostActionUrl() ?>" method="post" id="form-validate">
         <div class="fieldset">
             <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
             <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
@@ -53,6 +53,27 @@
                         <input type="text" name="email" id="email_address" value="<?php echo $this->escapeHtml($this->getFormData()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry" />
                     </div>
                 </li>
+                <li class="fields">
+                	<div class="customer-name">
+                		
+						<div class="field">
+						<label for="country_id" class=""><?php echo $this->__('Country') ?></label>
+		               		<?php 
+								$country=$this->getLayout()->createBlock("directory/data");
+								echo $country->getCountryHtmlSelect("","country_id","country_id");
+							?>
+		                </div>
+		                <div class="field">
+		                <label for="region_id" class=""><?php echo $this->__('Region') ?></label>
+	               	            <select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" class="validate-select" style="display:none;">
+	                                <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+	                            </select>
+	                            
+	                            <input placeholder="Region" type="text" id="region" name="region" title="<?php echo $this->__('State/Province') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
+	                    </div>
+	                </div>
+				
+				</li>
                 <?php if ($this->isNewsletterEnabled()): ?>
                 <li class="control">
                     <div class="input-box">
@@ -190,3 +211,8 @@
     //]]>
     </script>
 </div>
+<script>
+var region=<?php echo $this->helper('directory')->getRegionJson() ?>;		
+var billingRegionUpdater = new RegionUpdater('country_id', 'region', 'region_id', region, undefined, '');
+jQuery("#layerbg,.popclose").click(function(){jQuery(".popBlock").hide();jQuery("#layerbg").hide()});
+</script>
