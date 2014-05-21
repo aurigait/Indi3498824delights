@@ -186,7 +186,7 @@ ul.megamenu{ margin:15px 20px;}
 #cboxLoadedContent{ margin:0;}
 #cboxPrevious, #cboxNext, #cboxCurrent{ display:none!important;}
 #cboxLoadedContent .product-view .product-shop{ width:400px;}
-.product-options dt, .product-options dd{ display:inline-block; margin-right:3px;}
+.product-options dt, .product-options dd{ display:inline-block; margin-right:3px; vertical-align:top;}
 .product-options dd{ padding:0;}
 .product-options dd select{ width:auto; padding:5px;}
 .product-name a span{ display:block; line-height:1.5;}
@@ -246,6 +246,11 @@ height: 24px; width: 24px;}
 .product-options dt label{ margin-bottom:0;}
 .product-options dt{ vertical-align:top; margin-top:7px; margin-bottom:0;}
 .product-shop .input-text.qty{ padding:7px 10px;}
+
+#cboxContent .product-shop .product-options{ display:table-caption; margin-left:0;}
+#cboxContent .product-shop .product-options dd{ margin-bottom:0px;}
+#cboxContent .product-shop .short-description{ margin:10px 0;}
+
 
 /*Cart page*/
 .cart-table .product-name{ margin-bottom:10px;}
@@ -312,6 +317,12 @@ button.button{ padding:11px 16px;}
 .error_pop{border:1px solid red !important; }
 
 #jm-wrapper{position:relative;z-index:10}
+.autocomplete-suggestions{ background-color: #FFFFFF; color: #463C57; left: 440px !important; max-height: 300px !important; text-align: left; top: 85px !important; width: 100%; z-index: 9999 !important; border:1px solid #ebebeb; border-top:none; padding:10px 0;}	
+.autocomplete-suggestion { border-bottom: 1px solid #efefef; padding:4px 20px; cursor:pointer;}	
+.autocomplete-suggestion:hover{border-bottom: 1px solid #CCC; }
+.autocomplete-suggestion:last-child{ border:none;}
+
+
 @media only screen and (max-width: 985px) {
 .tiles-categories .col-1, .tiles-categories .col-2{ width:100%; text-align:center;}
 #select-language, .menu-region, .block-currency .block-content{ display:none;}

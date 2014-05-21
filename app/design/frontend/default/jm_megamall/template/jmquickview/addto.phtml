@@ -24,12 +24,15 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php $_product = $this->getProduct(); ?>
+<?php /*$_product = $this->getProduct(); ?>
 <?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product); ?>
 
 <ul class="add-to-links">
-<?php //if ( $this->helper('customer')->isLoggedIn()  && $this->helper('wishlist')->isAllow()) : ?>
-    <li><a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+<?php //if ( $this->helper('customer')->isLoggedIn()  && $this->helper('wishlist')->isAllow()) : ?> 
+    <li><a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a>
+    	 <button type="submit" title="Wishlist" class="button btn-cart"  onclick="productAddToCartForm.submitLight(this,'<?php echo $_wishlistSubmitUrl;?>')"><span><span>Wishlist</span></span></button>
+    
+    </li>
 <?php //endif; ?>
 <?php
   //  $_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product);

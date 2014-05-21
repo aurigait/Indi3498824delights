@@ -33,7 +33,12 @@
 ?>
 <?php $_helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
-<?php $baseconfig =  Mage::helper("jmbasetheme")->getactiveprofile(); ?>
+<?php $baseconfig =  Mage::helper("jmbasetheme")->getactiveprofile(); 
+
+$attributeSetModel = Mage::getModel("eav/entity_attribute_set");
+$attributeSetModel->load($_product->getAttributeSetId());
+$attributeSetName = $attributeSetModel->getAttributeSetName();
+?>
 
 <script type="text/javascript">
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
@@ -80,11 +85,33 @@
                 ?>
                     <li><label>From:</label> <strong><?php echo $from; ?></strong></li>
                 <?php } ?>
-                <?php $brand= $_product->getResource()->getAttribute('brand')->getFrontend()->getValue($_product);
-                if(!(empty($brand) || $brand=="No")){
-                ?>
+                <?php 
+                	$brand_attr="";
+                	
+                	if($attributeSetName=="Food_AS")
+                		$brand_attr="fa_brand";
+                	if($attributeSetName=="Accessories_Bags_AS")
+                		$brand_attr="acb_brand";
+                	if($attributeSetName=="Accessories_Footwear_AS")
+                		$brand_attr="acfa_brand";
+                	if($attributeSetName=="Accessories_Jewellery")
+                		$brand_attr="acj_brand";
+                	if($attributeSetName=="Accessories_StolesNShawls")
+                		$brand_attr="acfa_brand";
+                	
+                	$brand= $_product->getResource()->getAttribute($brand_attr);
+                	
+                	if($brand){
+                		$brand=$brand->getFrontend()->getValue($_product);
+                		?>
                     <li><label>Brand:</label> <strong><?php echo $brand; ?></strong></li>
-                 <?php } ?>
+                 <?php  }?>
+                 <?php $vendor= $_product->getResource()->getAttribute('ga_vender')->getFrontend()->getValue($_product);
+                if(!empty($from)){
+                ?>
+                    <li><label>Vendor:</label> <strong><?php echo $vendor; ?></strong></li>
+                <?php } ?>
+                 
                  <?php 
                  $product_occ= $_product->getData('product_occasion');
                  if(!empty($product_occ)):
@@ -163,16 +190,36 @@
                 </div>
             <?php endif; */ ?>
             
-            <ul class="tick-list"><?php $cod= $_product->getResource()->getAttribute('cod_available')->getFrontend()->getValue($_product);
-				 if($cod=='Yes'): ?>
-            	<li><i class="fa fa-check"></i>COD Availabel</li><?php endif; ?>
-                <?php if($_product->getResource()->getAttribute('ga_returnable'))
-							$returnable= $_product->getResource()->getAttribute('ga_returnable')->getFrontend()->getValue($_product);
-                if($returnable=='Yes'): ?>
-                <li><i class="fa fa-check"></i>Returnable </li> <?php endif; ?>
-                <?php if($_product->getResource()->getAttribute('ga_int_ship_allowed '))$intship= $_product->getResource()->getAttribute('ga_int_ship_allowed ')->getFrontend()->getValue($_product);
-                if($intship=='Yes'): ?>
-                <li><i class="fa fa-check"></i>International Shipping</li><?php endif; ?>
+            <ul class="tick-list"><?php 
+            
+            	$cod= $_product->getResource()->getAttribute('cod_available');
+            	if($cod){
+            		$cod=$cod->getFrontend()->getValue($_product);
+					if($cod=='Yes'): ?>
+            		<li>
+            			<i class="fa fa-check"></i>
+            			COD Availabel</li>
+            	<?php endif;} ?>
+                <?php 
+                $returnable=$_product->getResource()->getAttribute('ga_returnable');
+                if($returnable){
+					$val=$returnable->getFrontend()->getValue($_product);
+					if($val=='Yes'): ?>
+                		<li>
+                			<i class="fa fa-check"></i>
+                			Returnable 
+                		</li>
+                <?php endif; }?>
+                <?php 
+                $internation_shipping=$_product->getResource()->getAttribute('ga_int_ship_allowed');
+                if($internation_shipping){
+                	$intship=$internation_shipping->getFrontend()->getValue($_product);
+                	if($intship=='Yes'): ?>
+                		<li>
+                			<i class="fa fa-check"></i>
+                			International Shipping
+                		</li>
+                <?php endif; }?>
                 
             </ul>
             </div>
