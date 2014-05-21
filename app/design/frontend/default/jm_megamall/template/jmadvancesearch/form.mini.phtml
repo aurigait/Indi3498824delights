@@ -53,7 +53,7 @@ $catalogSearchHelper =  $this->helper('catalogsearch');
 		
 		<?php 
 		$enable= Mage::getStoreConfig("joomlart_jmadvancesearch/joomlart_jmadvancesearch/maxnumbers");
-		if (isset($enable)&&$enable):
+		if (isset($enable)&& $enable):
 		?>
 			<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery/jquery.autocomplete.js');?>"></script>
 			<script type="text/javascript">
@@ -64,12 +64,12 @@ $catalogSearchHelper =  $this->helper('catalogsearch');
 				   options = { 
 						   serviceUrl:'<?php echo(mage::getBaseUrl())?>jmadvancesearch/ajax/auto',
 						   params: params,
-						   noCache: true,
+						   noCache: false,
 						   dataType: 'jsonp',
 						   addfeild: '#search_mini_form #category_search_field',
 					    };
 				    a = $('#search_mini_form #name').autocomplete(options);
-					$('#search_mini_form #category_search_field').change(function(){
+					$('#search_mini_form #name').change(function(){
 						params= 'cate='+$('#search_mini_form #category_search_field').val();
 						a.autocomplete().disable();
 						a.autocomplete().setOptions({params: params});
