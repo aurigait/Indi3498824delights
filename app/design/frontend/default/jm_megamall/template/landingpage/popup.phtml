@@ -89,7 +89,7 @@
 				<div class="col">
                		<?php 
 						$country=$this->getLayout()->createBlock("directory/data");
-						echo $country->getCountryHtmlSelect("","country_id","country_id");
+						echo $country->getCountryHtmlSelect(Mage::getStoreConfig('general/country/default'),"country_id","country_id");
 					?>
                 </div>
                 <div class="col">
