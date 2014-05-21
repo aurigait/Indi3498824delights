@@ -42,7 +42,9 @@
 					$html.='<a href="'.$this->url.'?cat='.$subcate->getId().'">'.$subcate->getName().'</a>';
 					$html.='</span>';
 					if ($cate->getData('children_count')){
+						$html.='<div class="filter-subcat-subcat-prodcut">';
 						$html.= $this->genSubCats($subcate);
+						$html.='</div>';
 					}
 				}
 			}
