@@ -161,7 +161,7 @@
        
         if (this.validator) {
             var nv = Validation.methods;
-            delete Validation.methods['required-entry'];
+           // delete Validation.methods['required-entry'];
             delete Validation.methods['validate-one-required'];
             delete Validation.methods['validate-one-required-by-name'];
             // Remove custom datetime validators
@@ -173,9 +173,10 @@
 
             if (this.validator.validate()) {
                 if (url) {
+                    tr=this;
                     this.form.action = url;
                 }
-                return true
+                return true;
                 // this.form.submit();
             } else {
                 return false;

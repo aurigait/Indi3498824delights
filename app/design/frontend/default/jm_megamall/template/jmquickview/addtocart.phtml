@@ -24,7 +24,10 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php $_product = $this->getProduct(); ?>
+<?php
+	$_product = $this->getProduct();
+	$_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product);
+	?>
 <?php $buttonTitle = $this->__('Add to Cart'); ?>
 <?php if($_product->isSaleable()): ?>
     <div class="add-to-cart">
@@ -32,7 +35,12 @@
         <label for="qty"><?php echo $this->__('Qty:') ?></label>
         <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
         <?php endif; ?>
+        <ul>
+        <li>
         <button type="submit" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submitLight(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+         <button type="submit" style="clear: none;margin-left:15px" title="Wishlist" class="button btn-cart"  onclick="productAddToCartForm.submitLight(this,'<?php echo $_wishlistSubmitUrl;?>')"><span><span>Wishlist</span></span></button>
+         </li>
+         </ul>
         <?php echo $this->getChildHtml('', true, true) ?>
     </div>
 <?php endif; ?>
