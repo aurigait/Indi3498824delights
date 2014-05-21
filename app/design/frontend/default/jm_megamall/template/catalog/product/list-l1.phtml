@@ -117,6 +117,8 @@ foreach ($_subCaegories as $scatid)
 <div class="list-type-slider">
 <div class="block block-cate sp-block-cate">
 <h1><a href='<?php echo $_subcat->getURL();?>' ><?php echo $_subcat->getName()?></a></h1>
+
+<p><?php echo $_subcat->getDescription()?></p>
 <?php
 	if($_subcat->hasChildren())
 	{
@@ -128,8 +130,6 @@ foreach ($_subCaegories as $scatid)
 		echo "</ul>";		
 	}
 ?>
-
-<p><?php echo $_subcat->getDescription()?></p>
 
 </div>
 

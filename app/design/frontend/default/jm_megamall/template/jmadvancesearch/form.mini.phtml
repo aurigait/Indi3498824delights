@@ -44,6 +44,7 @@ $catalogSearchHelper =  $this->helper('catalogsearch');
 			</select>
 		</div>*/?>
 		<div class="form-search">
+			<input type="hidden"  name="category" id="category_search_field" value="all">
 			<input type="hidden" name="order" value="relevance">
 		    <input type="hidden" name="dir" value="desc">
 			<input type="text" maxlength="128" class="input-text " title="Name" value="" id="name" name="name">
@@ -79,3 +80,17 @@ $catalogSearchHelper =  $this->helper('catalogsearch');
 		<?php endif;?>
 	</div>
 </form>
+<style>
+	.autocomplete-suggestions{
+		background-color: #000;
+		top: 88px  !important;
+		left: 445px  !important;
+		max-height: 300px  !important;
+		z-index: 9999  !important;
+		width: 394px  !important;
+	}	
+	
+	.autocomplete-suggestion {
+		border-bottom: 1px solid #fff;
+	}		
+</style>
