@@ -34,6 +34,7 @@ body{font-family: 'Open Sans', sans-serif;}
 #jm-header #jm-mycart .inner-toggle.active{top:91px;}
 .filter-showsub{ top:2px;}
 
+.filter-subcat-subcat-prodcut{padding-left: 15px;}
 #jm-search .select-box select{ line-height:normal;}
 .lits-category{border-right: none;}
 .block-subscribe .input-box button.button, .block-subscribe .input-box button.button:focus, .block-subscribe .input-box button.button:hover{ right:10px;}

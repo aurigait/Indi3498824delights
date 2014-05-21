@@ -88,7 +88,7 @@
 <script type="text/javascript">
 	jQuery(function($){
 	$(document).ready(function(){
-			$("#narrow-by-list dt").append("<span class='handle'> </span>");
+			$("#narrow-by-list dt").append("<span class='handle active'> </span>");
 			$('#narrow-by-list .handle').on('click',function(){
 				$(this).parent().next('dd').toggle(300);
 				$(this).toggleClass('active');
