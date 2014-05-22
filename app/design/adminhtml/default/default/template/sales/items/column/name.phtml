@@ -57,4 +57,11 @@
         </dl>
     <?php endif; ?>
     <?php echo $this->escapeHtml($_item->getDescription()) ?>
+    <?php 
+    /* Somesh Special note adding*/
+    $specialnote=$_item->getUserRemark();
+    if($specialnote)
+    	echo "<strong>Special Note</strong>  : ".$specialnote;
+    /*Somesh :ends */
+    ?>
 <?php endif; ?>
