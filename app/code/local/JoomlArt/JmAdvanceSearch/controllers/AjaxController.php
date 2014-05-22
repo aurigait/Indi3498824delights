@@ -8,7 +8,11 @@ class JoomlArt_JmAdvanceSearch_AjaxController extends Mage_Core_Controller_Front
     	
     	$collections = Mage::getResourceModel('catalog/product_collection')
     		->addAttributeToSelect(array('name'))
+    		->addAttributeToFilter('name', array('like' => '%'.$this->getRequest()->getParam('query').'%'))
+    	  
     		->addAttributeToFilter('name', array('like' => '%'.$this->getRequest()->getParam('query').'%'));
+    	
+    	$collections->load(true,true);
     	
     	if ($this->getRequest()->getParam('cate')!=='all'){
     		$collections->joinField('category_id', 'catalog/category_product', 'category_id', 'product_id = entity_id', null, 'left')
@@ -22,6 +26,7 @@ class JoomlArt_JmAdvanceSearch_AjaxController extends Mage_Core_Controller_Front
     	
     	$callback = $this->getRequest()->getParam('callback');
     	$result['query']= $this->getRequest()->getParam('query');
+    	$result['suggestions'] = array();
     	foreach($collections as $collection){
     		$result['suggestions'][]=$collection->getName();
     	}

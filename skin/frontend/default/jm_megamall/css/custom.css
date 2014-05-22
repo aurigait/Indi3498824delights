@@ -317,6 +317,15 @@ button.button{ padding:11px 16px;}
 .error_pop{border:1px solid red !important; }
 
 #jm-wrapper{position:relative;z-index:10}
+
+
+.search-autocomplete{z-index: 9999;}
+.search-autocomplete .preview { border-bottom: 1px solid #efefef; padding:4px 20px; cursor:pointer;}
+.ajaxsearch .preview img {margin-right: 7px;}
+
+.search-autocomplete .preview:hover{border-bottom: 1px solid #ccc; }
+
+
 .autocomplete-suggestions{ background-color: #FFFFFF; color: #463C57; left: 440px !important; max-height: 300px !important; text-align: left; top: 85px !important; width: 100%; z-index: 9999 !important; border:1px solid #ebebeb; border-top:none; padding:10px 0;}	
 .autocomplete-suggestion { border-bottom: 1px solid #efefef; padding:4px 20px; cursor:pointer;}	
 .autocomplete-suggestion:hover{border-bottom: 1px solid #CCC; }
