@@ -26,6 +26,7 @@
 ?>
 <?php
 $_item = $this->getItem();
+$specialnote=$_item->getUserRemark();
 $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
 $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
 $_product=Mage::getModel("catalog/product")->load($_item->getProduct()->getId());
@@ -64,9 +65,8 @@ $_product=Mage::getModel("catalog/product")->load($_item->getProduct()->getId())
           <?php if ($isVisibleProduct): ?>
             <a href="<?php echo $this->helper('wishlist')->getAddUrl($_item->getId()); ?>" class="link-wishlist use-ajax"><?php echo $this->__('ADD TO WISHLIST'); ?></a>
         <?php endif;
-        $userremark = $_item->getUserRemark();
-        if(!empty($userremark)) { ?>
-		<div class="user-remark"><em> &quot;<?php echo $_item->getUserRemark();?>&quot; </em></div>
+        if(!empty($specialnote)) { ?>
+		<div class="user-remark"><em> &quot;<?php echo $specialnote;?>&quot; </em></div>
 		<?php } ?>
 		<?php if ($messages = $this->getMessages()): ?>
         <?php foreach ($messages as $message): ?>
