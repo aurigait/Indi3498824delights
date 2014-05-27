@@ -9,13 +9,35 @@
 # This file may not be redistributed in whole or significant part.
 -------------------------------------------------------------------------*/ 
 
-class JoomlArt_JmProductsSlider_Block_RegionL1list extends Mage_Catalog_Block_Product_Abstract 
+class JoomlArt_JmProductsSlider_Block_RegionL1List extends Mage_Catalog_Block_Product_Abstract 
 {
 	var $_config = array();
 	
 	protected $_defaultToolbarBlock = 'catalog/product_list_toolbar';
 	protected $_productCollection;
+	protected $_stateBlockName;
+	protected $_category=2;
 	
+	/**
+	 * Category Block Name
+	 *
+	 * @var string
+	 */
+	protected $_categoryBlockName;
+	
+	/**
+	 * Attribute Filter Block Name
+	 *
+	 * @var string
+	 */
+	protected $_attributeFilterBlockName;
+	
+	/**
+	 * Price Filter Block Name
+	 *
+	 * @var string
+	 */
+	protected $_priceFilterBlockName;
 	public function __construct($attributes = array()){
 		$helper =  Mage::helper('joomlart_jmproductsslider/data');
 		$this->_config['show'] = $helper->get('show', $attributes);
@@ -26,7 +48,13 @@ class JoomlArt_JmProductsSlider_Block_RegionL1list extends Mage_Catalog_Block_Pr
 		parent::__construct();
 		
 		
-			
+
+		$this->_stateBlockName              = 'catalog/layer_state';
+		$this->_categoryBlockName           = 'catalog/layer_filter_category';
+		$this->_attributeFilterBlockName    = 'catalog/layer_filter_attribute';
+		$this->_priceFilterBlockName        = 'catalog/layer_filter_price';
+		$this->_decimalFilterBlockName      = 'catalog/layer_filter_decimal';
+		
 		$this->_config['mode'] = $helper->get('mode', $attributes);
 		$this->_config['title'] = $helper->get('title', $attributes);
 		
@@ -72,7 +100,29 @@ class JoomlArt_JmProductsSlider_Block_RegionL1list extends Mage_Catalog_Block_Pr
 		
 		
 	}
-
+	function getLayer()
+	{
+	
+		$layer = Mage::getModel('catalog/layer');
+		$layer->setCurrentCategory(Mage::getModel('catalog/category')->load($this->_category));
+		$filterableAttributes=$layer->getFilterableAttributes();
+		foreach ($filterableAttributes as $attribute) {
+			if ($attribute->getAttributeCode() == 'price') {
+				$filterBlockName = $this->_priceFilterBlockName;
+			} elseif ($attribute->getBackendType() == 'decimal') {
+				$filterBlockName = $this->_decimalFilterBlockName;
+			} else {
+				$filterBlockName = $this->_attributeFilterBlockName;
+			}
+			Mage::app()->getLayout()->createBlock($filterBlockName)
+			->setLayer($layer)
+			->setAttributeModel($attribute)
+			->init();
+		}
+		$layer->apply();
+		return $layer;
+	}
+	
 	/**
      * Need use as _prepareLayout - but problem in declaring collection from
      * another block (was problem with search result)
@@ -91,7 +141,6 @@ class JoomlArt_JmProductsSlider_Block_RegionL1list extends Mage_Catalog_Block_Pr
 		if(!$this->_config['show']) return;
          
 		$listall = $this->getListProducts();
-		
 		$this->assign('listall', $listall);		
 		$this->assign('configs', $this->_config);
 		
@@ -212,41 +261,38 @@ class JoomlArt_JmProductsSlider_Block_RegionL1list extends Mage_Catalog_Block_Pr
 	
 	function getListBestBuyProducts($fieldorder='ordered_qty', $order='desc'){		
 		$list = array();
-
 		$perPage	= (int) $this->_config['qty'];
-        
-		$storeId = Mage::app()->getStore()->getId();
-
-		$product_coll=$this->getLayout()->createBlock('catalog/product_list')->getLoadedProductCollection();
-		
+        $storeId = Mage::app()->getStore()->getId();
+		//$product_coll=$this->getLayout()->createBlock('catalog/product_list')->getLoadedProductCollection();
+		//$products_collection = Mage::getResourceModel('catalog/product_collection')
+		$layer = $this->getLayer();
+		$product_coll=$layer->getProductCollection();
 		$products_collection = $product_coll
 					->setStoreId($storeId)
 					->addAttributeToSelect('*')
-					->addStoreFilter($storeId)
-                    ->addAttributeToFilter('visibility', 4)
-                    ->addAttributeToFilter('status', array('eq' => 1))
+		//			->addStoreFilter($storeId)
+        //            ->addAttributeToFilter('visibility', 4)
+        //            ->addAttributeToFilter('status', array('eq' => 1))
 					->addAttributeToSort($fieldorder, $order);
-		
 		if($this->_config['region'])
 		{
 			$products_collection->addFieldToFilter('region',$this->_config['region']);
-			
 		}
-        if($this->_config['catsid']){
-        	
+        /*if($this->_config['catsid']){
         	$products_collection->addAttributeToFilter('category_id',$this->_config['catsid']);
-        }              
+        } */             
 	   
 		if ($products_collection && $products_collection->getSize()){
 		    $products_collection->getSelect()->limit($perPage);
 		}	
-		//echo $products_collection->getSelect();die;
+	//	echo $products_collection->getSelect();die;
 		$this->setProductCollection($products_collection);
 
 		if (($_products = $this->getProductCollection()) && $_products->getSize()){
 			$list = $products_collection;
 		}	
 		
+		//echo $products_collection->getSelect();
 		return $list;
 	}
 
@@ -512,19 +558,13 @@ class JoomlArt_JmProductsSlider_Block_RegionL1list extends Mage_Catalog_Block_Pr
     	$this->_config['region']=$id;
     	
     }
-    //Somesh Apply Layered Filter
-    function applyLayeredFilter($product_collection)
+    //Somesh set Category Id
+  
+    public function setCategoryId($id)
     {
-    	$_filters = Mage::getSingleton('Mage_Catalog_Block_Layer_State')->getActiveFilters();
-    	if(!empty($_filters))
-    	{
-    		foreach($_filters as $f)
-    		{
-    			$product_collection->addAttributeToFilter($f->getName(),$f->getValueString());
-    				
-    		}
-    	}
-    	return $product_collection;
+    	 
+    	$this->_category=$id;
+    	 
     }
     
     
