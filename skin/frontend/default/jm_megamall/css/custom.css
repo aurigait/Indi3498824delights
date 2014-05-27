@@ -34,6 +34,7 @@ body{font-family: 'Open Sans', sans-serif;}
 #jm-header #jm-mycart .inner-toggle.active{top:91px;}
 .filter-showsub{ top:2px;}
 
+.filter-subcat{ position:relative;}
 .filter-subcat-subcat-prodcut{padding-left: 15px;}
 #jm-search .select-box select{ line-height:normal;}
 .lits-category{border-right: none;}
@@ -232,7 +233,7 @@ ul.megamenu{ margin:15px 20px;}
 .product-view .box-reviews dt{ margin-top:15px; font-weight:bold;}
 #narrow-by-list dd li .filter-subcat span a{ display:block; background:none; color:#454545; margin-top:0;}
 #narrow-by-list dd li .filter-subcat span a:hover{ background:none; color:#454545;}
-.filter-subcat{ padding:0 20px;}
+.filter-subcat{ padding:0 0 0 10px;}
 #narrow-by-list dd li.filter-cat.active a{ color:#454545;}
 
 .block-layered-nav .block-content{ padding:0;}
@@ -266,7 +267,7 @@ height: 24px; width: 24px;}
 .list-type-slider .sp-block-cate ul{ }
 .list-type-slider .sp-block-cate p{ }
 .block-progress dd.complete{ color:#454545;}
-
+.catview {display:inline}
 /*login*/
 .customer-account-login .account-login{ width:75%; float:left;}
 .customer-account-login .gs-login{ float:left; width:24%; vertical-align:top; margin-top: 39px; border-top: solid 1px #ebebeb; border-left: solid 1px #ebebeb; min-height: 250px; text-align:center; padding:63px 0 0 0;}
@@ -407,3 +408,4 @@ button.button{ padding:11px 16px;}
 .col-2.left .jm-products-slider-horizon{ padding:0 20px;}
 .product-shop .tick-list li{ width:100%;}
 }
+>>>>>>> Stashed changes

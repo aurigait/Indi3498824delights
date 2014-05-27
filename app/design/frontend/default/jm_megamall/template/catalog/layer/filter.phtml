@@ -39,8 +39,8 @@ if ($this->_filterModelName == 'catalog/layer_filter_category'):
 	echo($html);
 ?>
 <script type="text/javascript">
-<!--
-jQuery( document ).ready(function( $ ) {
+
+/*jQuery( document ).ready(function( $ ) {
 	$('.filter-cat .filter-subcat').each(function(){
 	    $(this).css('height','auto').data('autoHeight',$(this).height()).css('height','0px');
 	});
@@ -71,7 +71,17 @@ jQuery( document ).ready(function( $ ) {
 	    }
 	});
 });
-//-->
+*/
+
+jQuery( document ).ready(function( $ ) {
+	$('.filter-subcat').hide();
+	$('.filter-cat .filter-showsub').click(function(){
+	   $(this).next().toggle(300);
+	   $(this).toggleClass('active');
+	});
+	
+});
+
 </script>
 <?php else:?>
 	<ol>
