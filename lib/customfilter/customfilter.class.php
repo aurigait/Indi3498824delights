@@ -20,7 +20,7 @@
 			$this->currentselecedcat = $currentselecedcat['cat'];
 			$this->selectedone =false;
 			$child_cates= $currentcate->getChildrenCategories();
-			$html='<ol>';
+			$html='<ul>';
 			foreach ($child_cates as $cate){
 				
 				if ($cate->getData('children_count')){
@@ -34,14 +34,14 @@
 					$html.='<li class="filter-cat">';
 					$html.='<a href="'.$this->url.'?cat='.$cate->getId().'"  style="'.$style.'">'.$cate->getName().'</a>';
 					$html.='<div class="filter-showsub"><span>+</span></div>';
-					$html.='<div class="filter-subcat" style="height: 0px;overflow: hidden;">';
+					$html.='<ul class="filter-subcat">';
 					$html.= $this->genSubCats($cate);
-					$html.='</div>';
+					$html.='</ul>';
 					$html.='</li>';
 				}
 				
 			}
-			$html.='</ol>';
+			$html.='</ul>';
 			return $html;
 		}
 		
@@ -52,7 +52,8 @@
 			$html='';
 			foreach ($subcates as $subcate){
 				if ($subcate->getIsActive()){
-					$html.='<span>';
+				
+					$html.='<li class="filter-cat">';
 					$style="";
 					if($this->currentselecedcat==$subcate->getId() && ! $this->selectedone )
 					{
@@ -60,12 +61,14 @@
 						$this->selectedone = true;
 					}
 					$html.='<a href="'.$this->url.'?cat='.$subcate->getId().'" style="'.$style.'">'.$subcate->getName().'</a>';
-					$html.='</span>';
-					if ($cate->getData('children_count')){
-						$html.='<div class="filter-subcat-subcat-prodcut">';
+					
+					if ($subcate->getData('children_count')){
+						$html.='<div class="filter-showsub"><span>+</span></div>';
+						$html.='<ul class="filter-subcat">';
 						$html.= $this->genSubCats($subcate);
-						$html.='</div>';
+						$html.='</ul>';
 					}
+					$html.='</li>';
 				}
 			}
 			unset ($subcates);
