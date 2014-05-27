@@ -93,6 +93,7 @@ $_filters = Mage::getSingleton('Mage_Catalog_Block_Layer_State')->getActiveFilte
 $catVal=array();
 $layer = Mage::getSingleton('catalog/layer');
 $cat_r=$layer->getCurrentCategory();
+$count_flag=0;
 foreach($_filters as $f)
 {	
 	if($f->getName()=='Category')
@@ -103,21 +104,42 @@ $block=$this->getLayout()->createBlock('joomlart_jmproductsslider/L1list')->setT
 $block->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
 
 $_category  = Mage::getSingleton('catalog/layer')->getCurrentCategory();
+$tree = Mage::getResourceSingleton('catalog/category_tree')
+                ->loadByIds(22, false, false);
+
+$ids = $tree->getCollection()->getAllIds();
+
 $_subCaegories=explode(',',$_category->getChildren());
+
 foreach ($_subCaegories as $scatid)
 {
-	$layer->setCurrentCategory($scatid);
+	//$layer->setCurrentCategory($scatid);
+	$flag=0;
+	$_subcat = Mage::getModel('catalog/category')->load($scatid);
+	if($catVal)
+	{
+		$filterCategory=Mage::getModel('catalog/category')->load($catVal[0]);
+		//echo $filterCategory->getPath()." .. ".$_subcat->getPath()."/ <br>";
+		if(strpos($filterCategory->getPath()."/",$_subcat->getPath()."")!==false)
+		{	
+			$scatid=$filterCategory->getId();
+			$flag=1;
+		}
+		
+	}
+	
+	$block->setCategoryId($scatid);
 	$count=count($block->getListProducts());
 
-	if($count && (empty($catVal) || in_array($scatid,$catVal)))
+	if($count && (empty($catVal) || $flag))
 	{
-		$_subcat = Mage::getModel('catalog/category')->load($scatid);
+		$count_flag=1;
 		$block->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
 ?>
 <div class="list-type-slider">
 <div class="block block-cate sp-block-cate">
-<h1><a href='<?php echo $_subcat->getURL();?>' ><?php echo $_subcat->getName()?></a></h1>
-
+<h1 class="catview"><a href='<?php echo $_subcat->getURL();?>' ><?php echo $_subcat->getName()?></a></h1>
+<a href='<?php echo $_subcat->getURL()?>'>(View all)</a>
 <p><?php echo $_subcat->getDescription()?></p>
 <?php
 	echo "<ul class='scatclass'>";
@@ -130,7 +152,6 @@ foreach ($_subCaegories as $scatid)
 		}
 			
 	}
-	echo "<li><a href='".$_subcat->getURL()."' style='color:#555;font-size:14px'>View all</a></li>";
 	echo "</ul>";
 ?>
 
@@ -141,7 +162,7 @@ foreach ($_subCaegories as $scatid)
 <?php 
 	
 	}}
-	$layer->setCurrentCategory($cat_r);
+//	$layer->setCurrentCategory($cat_r);
 	
 	?>
 
@@ -157,4 +178,9 @@ foreach ($_subCaegories as $scatid)
 </div>
 <div><?php echo $block->toHtml(); ?></div>
 </div>
-*/?>
+*/
+if(!$count_flag){
+?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php  } ?>	
+	

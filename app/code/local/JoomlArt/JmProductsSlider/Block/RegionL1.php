@@ -15,7 +15,29 @@ class JoomlArt_JmProductsSlider_Block_RegionL1 extends Mage_Catalog_Block_Produc
 	
 	protected $_defaultToolbarBlock = 'catalog/product_list_toolbar';
 	protected $_productCollection;
+	protected $_stateBlockName;
+	protected $_category=2;
 	
+	/**
+	 * Category Block Name
+	 *
+	 * @var string
+	 */
+	protected $_categoryBlockName;
+	
+	/**
+	 * Attribute Filter Block Name
+	 *
+	 * @var string
+	 */
+	protected $_attributeFilterBlockName;
+	
+	/**
+	 * Price Filter Block Name
+	 *
+	 * @var string
+	 */
+	protected $_priceFilterBlockName;
 	public function __construct($attributes = array()){
 		$helper =  Mage::helper('joomlart_jmproductsslider/data');
 		$this->_config['show'] = $helper->get('show', $attributes);
@@ -26,7 +48,13 @@ class JoomlArt_JmProductsSlider_Block_RegionL1 extends Mage_Catalog_Block_Produc
 		parent::__construct();
 		
 		
-			
+
+		$this->_stateBlockName              = 'catalog/layer_state';
+		$this->_categoryBlockName           = 'catalog/layer_filter_category';
+		$this->_attributeFilterBlockName    = 'catalog/layer_filter_attribute';
+		$this->_priceFilterBlockName        = 'catalog/layer_filter_price';
+		$this->_decimalFilterBlockName      = 'catalog/layer_filter_decimal';
+		
 		$this->_config['mode'] = $helper->get('mode', $attributes);
 		$this->_config['title'] = $helper->get('title', $attributes);
 		
@@ -72,7 +100,29 @@ class JoomlArt_JmProductsSlider_Block_RegionL1 extends Mage_Catalog_Block_Produc
 		
 		
 	}
-
+	function getLayer()
+	{
+	
+		$layer = Mage::getModel('catalog/layer');
+		$layer->setCurrentCategory(Mage::getModel('catalog/category')->load(Mage::app()->getStore()->getRootCategoryId()));
+		$filterableAttributes=$layer->getFilterableAttributes();
+		foreach ($filterableAttributes as $attribute) {
+			if ($attribute->getAttributeCode() == 'price') {
+				$filterBlockName = $this->_priceFilterBlockName;
+			} elseif ($attribute->getBackendType() == 'decimal') {
+				$filterBlockName = $this->_decimalFilterBlockName;
+			} else {
+				$filterBlockName = $this->_attributeFilterBlockName;
+			}
+			Mage::app()->getLayout()->createBlock($filterBlockName)
+			->setLayer($layer)
+			->setAttributeModel($attribute)
+			->init();
+		}
+		$layer->apply();
+		return $layer;
+	}
+	
 	/**
      * Need use as _prepareLayout - but problem in declaring collection from
      * another block (was problem with search result)
@@ -211,19 +261,18 @@ class JoomlArt_JmProductsSlider_Block_RegionL1 extends Mage_Catalog_Block_Produc
 	
 	function getListBestBuyProducts($fieldorder='ordered_qty', $order='desc'){		
 		$list = array();
-
 		$perPage	= (int) $this->_config['qty'];
-        
-		$storeId = Mage::app()->getStore()->getId();
-
-		$product_coll=$this->getLayout()->createBlock('catalog/product_list')->getLoadedProductCollection();
-		
-		$products_collection = Mage::getResourceModel('catalog/product_collection')
+        $storeId = Mage::app()->getStore()->getId();
+		//$product_coll=$this->getLayout()->createBlock('catalog/product_list')->getLoadedProductCollection();
+		//$products_collection = Mage::getResourceModel('catalog/product_collection')
+		$layer = $this->getLayer();
+		$product_coll=$layer->getProductCollection();
+		$products_collection = $product_coll
 					->setStoreId($storeId)
 					->addAttributeToSelect('*')
-					->addStoreFilter($storeId)
-                    ->addAttributeToFilter('visibility', 4)
-                    ->addAttributeToFilter('status', array('eq' => 1))
+		//			->addStoreFilter($storeId)
+        //            ->addAttributeToFilter('visibility', 4)
+        //            ->addAttributeToFilter('status', array('eq' => 1))
 					->addAttributeToSort($fieldorder, $order);
 		if($this->_config['region'])
 		{
@@ -509,19 +558,13 @@ class JoomlArt_JmProductsSlider_Block_RegionL1 extends Mage_Catalog_Block_Produc
     	$this->_config['region']=$id;
     	
     }
-    //Somesh Apply Layered Filter
-    function applyLayeredFilter($product_collection)
+    //Somesh set Category Id
+  
+    public function setCategoryId($id)
     {
-    	$_filters = Mage::getSingleton('Mage_Catalog_Block_Layer_State')->getActiveFilters();
-    	if(!empty($_filters))
-    	{
-    		foreach($_filters as $f)
-    		{
-    			$product_collection->addAttributeToFilter($f->getName(),$f->getValueString());
-    				
-    		}
-    	}
-    	return $product_collection;
+    	 
+    	$this->_category=$id;
+    	 
     }
     
     

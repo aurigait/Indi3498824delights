@@ -15,8 +15,36 @@ class JoomlArt_JmProductsSlider_Block_L1list extends Mage_Catalog_Block_Product_
 	
 	protected $_defaultToolbarBlock = 'catalog/product_list_toolbar';
 	protected $_productCollection;
-	protected $_category=null;
+	protected $_category=2;
+	protected $_stateBlockName;
 	
+	/**
+	 * Category Block Name
+	 *
+	 * @var string
+	 */
+	protected $_categoryBlockName;
+	
+	/**
+	 * Attribute Filter Block Name
+	 *
+	 * @var string
+	 */
+	protected $_attributeFilterBlockName;
+	
+	/**
+	 * Price Filter Block Name
+	 *
+	 * @var string
+	 */
+	protected $_priceFilterBlockName;
+	
+	/**
+	 * Decimal Filter Block Name
+	 *
+	 * @var string
+	 */
+	protected $_decimalFilterBlockName;
 	public function __construct($attributes = array()){
 		$helper =  Mage::helper('joomlart_jmproductsslider/data');
 		$this->_config['show'] = $helper->get('show', $attributes);
@@ -27,7 +55,12 @@ class JoomlArt_JmProductsSlider_Block_L1list extends Mage_Catalog_Block_Product_
 		parent::__construct();
 		
 		
-			
+		$this->_stateBlockName              = 'catalog/layer_state';
+		$this->_categoryBlockName           = 'catalog/layer_filter_category';
+		$this->_attributeFilterBlockName    = 'catalog/layer_filter_attribute';
+		$this->_priceFilterBlockName        = 'catalog/layer_filter_price';
+		$this->_decimalFilterBlockName      = 'catalog/layer_filter_decimal';
+		
 		$this->_config['mode'] = $helper->get('mode', $attributes);
 		$this->_config['title'] = $helper->get('title', $attributes);
 		
@@ -208,30 +241,49 @@ class JoomlArt_JmProductsSlider_Block_L1list extends Mage_Catalog_Block_Product_
 		
 		return $list;
 	}
-	
+	function getLayer()
+	{
+		$layer = Mage::getModel('catalog/layer');
+		//$originalCat=$layer->getCurrentCategory();
+		$layer->setCurrentCategory(Mage::getModel("catalog/category")->load($this->_category));
+		$filterableAttributes=$layer->getFilterableAttributes();
+		foreach ($filterableAttributes as $attribute) {
+			if ($attribute->getAttributeCode() == 'price') {
+				$filterBlockName = $this->_priceFilterBlockName;
+			} elseif ($attribute->getBackendType() == 'decimal') {
+				$filterBlockName = $this->_decimalFilterBlockName;
+			} else {
+				$filterBlockName = $this->_attributeFilterBlockName;
+			}
+			Mage::app()->getLayout()->createBlock($filterBlockName)
+			->setLayer($layer)
+			->setAttributeModel($attribute)
+			->init();
+		}
+		
+		
+		$layer->apply();
+		return $layer;
+	}
 	function getListBestBuyProducts($fieldorder='ordered_qty', $order='desc'){		
 		$list = array();
 
 		$perPage	= (int) $this->_config['qty'];
-        
+		
 		$storeId = Mage::app()->getStore()->getId();
 
-		$product_coll=$this->getLayout()->createBlock('catalog/product_list')->getLoadedProductCollection();
-		
+		//$product_coll=$this->getLayout()->createBlock('catalog/product_list')->getLoadedProductCollection();
+		$layer=$this->getLayer();
+		$product_coll=$layer->getProductCollection();
 		$products_collection = $product_coll
 					->setStoreId($storeId)
-					->addAttributeToSelect('*')
-					->addStoreFilter($storeId)
-                    ->addAttributeToFilter('visibility', 4)
-                    ->addAttributeToFilter('status', array('eq' => 1))
-					->addAttributeToSort($fieldorder, $order);
+					->addAttributeToSelect('*');
+		//			->addStoreFilter($storeId)
+         //           ->addAttributeToFilter('visibility', 4)
+          //          ->addAttributeToFilter('status', array('eq' => 1))
+		//			->addAttributeToSort($fieldorder, $order);
 		
-        if($this->_config['catsid']){
-        	
-        	$products_collection->addAttributeToFilter('category_id',$this->_config['catsid']);
-        }              
-	   
-		if ($products_collection && $products_collection->getSize()){
+        if ($products_collection && $products_collection->getSize()){
 		    $products_collection->getSelect()->limit($perPage);
 		}	
 		
@@ -521,6 +573,11 @@ class JoomlArt_JmProductsSlider_Block_L1list extends Mage_Catalog_Block_Product_
     	}
     	return $product_collection;
     }
-    
+    public function setCategoryId($id)
+    {
+    	
+    	$this->_category=$id;
+    	
+    }
     
 }
