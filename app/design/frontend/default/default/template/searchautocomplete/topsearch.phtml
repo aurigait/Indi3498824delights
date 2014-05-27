@@ -2,6 +2,7 @@
     <div class="form-search">
        
         <input id="search" type="text" name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" value="<?php echo $this->helper('catalogsearch')->getEscapedQueryText() ?>"  class="input-text" />
+        <div class="searchloader" id="searchindicator" style="display: none"></div>
         <button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button>
         <div id="search_autocomplete" class="search-autocomplete"></div>
 <!--
@@ -14,7 +15,32 @@
 -->
         <script type="text/javascript">
         //<![CDATA[
-            var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search entire store here...') ?>');
+Varien.searchForm = new Class.create(Varien.searchForm,{ initAutocomplete : function(url, destinationElement){
+             new Ajax.Autocompleter(
+                     this.field,
+                     destinationElement,
+                     url,
+                     {
+                         paramName: this.field.name,
+                         method: 'get',
+                         minChars: 2,
+                         updateElement: this._selectAutocompleteItem.bind(this),
+                         onShow : function(element, update) {
+                             if(!update.style.position || update.style.position=='absolute') {
+                                 update.style.position = 'absolute';
+                                 Position.clone(element, update, {
+                                     setHeight: false,
+                                     offsetTop: element.offsetHeight
+                                 });
+                             }
+                             Effect.Appear(update,{duration:0});
+                         },
+                         indicator:"searchindicator",
+
+                     }
+                 );
+             }});
+        var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search entire store here...') ?>');
             searchForm.initAutocomplete('<?php echo $this->helper('searchautocomplete')->getSuggestUrl() ?>', 'search_autocomplete');
         //]]>
         </script>
