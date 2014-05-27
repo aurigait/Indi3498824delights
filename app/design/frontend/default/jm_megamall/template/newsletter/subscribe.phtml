@@ -25,26 +25,25 @@
  */
 ?>
 <div class="block block-subscribe">
-	<div style="float:left;width: 70%">
-	    <div class="block-title"  >
-	        <strong><span><?php echo $this->__('Newsletter') ?></span></strong>
-	    </div>
-	    <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
-	        <div class="block-content">
-	            <div class="form-subscribe-header">
-	                <label for="newsletter"><?php echo $this->__('Make sure you dont miss interesting happenings by joining our newsletter program') ?></label>
-	            </div>
-	            <div class="input-box">
-	               <input type="text" name="email" id="newsletter" style="min-width:276px" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" />
-	                <button type="submit" title="<?php echo $this->__('SUBSCRIBE') ?>" class="button"><span><span><?php echo $this->__('SUBSCRIBE') ?></span></span></button>
-	            </div>
-	        </div>
-	    </form>
-	    <script type="text/javascript">
-	    //<![CDATA[
-	        var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
-	    //]]>
-	    </script>
-	</div>
-    <div class="fb-like-box" style="float:left;width: 30%" data-href="https://www.facebook.com/pages/Indidelights/502077933187671" data-width="100" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Newsletter') ?></span></strong>
+    </div>
+    <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+        <div class="block-content">
+            <div class="form-subscribe-header">
+                <label for="newsletter"><?php echo $this->__('Make sure you dont miss interesting happenings by joining our newsletter program') ?></label>
+            </div>
+            <div class="input-box">
+               <input type="text" name="email" id="newsletter" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" />
+                <button type="submit" title="<?php echo $this->__('SUBSCRIBE') ?>" class="button"><span><span><?php echo $this->__('SUBSCRIBE') ?></span></span></button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+    //]]>
+    </script>
+<!--      <div class="fb-like-box" data-href="https://www.facebook.com/pages/Indidelights/502077933187671" data-width="100" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
+-->
 </div>

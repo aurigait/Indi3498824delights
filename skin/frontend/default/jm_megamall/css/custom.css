@@ -266,7 +266,7 @@ height: 24px; width: 24px;}
 .list-type-slider .sp-block-cate ul{ }
 .list-type-slider .sp-block-cate p{ }
 .block-progress dd.complete{ color:#454545;}
-
+.catview {display:inline}
 /*login*/
 .customer-account-login .account-login{ width:75%; float:left;}
 .customer-account-login .gs-login{ float:left; width:24%; vertical-align:top; margin-top: 39px; border-top: solid 1px #ebebeb; border-left: solid 1px #ebebeb; min-height: 250px; text-align:center; padding:63px 0 0 0;}
