@@ -26,7 +26,6 @@
 	<models>
 	  <commonindidelights>
 		<class>Aurigait_CommonIndidelights_Model</class>
-		 <!--<class>Aurigait_CommonIndidelights_Model_Attribute_Source_Type</class>-->
 		<resourceModel>commonindidelights_mysql4</resourceModel>
 	  </commonindidelights>
 	</models>
