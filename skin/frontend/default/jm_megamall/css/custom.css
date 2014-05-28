@@ -67,7 +67,7 @@ body{font-family: 'Open Sans', sans-serif;}
 .col-2 .jm-products-slider-horizon .product-image{ border:#ebebeb solid 1px; overflow:hidden;}
 .col-2 .jm-products-slider-horizon li .product-information{ padding:0;}
 .col-2 .jm-products-slider-horizon .ratings{ margin:7px 0;}
-.col-2.left .jm-products-slider-horizon {padding:0; border-right: 1px solid #ebebeb; border-left:none; padding-right:20px;}
+.col-2.left .jm-products-slider-horizon {padding:0; border-right: 1px solid #ebebeb; border-left:none; padding-right:20px; min-height:398px;}
 /*.jm-products-slider-listing .block-title{ position:relative;}*/
 .jm-product-list .product-name{ font-size:13px;}
 
