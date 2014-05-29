@@ -67,11 +67,12 @@
 	<div class="second-column">
 		<div class="block-popup">
 		<form action="<?php echo MAGE::getUrl('landingpage/registeruser/createPost');?>" method="post" onSubmit="return submitReg(this)">
+		<input type="hidden" value="<?php echo Mage::helper('core')->urlEncode(Mage::helper('core/url')->getCurrentUrl())?>" name="referer"/>
 		<h2><?php echo $this->__('CREATE AN ACCOUNT') ?></h2>
 		<ul class="form-list">
         	<li class="fields">
                	<div class="col">
-               			<input type="text" id="firstname" name="firstname" value="" title="First Name" maxlength="255" class="input-text required-entry" placeholder="First Name">
+               			<input type="text" id="firstname" name="firstname" value="" title="Name" maxlength="255" class="input-text required-entry" placeholder="Name">
 	        	</div>	
                		<div class="col">
                	        <input type="text" name="email" id="email_address" value="" title="Email Address" class="input-text validate-email required-entry" placeholder="Email">
@@ -98,8 +99,11 @@
                             </select>
                             
                             <input placeholder="Region" type="text" id="region" name="region" title="<?php echo $this->__('State/Province') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
-                        </div>
+                </div>
 				
+			</li>
+			<li>
+			<div class="col"><p>Tell us about your ethinity...</p></div>
 			</li>
 			<li>
 				<div class="col">

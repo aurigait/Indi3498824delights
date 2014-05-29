@@ -58,7 +58,7 @@ class Aurigait_Landingpage_RegisteruserController extends Mage_Customer_AccountC
 
 				$this->_dispatchRegisterSuccess($customer);
 				$this->_successProcessRegistration($customer);
-				
+				//$this->_redirectReferer($defaultUrl=null);
 				return;
 			} else {
 				$this->_addSessionError($errors);
@@ -79,7 +79,7 @@ class Aurigait_Landingpage_RegisteruserController extends Mage_Customer_AccountC
 			->addException($e, $this->__('Cannot save the customer.'));
 		}
 		$errUrl = $this->_getUrl('customer/*/create', array('_secure' => true));
-		$this->_redirectError($errUrl);
+		$this->_redirectError(Mage::getUrl('customer/account/'));
 	}
 	
 	protected function _getErrorsOnCustomerAddress($customer)
@@ -109,8 +109,30 @@ class Aurigait_Landingpage_RegisteruserController extends Mage_Customer_AccountC
 		}
 		return $errors;
 	}
-
+	protected function _successProcessRegistration(Mage_Customer_Model_Customer $customer)
+	{
+		$session = $this->_getSession();
+		if ($customer->isConfirmationRequired()) {
+			/** @var $app Mage_Core_Model_App */
+			$app = $this->_getApp();
+			/** @var $store  Mage_Core_Model_Store*/
+			$store = $app->getStore();
+			$customer->sendNewAccountEmail(
+					'confirmation',
+					$session->getBeforeAuthUrl(),
+					$store->getId()
+			);
+			$customerHelper = $this->_getHelper('customer');
+			$session->addSuccess($this->__('Account confirmation is required. Please, check your email for the confirmation link. To resend the confirmation email please <a href="%s">click here</a>.',
+					$customerHelper->getEmailConfirmationUrl($customer->getEmail())));
+			$url = $this->_getUrl('*/*/index', array('_secure' => true));
+		} else {
+			$session->setCustomerAsLoggedIn($customer);
+			$session->renewSession();
+			$url = $this->_welcomeCustomer($customer);
+		}
+		$this->_redirectSuccess(Mage::getUrl('customer/account/'));
+		return $this;
+	}
 }
- 
- 
- ?>
+?>
