@@ -300,45 +300,58 @@ class Aurigait_Voucher_Model_Cron{
 	
 		try
 		{
-				
+	
 			$odercompletedate = date('Y-m-d' , strtotime('-'.$voucherissueperiod.' days'));
-				
+			 
 			$order = Mage::getModel('sales/order')->getCollection();
-				
+			 
 			$order->getSelect('main_table.customer_id')->where('main_table.status NOT IN ( "canceled" , "holded")  and date(main_table.created_at) = "'.$odercompletedate.'" ');
-				
+			 
 			foreach ($order as $orderrow)
 			{
+			 
 				$customerData = Mage::getModel('customer/customer')->load($orderrow->getCustomerId())->getData();
 				$registerdate = strtotime($customerData['created_at']);
-	
+	 
 				$response = Mage::getModel('invitefriend/invitefriend')->checkcustomerbylastreferal($customerData['email']);
 				if($response)
 				{
-					$referaldate = strtotime($response['senddate']);
-						
-					$friendacceptationperiod = $friendacceptationperiod;
+				    
+					$referaldate = strtotime($response['senddatetime']);
+					
+					//echo $response['senddatetime'].'<br>';
+					
+					
+					//echo $customerData['created_at'];echo "<br>";
+					//echo $response['senddatetime'];echo "<br>";
+					//$friendacceptationperiod = $friendacceptationperiod;
 					$friendacceptationdate  =  $referaldate + ( (24*60*60) * $friendacceptationperiod);
-						
-					if($registerdate<=$friendacceptationdate)
+					
+					//echo $registerdate.'<br>'.$referaldate.'<br>';
+					
+					
+					
+					if( ($registerdate>=$referaldate )  && $registerdate<=$friendacceptationdate)
 					{
+					//	print_r($response);
+					
 						$orderinfo = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('customer_id',$orderrow->getCustomerId());
 	
 						$firstorderdate = $registerdate + ( (24*60*60) * $friendpurchaseperiod);
 						$orderdate = $orderrow->getCreatedAtTimestamp();
 						if($orderdate<=$firstorderdate)
 						{
-							$this->createcouponforreferaltype2($response['sender_id'],$orderrow->getBaseSubtotal(),$customerData['firstname']);
-							//Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
-							$this->createcouponforreferaltype2($response['sender_id'],$orderrow->getBaseSubtotal());
+							//echo "voucher created for ".$response['sender_emailid'].'<br>';
+							$this->createcouponforreferaltype2($response['sender_id'],$orderrow->getBaseGrandTotal(),$customerData['firstname']);
+						 	Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
 	
 						}
 	
 					}
-						
+	
 				}
 			}
-				
+	
 			//$this->CreateCouponInvit();
 		}
 		catch (Exception $e) {

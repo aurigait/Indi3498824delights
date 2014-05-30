@@ -153,7 +153,7 @@ class Aurigait_Voucher_Model_Observer
 		$helperobj->_emailtemplate =Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/email_template');
 		
 		$helperobj->_code ='INVITE';
-		$helperobj->_friendnamecode = substr($customerName, 0,4);
+		$helperobj->_friendnamecode = '-'.substr($customerName, 0,6).'-';
 		foreach($senderinfo as $sender)
 		{ 
 			 

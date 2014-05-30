@@ -69,6 +69,7 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 				if( $isValiduser!=1  && !in_array($customerEmailId, $customer_array))
 				{
 					$customer_array[]=$customerEmailId;
+					echo "voucher created for ".$customerEmailId.'<br>';
 					$this->sendmail($customerEmailId,$customerFName,$offeramount,$couponcode,$templateid);
 					Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($row['customer_id'],$couponcode,$row['totalorderamount'],$fromdate,$todate,$customrule_type);
 				}
@@ -298,8 +299,7 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 	
 	public function setInvitationvoucherAction()
 	{
-			
-	
+		
 		$friendacceptationperiod  = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/friendacceptationperiod');
 		$friendpurchaseperiod = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/friendpurchaseperiod');
 		$voucherissueperiod = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/voucherissueperiod');
@@ -318,28 +318,38 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 			 
 				$customerData = Mage::getModel('customer/customer')->load($orderrow->getCustomerId())->getData();
 				$registerdate = strtotime($customerData['created_at']);
-	
+	 
 				$response = Mage::getModel('invitefriend/invitefriend')->checkcustomerbylastreferal($customerData['email']);
 				if($response)
 				{
-					print_r($response);
-					$referaldate = strtotime($response['senddate']);
-					echo $customerData['created_at'];echo "<br>";
-					echo $response['senddate'];echo "<br>";
+				    
+					$referaldate = strtotime($response['senddatetime']);
+					
+					//echo $response['senddatetime'].'<br>';
+					
+					
+					//echo $customerData['created_at'];echo "<br>";
+					//echo $response['senddatetime'];echo "<br>";
 					//$friendacceptationperiod = $friendacceptationperiod;
 					$friendacceptationdate  =  $referaldate + ( (24*60*60) * $friendacceptationperiod);
-					echo $registerdate.'<br>'.$friendacceptationdate;
+					
+					//echo $registerdate.'<br>'.$referaldate.'<br>';
+					
+					
+					
 					if( ($registerdate>=$referaldate )  && $registerdate<=$friendacceptationdate)
 					{
+					//	print_r($response);
+					
 						$orderinfo = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('customer_id',$orderrow->getCustomerId());
 	
 						$firstorderdate = $registerdate + ( (24*60*60) * $friendpurchaseperiod);
 						$orderdate = $orderrow->getCreatedAtTimestamp();
 						if($orderdate<=$firstorderdate)
 						{
-						
-							$this->createcouponforreferaltype2($response['sender_id'],$orderrow->getBaseSubtotal(),$customerData['firstname']);
-							Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
+							echo "voucher created for ".$response['sender_emailid'].'<br>';
+							$this->createcouponforreferaltype2($response['sender_id'],$orderrow->getBaseGrandTotal(),$customerData['firstname']);
+						 	Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
 	
 						}
 	
