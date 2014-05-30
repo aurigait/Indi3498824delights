@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Aurigait_CountyCurrencySwitcher>
+      <active>true</active>
+      <codePool>local</codePool>
+      <version>0.1.0</version>
+    </Aurigait_CountyCurrencySwitcher>
+  </modules>
+</config>
