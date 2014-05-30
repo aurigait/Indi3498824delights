@@ -26,7 +26,7 @@ class Aurigait_CountyCurrencySwitcher_Helper_Data extends Mage_Core_Helper_Abstr
 
 	public function getCurrentCurrencyCode()
 	{
-		$c_code=$this->getCountryByIp('162.220.59.66'); //$_SERVER['REMOTE_ADDR']'122.161.85.80'
+		$c_code=$this->getCountryByIp($_SERVER['REMOTE_ADDR']);//'122.161.85.80'
 		$write = Mage::getSingleton("core/resource")->getConnection("core_write");
 		$sql="select * from ".Mage::getSingleton('core/resource')->getTableName('country_currency')." where country_id='".$c_code."'";
 		$row=$write->fetchRow($sql);
