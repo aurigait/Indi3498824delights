@@ -46,8 +46,11 @@ ALTER TABLE `voucher_allcouponlist` ADD `voucher_type` INT( 4 ) NOT NULL DEFAULT
 	  PRIMARY KEY (`id`)
 	) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 	
+ALTER TABLE `voucher_referfriendlist` ADD `senddatetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ;
 
 
+ALTER TABLE `salesrule` ADD `isdisplay_in_cart` INT( 2 ) NOT NULL AFTER `email_template` ,
+ADD `alert_threshold_amount` DOUBLE NOT NULL AFTER `isdisplay_in_cart` ;
 SQLTEXT;
 $installer->run($sql);
 //demo 

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Aurigait_CustomMessage>
+      <version>0.1.0</version>
+    </Aurigait_CustomMessage>
+  </modules>
+  <global>
+    <helpers>
+      <custommessage>
+        <class>Aurigait_CustomMessage_Helper</class>
+      </custommessage>
+    </helpers>
+  </global>
+</config> 

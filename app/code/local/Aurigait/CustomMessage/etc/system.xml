@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<config>
+	  <tabs>
+		<customemessage translate="label" module="custommessage">
+            <label>Custom Message</label>
+            <sort_order>0</sort_order>
+        </customemessage>
+	  </tabs>
+	  <sections>
+		<scustomemessage  translate="label" module="custommessage">                    
+		<label>Custom Message</label>
+		<tab>customemessage</tab>
+		<frontend_type>text</frontend_type>
+		<sort_order>0</sort_order>
+		<show_in_default>1</show_in_default>
+		<show_in_website>1</show_in_website>
+		<show_in_store>1</show_in_store>            
+					<groups>
+				      <cartmessage translate="label"> 
+					  <label>Cart Message</label>
+					  <frontend_type>text</frontend_type>
+					  <sort_order>0</sort_order>
+					  <show_in_default>1</show_in_default>
+					  <show_in_website>1</show_in_website>
+					  <show_in_store>1</show_in_store>
+				       <fields>
+                          <cart_success translate="label">
+                            <label>Cart message</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </cart_success>
+					   </fields>
+					   </cartmessage>
+				      <vouchermessage translate="label"> 
+					  <label>Voucher Message</label>
+					  <frontend_type>text</frontend_type>
+					  <sort_order>0</sort_order>
+					  <show_in_default>1</show_in_default>
+					  <show_in_website>1</show_in_website>
+					  <show_in_store>1</show_in_store>
+				       <fields>
+                          <invite_register translate="label">
+                            <label>Invitation already register</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>invite person already register with us</comment>
+                          </invite_register>
+                          <invite_notregitered translate="label">
+                            <label>Invite person not register</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </invite_notregitered>
+					   </fields>
+					   </vouchermessage>
+					</groups>
+		</scustomemessage>
+	  </sections>
+</config>
