@@ -340,13 +340,18 @@ button.button{ padding:11px 16px;}
 #jm-bots1 .block-subscribe{padding:25px 0 20px 0;}
 #jm-footer{ padding:18px 0;}
 .product-image .out-of-stock{position: absolute; left: 0; right: 0; bottom: 0px; margin: auto; display: block;}
+.jm-tl-head{ white-space:nowrap;}
+.fb_iframe_widget{ position:absolute!important; left:270px;}
 
+@media only screen and (max-width: 1024px) {
+.form-search input.input-text, .form-search input.input-text:focus{ width:425px;}	
+}
 
 @media only screen and (max-width: 985px) {
 .tiles-categories .col-1, .tiles-categories .col-2{ width:100%; text-align:center;}
 #select-language, .menu-region, .block-currency .block-content{ display:none;}
 .sp-block-cate ul, .sp-block-cate p{ width:100%;}	
-#jm-search{ top:113px; right:7px; margin:20px 187px 0 0}
+#jm-search{ top:83px; right:7px; margin:20px 187px 0 0}
 #jm-header #jm-search .btn-toggle{ right:0;}
 .form-search{ width:100%;}
 .form-search input.input-text, .form-search input.input-text:focus{ width:72%;}
