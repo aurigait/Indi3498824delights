@@ -129,10 +129,10 @@
 							"id":"quickviewbox"+productid,
 							"title":"Product quick view"
 					  });
-					  quickviewtag.attr("href",baseurl+"quickview/index/index/id/"+productid+"");
+					  quickviewtag.attr("href","javascript::void()"); //baseurl+"quickview/index/index/id/"+productid
 					  quickviewtag.append(' <button class="form-button jmquickview"><span>Quick View</span></button>');
 					  $(bcart).after(quickviewtag);
-				      quickviewtag.colorbox({current: "Product {current} of {total}",onComplete:$.proxy(function(){
+				      quickviewtag.colorbox({href:baseurl+"quickview/index/index/id/"+productid,current: "Product {current} of {total}",onComplete:$.proxy(function(){
 				             
 				              // add product to wishlist 
 							  $("a.link-wishlist").bind("click",function(e){

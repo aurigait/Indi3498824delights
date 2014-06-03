@@ -338,8 +338,8 @@ class Webshopapps_Matrixrate_Model_Mysql4_Carrier_Matrixrate extends Mage_Core_M
                         } else {
                             $regionId = $regionCodesToIds[$countryCodesToIds[$csvLine[0]]][$csvLine[1]];
                         }
-
-						if (count($csvLine)==9) {
+						
+						if (count($csvLine)==11) {
 							// we are searching for postcodes in ranges & including cities
 							if ($csvLine[2] == '*' || $csvLine[2] == '') {
 								$city = '';
@@ -367,15 +367,19 @@ class Webshopapps_Matrixrate_Model_Mysql4_Carrier_Matrixrate extends Mage_Core_M
 							} else {
 								$csvLine[5] = (float)$csvLine[5];
 							}
-
+							if($csvLine[9]!=0 && $csvLine[9]!=1)
+							{
+								$exceptions[] = Mage::helper('shipping')->__('Invalid Cod Enable Value, it must be 0 or 1');
+							}
+								
 							if (!$this->_isPositiveDecimalNumber($csvLine[6])) {
 								$exceptions[] = Mage::helper('shipping')->__('Invalid %s To "%s" in the Row #%s', $conditionFullName, $csvLine[6], ($k+1));
 							} else {
 								$csvLine[6] = (float)$csvLine[6];
 							}
+							
 
-
-							$data[] = array('website_id'=>$websiteId, 'dest_country_id'=>$countryId, 'dest_region_id'=>$regionId, 'dest_city'=>$city, 'dest_zip'=>$zip, 'dest_zip_to'=>$zip_to, 'condition_name'=>$conditionName, 'condition_from_value'=>$csvLine[5],'condition_to_value'=>$csvLine[6], 'price'=>$csvLine[7], 'delivery_type'=>$csvLine[8]);
+							$data[] = array('website_id'=>$websiteId, 'dest_country_id'=>$countryId, 'dest_region_id'=>$regionId, 'dest_city'=>$city, 'dest_zip'=>$zip, 'dest_zip_to'=>$zip_to, 'condition_name'=>$conditionName, 'condition_from_value'=>$csvLine[5],'condition_to_value'=>$csvLine[6], 'price'=>$csvLine[7], 'delivery_type'=>$csvLine[8],'is_cod_enable'=>$csvLine[9]);
 
 						}
 						else {
@@ -400,12 +404,14 @@ class Webshopapps_Matrixrate_Model_Mysql4_Carrier_Matrixrate extends Mage_Core_M
 							} else {
 								$csvLine[4] = (float)$csvLine[4];
 							}
-							$data[] = array('website_id'=>$websiteId, 'dest_country_id'=>$countryId, 'dest_region_id'=>$regionId,  'dest_city'=>$city,'dest_zip'=>$zip,'dest_zip_to'=>$zip_to,  'condition_name'=>$conditionName, 'condition_from_value'=>$csvLine[3],'condition_to_value'=>$csvLine[4], 'price'=>$csvLine[5], 'delivery_type'=>$csvLine[6]);
+							if($csvLine[7]!=0 && $csvLine[7]!=1)
+							{
+								$exceptions[] = Mage::helper('shipping')->__('Invalid Cod Enable Value, it must be 0 or 1');
+							}
+							
+							$data[] = array('website_id'=>$websiteId, 'dest_country_id'=>$countryId, 'dest_region_id'=>$regionId,  'dest_city'=>$city,'dest_zip'=>$zip,'dest_zip_to'=>$zip_to,  'condition_name'=>$conditionName, 'condition_from_value'=>$csvLine[3],'condition_to_value'=>$csvLine[4], 'price'=>$csvLine[5], 'delivery_type'=>$csvLine[6],'is_cod_enable'=>$csvLine[7]);
 						}
-
-
 						$dataDetails[] = array('country'=>$csvLine[0], 'region'=>$csvLine[1]);
-
                     }
                 }
                 if (empty($exceptions)) {
