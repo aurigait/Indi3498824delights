@@ -35,20 +35,22 @@ class Webshopapps_Matrixrate_Model_Mysql4_Carrier_Matrixrate extends Mage_Core_M
 
     public function getNewRate(Mage_Shipping_Model_Rate_Request $request,$zipRangeSet=0)
     {
-    	/*
+    	
         $read = $this->_getReadAdapter();
         $write = $this->_getWriteAdapter();
-
+		
 		$postcode = $request->getDestPostcode();
         $table = Mage::getSingleton('core/resource')->getTableName('matrixrate_shipping/matrixrate');
 
 		if ($zipRangeSet && is_numeric($postcode)) {
 			#  Want to search for postcodes within a range
-			$zipSearchString = ' AND '.$postcode.' BETWEEN dest_zip AND dest_zip_to )';		
+			$zipSearchString = ' AND ( '.$postcode.' BETWEEN dest_zip AND dest_zip_to or dest_zip=""))';		
 		} else {
-			$zipSearchString = $read->quoteInto(" AND ? LIKE dest_zip )", $postcode);
+			$zipSearchString = $read->quoteInto(" AND (? LIKE dest_zip or dest_zip ='' ) )", $postcode);
 		}
-
+		$select = $read->select()->from($table);
+		
+		/*
 		for ($j=0;$j<10;$j++)
 		{
 
@@ -120,7 +122,14 @@ class Webshopapps_Matrixrate_Model_Mysql4_Carrier_Matrixrate extends Mage_Core_M
 				);
 					break;
 			}
-
+			*/
+			
+			$select->where(
+					$read->quoteInto(" ((dest_country_id=? or dest_country_id='0') ", $request->getDestCountryId()).
+					$read->quoteInto(" AND (dest_region_id=? or dest_region_id='0')", $request->getDestRegionId()).
+					$read->quoteInto(" AND (STRCMP(LOWER(dest_city),LOWER(?)) = 0 or dest_city='')  ", $request->getDestCity()).
+					$zipSearchString
+			);
 
 			if (is_array($request->getMRConditionName())) {
 				$i = 0;
@@ -131,9 +140,6 @@ class Webshopapps_Matrixrate_Model_Mysql4_Carrier_Matrixrate extends Mage_Core_M
 						$select->orWhere('condition_name=?', $conditionName);
 					}
 					$select->where('condition_from_value<=?', $request->getData($conditionName));
-
-
-					$i++;
 				}
 			} else {
 				$select->where('condition_name=?', $request->getMRConditionName());
@@ -142,25 +148,17 @@ class Webshopapps_Matrixrate_Model_Mysql4_Carrier_Matrixrate extends Mage_Core_M
 			}
 
 			$select->where('website_id=?', $request->getWebsiteId());
-
 			$select->order('dest_country_id DESC');
 			$select->order('dest_region_id DESC');
 			$select->order('dest_zip DESC');
 			$select->order('condition_from_value DESC');
-			
 			$newdata=array();
+			//echo $select->__toString();
 			$row = $read->fetchAll($select);
-			if (!empty($row))
-			{
-				// have found a result or found nothing and at end of list!
-				foreach ($row as $data) {
-					$newdata[]=$data;
-				}
-				break;
-			}
-		}
-		return $newdata;
-*/
+			
+		
+		return $row;
+/*
     	$adapter = $this->_getReadAdapter();
     	$result=array();
     	$oldweight=$request->getData($request->getConditionName());
@@ -242,7 +240,7 @@ class Webshopapps_Matrixrate_Model_Mysql4_Carrier_Matrixrate extends Mage_Core_M
     	}
    // 	print_r($result);die;
     	return array($result);
-    	
+    	*/
     }
 
     public function uploadAndImport(Varien_Object $object)

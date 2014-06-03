@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Aurigait_Multishipping>
+      <version>0.1.0</version>
+    </Aurigait_Multishipping>
+  </modules>
+  <global>
+    <helpers>
+      <multishipping>
+        <class>Aurigait_Multishipping_Helper</class>
+      </multishipping>
+    </helpers>
+	<models>
+	  <multishipping>
+		<class>Aurigait_Multishipping_Model</class>
+		<resourceModel>multishipping_mysql4</resourceModel>
+	  </multishipping>
+	</models>
+  </global>    
+	<default>
+        <carriers>
+            <multishipping>
+                <active>1</active>
+                <model>multishipping/carrier_multishipping</model>
+                <name>multishipping</name>
+                <title>MultiShipping</title>
+                <description>Auriga Multishipping Method</description>
+                <sort_order>0</sort_order>
+            </multishipping>
+        </carriers>
+    </default>
+</config> 
