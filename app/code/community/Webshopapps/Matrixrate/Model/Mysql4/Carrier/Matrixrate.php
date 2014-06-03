@@ -339,7 +339,7 @@ class Webshopapps_Matrixrate_Model_Mysql4_Carrier_Matrixrate extends Mage_Core_M
                             $regionId = $regionCodesToIds[$countryCodesToIds[$csvLine[0]]][$csvLine[1]];
                         }
 						
-						if (count($csvLine)==11) {
+						if (count($csvLine)==10) {
 							// we are searching for postcodes in ranges & including cities
 							if ($csvLine[2] == '*' || $csvLine[2] == '') {
 								$city = '';
@@ -406,8 +406,14 @@ class Webshopapps_Matrixrate_Model_Mysql4_Carrier_Matrixrate extends Mage_Core_M
 							}
 							if($csvLine[7]!=0 && $csvLine[7]!=1)
 							{
+								if($csvLine[7]=='')
+									$csvLine[7]=0;
+								else
+								{
 								$exceptions[] = Mage::helper('shipping')->__('Invalid Cod Enable Value, it must be 0 or 1');
+								}
 							}
+							
 							
 							$data[] = array('website_id'=>$websiteId, 'dest_country_id'=>$countryId, 'dest_region_id'=>$regionId,  'dest_city'=>$city,'dest_zip'=>$zip,'dest_zip_to'=>$zip_to,  'condition_name'=>$conditionName, 'condition_from_value'=>$csvLine[3],'condition_to_value'=>$csvLine[4], 'price'=>$csvLine[5], 'delivery_type'=>$csvLine[6],'is_cod_enable'=>$csvLine[7]);
 						}
