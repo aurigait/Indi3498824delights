@@ -58,7 +58,7 @@ class Aurigait_Voucher_Checkout_CartController extends Mage_Checkout_CartControl
                     );
                 } else {
                     $this->_getSession()->addError(
-                        $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
+                        $this->__('Coupon code "%s" is not valid for the current order, kindly refer to the details of the voucher in the current vouchers section.', Mage::helper('core')->escapeHtml($couponCode))
                     );
                 }
             } else {

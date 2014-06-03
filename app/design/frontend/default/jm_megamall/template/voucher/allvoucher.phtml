@@ -9,10 +9,10 @@ $rulesCollection = $this->getAllvoucheratcart();// $this->getallcoupon();
 
 ?> 
 
-<div class="block block-discount discount">
+<div class="block block-discount discount" style="overflow-y: auto; height: 240px">
     <div class="block-title"><strong><span><?php echo $this->__('Coupons for You') ?></span></strong></div>
 	<?php if(count($rulesCollection)>0): ?>
-    <div class="block-content discount-form">
+    <div class="block-content discount-form" >
  
          <?php  
 			foreach($rulesCollection as $voucher)

@@ -31,6 +31,7 @@ class Aurigait_Voucher_Model_Cron{
 		$customer_array =array();
 		foreach($rulesCollection as $rul)
 		{
+			
 			$thresholdperiod = $rul['purchase_days'];
 			$thresholdamount = $rul['threshold_amount'];
 			$todate = date('Y-m-d');
@@ -38,8 +39,8 @@ class Aurigait_Voucher_Model_Cron{
 	
 			$write = Mage::getSingleton('core/resource')->getConnection('core_write');
 				
-			$sql = "select customer_id , sum(grand_total ) as totalorderamount from sales_flat_order where status= 'complete' and date(created_at) >'".$fromdate."' and date(created_at) <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$thresholdamount."  ";
-
+			$sql = "select customer_id , sum(subtotal ) as totalorderamount from sales_flat_order where status= 'complete' and date(created_at) >'".$fromdate."' and date(created_at) <='".$todate."'   and customer_id IS NOT NULL  group by customer_id having totalorderamount >= ".$thresholdamount."  ";
+			echo $sql.'<br>';
 			$data=$write->fetchAll($sql);
 			
 			$templateid =  $rul['email_template']; 
@@ -61,11 +62,17 @@ class Aurigait_Voucher_Model_Cron{
 				
 				
 				$isValiduser = Mage::getModel('voucher/voucherlistcustomer')->checkCustomerByCoupon($row['customer_id'],$couponcode);
-				if( $isValiduser!=1  && !in_array($customerEmailId, $customer_array))
+				
+				//print_r($customer_array);echo $isValiduser;
+				if( !in_array($customerEmailId, $customer_array))
 				{
 					$customer_array[]=$customerEmailId;
 					$this->sendmail($customerEmailId,$customerFName,$offeramount,$couponcode,$templateid);
-					Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($row['customer_id'],$couponcode,$row['totalorderamount'],$fromdate,$todate,$customrule_type);
+					if($isValiduser!=1)
+					{
+						echo "voucher created for ".$customerEmailId.'<br>';
+						Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($row['customer_id'],$couponcode,$row['totalorderamount'],$fromdate,$todate,$customrule_type);
+					}
 				}
 					
 			}
