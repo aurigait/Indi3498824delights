@@ -23,7 +23,7 @@
 			$html='<ul>';
 			foreach ($child_cates as $cate){
 				
-				if ($cate->getData('children_count')){
+				if ($cate->getProductCount()){
 					
 					$style="";
 					if($this->currentselecedcat==$cate->getId() && !$this->selectedone )
@@ -32,10 +32,13 @@
 						$this->selectedone = true;
 					}
 					$html.='<li class="filter-cat">';
-					$html.='<a href="'.$this->url.'?cat='.$cate->getId().'"  style="'.$style.'">'.$cate->getName().'</a>';
-					$html.='<div class="filter-showsub"><span>+</span></div>';
+					$html.='<a href="'.$this->url.'?cat='.$cate->getId().'"  style="'.$style.'">'.$cate->getName().'('.$cate->getProductCount().')</a>';
+					$subhtml=$this->genSubCats($cate);
+					if($subhtml)
+						$html.='<div class="filter-showsub"><span>+</span></div>';
+
 					$html.='<ul class="filter-subcat">';
-					$html.= $this->genSubCats($cate);
+					$html.= $subhtml;
 					$html.='</ul>';
 					$html.='</li>';
 				}
@@ -47,11 +50,10 @@
 		
 		public function genSubCats($cate){
 			
-			
 			$subcates= $cate->getChildrenCategories();
 			$html='';
 			foreach ($subcates as $subcate){
-				if ($subcate->getIsActive()){
+				if ($subcate->getIsActive() && $subcate->getProductCount()){
 				
 					$html.='<li class="filter-cat">';
 					$style="";
@@ -60,12 +62,14 @@
 						$style="font-weight: bold;";
 						$this->selectedone = true;
 					}
-					$html.='<a href="'.$this->url.'?cat='.$subcate->getId().'" style="'.$style.'">'.$subcate->getName().'</a>';
+					$html.='<a href="'.$this->url.'?cat='.$subcate->getId().'" style="'.$style.'">'.$subcate->getName().'('.$subcate->getProductCount().')</a>';
 					
 					if ($subcate->getData('children_count')){
-						$html.='<div class="filter-showsub"><span>+</span></div>';
+						$subhtml.= $this->genSubCats($subcate);
+						if($subhtml)
+							$html.='<div class="filter-showsub"><span>+</span></div>';
 						$html.='<ul class="filter-subcat">';
-						$html.= $this->genSubCats($subcate);
+						$html.= $subhtml;
 						$html.='</ul>';
 					}
 					$html.='</li>';
@@ -74,7 +78,5 @@
 			unset ($subcates);
 			return $html;
 		}
-	
     }
-
 ?>

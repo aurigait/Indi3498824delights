@@ -93,6 +93,23 @@ $installer->addAttribute("catalog_category", "tile_page_image",  array(
     "note"       => ""
 
 	));
+$setup = new Mage_Eav_Model_Entity_Setup('core_setup');
+$setup->addAttribute('customer', 'region', array(
+		'label'		=> 'region',
+		'type'		=> 'varchar',
+		'input'		=> 'text',
+		'visible'	=> true,
+		'required'	=> false,
+		'position'	=> 1,
+));
+$setup->addAttribute('customer', 'country', array(
+		'label'		=> 'country',
+		'type'		=> 'varchar',
+		'input'		=> 'text',
+		'visible'	=> true,
+		'required'	=> false,
+		'position'	=> 1,
+));
 
 $installer->endSetup();
-	 
+

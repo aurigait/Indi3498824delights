@@ -57,7 +57,8 @@ class Webshopapps_Matrixrate_Model_Carrier_Matrixrate
         if (!$this->getConfigFlag('active')) {
             return false;
         }
-        if(count($request->getAllItems())<2)
+		
+       /* if(count($request->getAllItems())<2)
         {
         	$allItem=$request->getAllItems();
         	if($allItem[0]->getQty()<2)
@@ -65,7 +66,7 @@ class Webshopapps_Matrixrate_Model_Carrier_Matrixrate
         		return false;
         	}
         }
-        
+        */
         
         // exclude Virtual products price from Package value if pre-configured
         if (!$this->getConfigFlag('include_virtual_price') && $request->getAllItems()) {
@@ -152,21 +153,31 @@ class Webshopapps_Matrixrate_Model_Carrier_Matrixrate
 	   foreach ($ratearray as $rate)
 		{
 		   if (!empty($rate) && $rate['price'] >= 0) {
-			  $method = Mage::getModel('shipping/rate_result_method');
-
+				$method = Mage::getModel('shipping/rate_result_method');
+				$cod="";
 				$method->setCarrier('matrixrate');
 				$method->setCarrierTitle($this->getConfigData('title'));
-
 				$method->setMethod('matrixrate_'.$rate['pk']);
-
-				$method->setMethodTitle(Mage::helper('matrixrate')->__($rate['delivery_type']));
-
+				
+				if($rate['is_cod_enable'])
+				{
+				//	echo "hii";
+					$method->setMethodTitle(Mage::helper('matrixrate')->__($rate['delivery_type'])." (Cod Available )");
+					$shippingPrice = $this->getFinalPriceWithHandlingFee($rate['price']);
+					$method->setDeliveryType($rate['delivery_type']);
+					
+				}
+				else
+				{
+					$method->setMethodTitle(Mage::helper('matrixrate')->__($rate['delivery_type']));
+					$method->setDeliveryType($rate['delivery_type']);
+					
+				}
 				$shippingPrice = $this->getFinalPriceWithHandlingFee($rate['price']);
+				
 				$method->setCost($rate['cost']);
-				$method->setDeliveryType($rate['delivery_type']);
-        		
+				
 				$method->setPrice($shippingPrice);
-
 				$result->append($method);
 			}
 		}
@@ -176,7 +187,48 @@ class Webshopapps_Matrixrate_Model_Carrier_Matrixrate
 
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
     {
-        return Mage::getResourceModel('matrixrate_shipping/carrier_matrixrate')->getNewRate($request,$this->getConfigFlag('zip_range'));
+/*    	$itemCount=0;
+    	$old=$request->getData($request->getMRConditionName());
+    	$itemList=array();
+    	if ($request->getAllItems()) {
+    		foreach ($request->getAllItems() as $item) {
+    			$request->setData($request->getMRConditionName(),$item->getProduct()->getWeight());
+    		//	echo $item->getProduct()->getWeight();
+    		//	echo $request->getData($request->getMRConditionName());
+    			$itemCount++;
+    			$itemList[]=Mage::getResourceModel('matrixrate_shipping/carrier_matrixrate')->getNewRate($request,$this->getConfigFlag('zip_range'));
+    		}
+    	}
+   		//print_r($itemList);die;
+   		
+   		$carrList=array();
+   		$count=array();
+   		foreach ($itemList as $item)
+   		{
+   			foreach ($item as $i)
+   			{
+   				if(@$carrList[$i['pk']])
+   				{
+   					$i['price']=$i['price']+$carrList[$i['pk']]['price'];
+   				}	
+   				$carrList[$i['pk']]=$i;
+   				$count[$i['pk']]=$count[$i['pk']]+1;
+   			}
+   		}
+   		
+   		foreach ($count as $index=>$c)
+   		{
+   			if($c<$itemCount)
+   			{
+   				unset($carrList[$index]);
+   			}   			
+   		}
+   		
+    	$old=$request->setData($request->getMRConditionName(),$old);
+    	return $carrList;
+  */  	
+    	return Mage::getResourceModel('matrixrate_shipping/carrier_matrixrate')->getNewRate($request,$this->getConfigFlag('zip_range'));
+    	
     }
     
     /**

@@ -26,7 +26,6 @@
 	<models>
 	  <commonindidelights>
 		<class>Aurigait_CommonIndidelights_Model</class>
-		 <!--<class>Aurigait_CommonIndidelights_Model_Attribute_Source_Type</class>-->
 		<resourceModel>commonindidelights_mysql4</resourceModel>
 	  </commonindidelights>
 	</models>
@@ -129,5 +128,11 @@
 		</connection>
 	  </salesattribute1399294199_read>
 		</resources>
+	<fieldsets>
+		<customer_account> 
+			<country><create>1</create><update>1</update></country>
+			<region><create>1</create><update>1</update></region>
+		</customer_account>
+	</fieldsets>	
   </global>
 </config> 

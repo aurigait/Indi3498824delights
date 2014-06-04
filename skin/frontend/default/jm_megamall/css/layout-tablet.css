@@ -123,7 +123,7 @@ body {
 #jm-search {
   border: 0 none;
   border-radius: 0;
-  margin: 20px 0 0 !important;
+	margin: 20px 0 0 !important;
   position: relative;
   top: 95px;
   right: 0;
@@ -385,7 +385,7 @@ body {
   color: #333;
 }
 
-.cms-home #jm-search {
+/*.cms-home #jm-search {
   position: relative;
   right: 0;
   top: 0;
@@ -406,7 +406,7 @@ body {
   right: 0 !important;
   border: 0 none;
   padding: 0;
-}
+}*/
 
 .cms-home .jm-search-category ,
 .cms-home #jm-header #jm-search .inner-toggle.active{
@@ -548,3 +548,57 @@ body {
     border-bottom: 0 none;
     padding: 0 0 10px;
 }
+
+#jm-search {
+  border: 0 none;
+  border-radius: 0;
+  margin-right: 0 !important;
+  position: relative;
+  top: 95px;
+  right: 10px;
+}
+
+#jm-header #jm-search .btn-toggle {
+  background: #0086AF;
+  border: 1px solid #0086AF;
+  color: #fff;
+}
+
+
+#jm-header .btn-toggle i {
+  font-size: 18px;
+  height: 16px;
+  width: 16px;
+}
+
+#jm-header .btn-toggle i {
+  font-size: 18px;
+  height: 16px;
+  position: relative;
+  top: -6px;
+  width: 16px;
+}
+
+#jm-header .inner-toggle {
+  display: none;
+}
+
+#jm-header .inner-toggle {
+  display: none;
+  box-shadow: none !important;
+}
+
+#jm-header .inner-toggle.active {
+  display: block;
+}
+#jm-header #jm-search .inner-toggle.active {
+  background: #fff;
+  border: 1px solid #ebebeb;
+  display: block;
+  min-width: 476px;
+  padding: 20px;
+  position: absolute;
+  right: 0;
+  top: 39px;
+  z-index: 10;
+} 

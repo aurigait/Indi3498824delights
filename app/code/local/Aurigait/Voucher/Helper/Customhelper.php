@@ -10,19 +10,21 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 		
 		if($customer->getId())
 		{
-			$rulesCollection->getSelect()->where('( rule_coupons.expiration_date > now() or rule_coupons.expiration_date is NULL ) and main_table.is_active =1 ');
+			$rulesCollection->getSelect()->where('( rule_coupons.expiration_date > now() or rule_coupons.expiration_date is NULL ) and main_table.is_active =1 and main_table.isdisplay_in_cart =1 ');
 		}
 		else
 		{
-			$rulesCollection->getSelect()->where('( rule_coupons.expiration_date > now() or rule_coupons.expiration_date is NULL ) and main_table.is_active =1 and main_table.rule_type in (1,4) ');
+			$rulesCollection->getSelect()->where('( rule_coupons.expiration_date > now() or rule_coupons.expiration_date is NULL ) and main_table.is_active =1 and main_table.isdisplay_in_cart =1 and main_table.rule_type in (1,4) ');
 		}
 		
+		$rulesCollection->setOrder('sort_order', 'ASC');
 		//$rulesCollection->load(true,true);
 		//	print_r($rulesCollection);
 		$vouchercustomreturnarr = array();
 		
 		foreach($rulesCollection as $rule)
 		{
+			
 			$vouchercustomarr = array();
 			//echo  $rule->getCode().'##'.$rule->getRuleType().'@@'.$rule->getTimesUsed().'@<br>'.$rule->getTimesUsed();
 			$isValidcoupon = true;
@@ -32,6 +34,28 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 			{
 				switch($rule->getRuleType())
 				{
+					case 1:
+						 
+						$customergroup_ids = $rule->getCustomerGroupIds();
+						
+						//print_r($customergroup_ids);
+						$groupid = Mage::getSingleton('customer/session')->getCustomerGroupId();
+						
+						foreach($customergroup_ids as $customergroup)
+						{
+							if($groupid==$customergroup)
+							{
+								$isValidcoupon = true;
+								break;
+							}
+							else
+							{
+								$isValidcoupon = false;
+							}
+						}
+					
+						break;
+						
 					case 2:
 						//for welcome voucher
 					    if($this->checkWelcomevoucher($customer,$rule->getCode()))
@@ -60,6 +84,8 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 						
 						break;
 					case 3:
+						
+						
 						//for user cumulative voucher
 						$ThresholdAmount =  $rule->getThresholdAmount();
 						$PurchaseDays =  $rule->getPurchaseDays();
@@ -74,9 +100,35 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 							$isValidcoupon =true; 
 						}
 						break;
+						
+					case 4:
+						
+						$totalItemsInCart = Mage::helper('checkout/cart')->getItemsCount();
+						$totals = Mage::getSingleton('checkout/session')->getQuote()->getTotals(); 
+						$subtotal = round($totals["subtotal"]->getValue()); 
+						$grandtotal = round($totals["grand_total"]->getValue()); 
+						 
+						//echo $subtotal.'@@@@@@@@@@@@@@@@@@@@@'.$rule->getAlertThresholdAmount();
+					 	if($subtotal >= $rule->getAlertThresholdAmount() )
+						{
+							$isValidcoupon = true;
+						}
+						else
+						{
+							$isValidcoupon = false;
+						}
+						 break;
+					
 					case 5:
 						//for invitation voucher
-						 
+						
+						$totalItemsInCart = Mage::helper('checkout/cart')->getItemsCount();
+						$totals = Mage::getSingleton('checkout/session')->getQuote()->getTotals();
+						$subtotal = round($totals["subtotal"]->getValue());
+						$grandtotal = round($totals["grand_total"]->getValue());
+							
+						//echo $subtotal.'@@@@@@@@@@@@@@@@@@@@@'.$rule->getAlertThresholdAmount();
+					
 						$isValiduser = Mage::getModel('voucher/voucherlistcustomer')->checkCustomerByCoupon($customer->getId(),$rule->getCode());
 					 
 						if(($isValiduser !=1)  ) // && ($rule->getTimesUsed()) && $rule->getTimesUsed()>=$rule->getUsesPerCustomer() )
@@ -96,19 +148,45 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 							}
 							
 						}
+						
 						break;
 							
 						
 				}
 			}
+			else
+			{
+				switch($rule->getRuleType())
+				{
+					case 4:
+						
+						$totalItemsInCart = Mage::helper('checkout/cart')->getItemsCount();
+						$totals = Mage::getSingleton('checkout/session')->getQuote()->getTotals();
+						$subtotal = round($totals["subtotal"]->getValue());
+						$grandtotal = round($totals["grand_total"]->getValue());
+							
+						//echo $subtotal.'@@@@@@@@@@@@@@@@@@@@@'.$rule->getAlertThresholdAmount();
+						if($subtotal >= $rule->getAlertThresholdAmount() )
+						{
+							$isValidcoupon = true;
+						}
+						else
+						{
+							$isValidcoupon = false;
+						}
+						break;
+							
+				}
+					
+			}
 			if( ($rule->getUsesPerCustomer() >0 && ($rule->getRuleType() !=2 )) && ($rule->getTimesUsed()) && $rule->getTimesUsed()>=$rule->getUsesPerCustomer() )
 			{
 				$isValidcoupon = false;
 			}
-				
-				
-			if(($isValidcoupon) && $rule->getCode())
+		
+		 	if(($isValidcoupon) && $rule->getCode())
 			{
+				//echo $rule->getCode().$isValidcoupon;
 				$vouchercustomarr['voucher_code'] = $rule->getCode();
 				$vouchercustomarr['description'] = $rule->getDescription();
 				$vouchercustomarr['expiration_date'] = $rule->getToDate();

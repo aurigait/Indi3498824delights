@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Aurigait_CountyCurrencySwitcher>
+      <version>0.1.1</version>
+    </Aurigait_CountyCurrencySwitcher>
+  </modules>
+  <frontend>
+    <routers>
+      <countycurrencyswitcher>
+        <use>standard</use>
+          <args>
+            <module>Aurigait_CountyCurrencySwitcher</module>
+            <frontName>countycurrencyswitcher</frontName>
+          </args>
+      </countycurrencyswitcher>
+    </routers>
+		<layout>
+		  <updates>
+			<countycurrencyswitcher>
+			  <file>countycurrencyswitcher.xml</file>
+			</countycurrencyswitcher>
+		  </updates>
+		</layout>
+  </frontend>
+  <global>
+    <helpers>
+      <countycurrencyswitcher>
+        <class>Aurigait_CountyCurrencySwitcher_Helper</class>
+      </countycurrencyswitcher>
+    </helpers>
+	<blocks>
+	  <countycurrencyswitcher>
+		<class>Aurigait_CountyCurrencySwitcher_Block</class>
+	  </countycurrencyswitcher>
+	</blocks>
+	<models>
+	  <countycurrencyswitcher>
+		<class>Aurigait_CountyCurrencySwitcher_Model</class>
+		
+	  </countycurrencyswitcher>
+			<core>
+				<rewrite>
+					<store>Aurigait_CountyCurrencySwitcher_Model_CurrencySwitcher</store>
+				</rewrite>
+			</core>
+            
+	</models>
+	<resources>
+	  <countycurrencyswitcher_setup>
+		<setup>
+		  <module>Aurigait_CountyCurrencySwitcher</module>
+		  <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </countycurrencyswitcher_setup>
+	  <countycurrencyswitcher_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </countycurrencyswitcher_write>
+	  <countycurrencyswitcher_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </countycurrencyswitcher_read>
+	</resources>
+	
+  </global>
+  <admin>
+	<routers>
+	  <countycurrencyswitcher>
+	    <use>admin</use>
+		<args>
+		  <module>Aurigait_CountyCurrencySwitcher</module>
+		  <frontName>countycurrencyswitcher</frontName>
+		</args>
+	  </countycurrencyswitcher>
+	</routers>
+  </admin>
+  <!--
+  <adminhtml>
+	<menu>
+	  <countycurrencyswitcher module="countycurrencyswitcher">
+		<title>CountyCurrencySwitcher</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <countycurrencyswitcherbackend module="countycurrencyswitcher">
+			<title>Backend Page Title</title>
+			<sort_order>0</sort_order>
+			<action>countycurrencyswitcher/adminhtml_countycurrencyswitcherbackend</action>
+		  </countycurrencyswitcherbackend>
+		</children>
+	  </countycurrencyswitcher>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<countycurrencyswitcher translate="title" module="countycurrencyswitcher">
+			  <title>CountyCurrencySwitcher</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <countycurrencyswitcherbackend translate="title">
+			<title>Backend Page Title</title>
+		  </countycurrencyswitcherbackend>
+			  </children>
+			</countycurrencyswitcher>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<countycurrencyswitcher>
+		  <file>countycurrencyswitcher.xml</file>
+		</countycurrencyswitcher>
+	  </updates>
+	</layout>
+  </adminhtml>-->
+</config> 

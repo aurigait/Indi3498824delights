@@ -107,7 +107,7 @@ $attributeSetName = $attributeSetModel->getAttributeSetName();
                     <li><label>Brand:</label> <strong><?php echo $brand; ?></strong></li>
                  <?php  }?>
                  <?php $vendor= $_product->getResource()->getAttribute('ga_vender')->getFrontend()->getValue($_product);
-                if(!empty($from)){
+                if(!empty($vendor) && $vendor!="No"){
                 ?>
                     <li><label>Vendor:</label> <strong><?php echo $vendor; ?></strong></li>
                 <?php } ?>
@@ -198,7 +198,7 @@ $attributeSetName = $attributeSetModel->getAttributeSetName();
 					if($cod=='Yes'): ?>
             		<li>
             			<i class="fa fa-check"></i>
-            			COD Availabel</li>
+            			COD Available</li>
             	<?php endif;} ?>
                 <?php 
                 $returnable=$_product->getResource()->getAttribute('ga_returnable');
@@ -224,7 +224,7 @@ $attributeSetName = $attributeSetModel->getAttributeSetName();
             </ul>
             </div>
 
-            <?php echo $this->getChildHtml('other');?>
+            <?php  echo $this->getChildHtml('other');?>
 			
 			<?php
 				/*
@@ -393,7 +393,11 @@ $attributeSetName = $attributeSetModel->getAttributeSetName();
 				</div>
 				<?php endif;?>
 		</div>
-	</div>
- 
-	
+	</div>	
 </div>
+<?php 
+if(Mage::app()->getRequest()->getParam('review'))
+{
+?>
+<script>jQuery(document).ready(function(){writeReview();});</script>
+<?php }?>

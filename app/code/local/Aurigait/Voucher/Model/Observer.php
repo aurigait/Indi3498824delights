@@ -153,7 +153,7 @@ class Aurigait_Voucher_Model_Observer
 		$helperobj->_emailtemplate =Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/email_template');
 		
 		$helperobj->_code ='INVITE';
-		$helperobj->_friendnamecode = substr($customerName, 0,4);
+		$helperobj->_friendnamecode = '-'.substr($customerName, 0,6).'-';
 		foreach($senderinfo as $sender)
 		{ 
 			 
@@ -215,6 +215,17 @@ class Aurigait_Voucher_Model_Observer
 	public function alterform(Valterform1arien_Event_Observer $observer)
 	{
 		$fieldset =$observer->getEvent()->getForm()->getElement('base_fieldset');
+		
+		$fieldset->addField('isdisplay_in_cart', 'select', array(
+				'name' => 'isdisplay_in_cart',
+				'label' => 'Is Visible at cart page ',
+				'required' => true,
+				'options'    => array(
+						1 => 'Yes',
+						2 => 'No',
+				),
+				'note' =>'yes if want to display in cart page',
+		));
 		//$observer->getEvent()->getForm()->setHtmlAttributes('enctype', 'multipart/form-data');
 		$fieldset->addField('rule_type', 'select', array(
 				'label'     => 'Rule Type',
@@ -269,6 +280,12 @@ class Aurigait_Voucher_Model_Observer
 				'name' => 'threshold_amount',
 				'label' => Mage::helper('salesrule')->__('Threshold Amount'),
 				'note' =>'Total order amount in c days (for user cumulative vouchers)',
+		));
+		
+		$fieldset1->addField('alert_threshold_amount', 'text', array(
+				'name' => 'alert_threshold_amount',
+				'label' => Mage::helper('salesrule')->__('Alert Amount'),
+				'note' =>'Total order amount in c days (for user cumulative vouchers and order cumulative vouchers)',
 		));
 		
 		

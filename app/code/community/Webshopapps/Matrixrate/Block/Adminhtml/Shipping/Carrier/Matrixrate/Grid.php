@@ -62,7 +62,10 @@ class Webshopapps_Matrixrate_Block_Adminhtml_Shipping_Carrier_Matrixrate_Grid ex
             'header'    => Mage::helper('adminhtml')->__('Delivery Type'),
             'index'     => 'delivery_type',
         ));
-
+        $this->addColumn('is_cod_enable', array(
+        		'header'    => Mage::helper('adminhtml')->__('is_cod_enable'),
+        		'index'     => 'is_cod_enable',
+        ));
         return Mage_Adminhtml_Block_Widget_Grid::_prepareColumns();
     }
     

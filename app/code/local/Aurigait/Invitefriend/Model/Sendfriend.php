@@ -139,29 +139,43 @@ class Aurigait_Invitefriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         $customer = Mage::getSingleton('customer/session')->getCustomer();
     //    Mage::getModel('voucher/invitefriend')->savecustom($customer->getId(), $sender['email'],$email,date('Y-m-d'));
 
-       
+        $errorMessage = '';
         foreach ($this->getRecipients()->getEmails() as $k => $email) {
-            $name = $this->getRecipients()->getNames($k);
             
-            Mage::getModel('invitefriend/invitefriend')->savecustom($customer->getId(), $sender['email'],$email,date('Y-m-d'));
-            $mailTemplate->sendTransactional(
-                $this->getTemplate(),
-                $sender,
-                $email,
-                $name,
-                array(
-                    'name'          => $name,
-                    'email'         => $email,
-                   // 'product_name'  => $this->getProduct()->getName(),
-                 //   'product_url'   => $this->getProduct()->getUrlInStore(),
-                    'message'       => $message,
-                    'sender_name'   => $sender['name'],
-                    'sender_email'  => $sender['email'],
-                   //  'product_image' => Mage::helper('catalog/image')->init($this->getProduct(),'small_image')->resize(75), 
-                )
-            ); 
+        	$customer = Mage::getModel("customer/customer");
+        	$customer->setWebsiteId(Mage::app()->getWebsite()->getId());
+        	$data=  $customer->loadByEmail($email);
+        	 
+        	if(!$data['email'])
+        	{
+	        	$name = $this->getRecipients()->getNames($k);
+	            
+	            
+	            Mage::getModel('invitefriend/invitefriend')->savecustom($customer->getId(), $sender['email'],$email,date('Y-m-d'));
+	            $mailTemplate->sendTransactional(
+	                $this->getTemplate(),
+	                $sender,
+	                $email,
+	                $name,
+	                array(
+	                    'name'          => $name,
+	                    'email'         => $email,
+	                   // 'product_name'  => $this->getProduct()->getName(),
+	                 //   'product_url'   => $this->getProduct()->getUrlInStore(),
+	                    'message'       => $message,
+	                    'sender_name'   => $sender['name'],
+	                    'sender_email'  => $sender['email'],
+	                   //  'product_image' => Mage::helper('catalog/image')->init($this->getProduct(),'small_image')->resize(75), 
+	                )
+	            ); 
+        	}
+        	else
+        	{
+        		$errorMessage.= $email.' is already registerd with us<br>';
+        	}
         }
 
+        Mage::getSingleton('catalog/session')->addError($errorMessage);
         $translate->setTranslateInline(true);
         $this->_incrementSentCount();
 

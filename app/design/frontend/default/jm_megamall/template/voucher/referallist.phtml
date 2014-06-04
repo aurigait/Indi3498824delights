@@ -18,7 +18,8 @@ if(count($allreferal)>0): ?>
         <tr>
             <td><?php echo $referal['receiver_emailid']; ?>&nbsp;</td>
             <td><?php echo date("D, j M, Y", strtotime($referal['senddate'])); ?>&nbsp;</td>
-            <td><?php echo $referal['register_status']==0?'Not Registered yet':'Registered'; ?>&nbsp;</td>
+            <td><?php //echo $referal['register_status']==0?'Not Registered yet':'Registered'; 
+						echo $referal['show_message']; ?>&nbsp;</td>
              
         </tr>
     <?php endforeach ?>
