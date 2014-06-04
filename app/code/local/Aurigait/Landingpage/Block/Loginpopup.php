@@ -17,9 +17,10 @@ class Aurigait_Landingpage_Block_Loginpopup extends Mage_Core_Block_Template {
 	
 	public function __construct() {
 		parent::__construct();
-		
 		$cookie=Mage::getSingleton('core/cookie')->get("landing_step");
 		if (!$this->helper('customer')->isLoggedIn() && empty($cookie)){
+			Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::helper('core/url')->getCurrentUrl());
+			Mage::getSingleton('customer/session')->setAfterAuthUrl(Mage::helper('core/url')->getCurrentUrl());
 			$cookie_domain=Mage::getStoreConfig('web/cookie/cookie_domain');
 			setcookie('landing_step','1',0,'/',$cookie_domain);
 			$this->setTemplate('landingpage/popup.phtml');

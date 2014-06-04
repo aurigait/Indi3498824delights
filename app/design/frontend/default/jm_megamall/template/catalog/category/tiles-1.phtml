@@ -66,7 +66,7 @@ foreach ($_subCaegories as $scatid)
 
 <div class="tiles-categories">
 <div class="block block-cate sp-block-cate">
-<h2><?php echo $_subcat->getName();?></h2>
+<h2><a href="<?php echo $_subcat->getUrl()?>"><?php echo $_subcat->getName();?></a></h2>
 <p><?php echo $_subcat->getDescription(); ?></p>
 <ul>
 <li><a href="<?php echo $_subcat->getUrl()?>">View All</a></li>
