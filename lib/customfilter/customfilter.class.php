@@ -23,7 +23,7 @@
 			$html='<ul>';
 			foreach ($child_cates as $cate){
 				
-				if ($cate->getData('children_count')){
+				if ($cate->getProductCount()){
 					
 					$style="";
 					if($this->currentselecedcat==$cate->getId() && !$this->selectedone )

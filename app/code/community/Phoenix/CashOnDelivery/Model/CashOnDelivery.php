@@ -208,7 +208,7 @@ class Phoenix_CashOnDelivery_Model_CashOnDelivery extends Mage_Payment_Model_Met
             {
             	$_product=$item->getProduct()->load($item->getProduct()->getId());
             	$cod= $_product->getResource()->getAttribute('cod_available');
-            	if(!$cod && strtolower($cod->getFrontend()->getValue($_product)!='yes'))
+            	if($cod && strtolower($cod->getFrontend()->getValue($_product))!='yes')
             	{
             		if(!Mage::registry('Cod_not_avail'))
             			Mage::register('Cod_not_avail', "Cod is not available for product ".$item->getProduct()->getName());
