@@ -128,5 +128,11 @@
 		</connection>
 	  </salesattribute1399294199_read>
 		</resources>
+	<fieldsets>
+		<customer_account> 
+			<country><create>1</create><update>1</update></country>
+			<region><create>1</create><update>1</update></region>
+		</customer_account>
+	</fieldsets>	
   </global>
 </config> 

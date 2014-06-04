@@ -71,7 +71,6 @@
 						$html.='<ul class="filter-subcat">';
 						$html.= $subhtml;
 						$html.='</ul>';
-
 					}
 					$html.='</li>';
 				}
@@ -79,7 +78,5 @@
 			unset ($subcates);
 			return $html;
 		}
-	
     }
-
 ?>

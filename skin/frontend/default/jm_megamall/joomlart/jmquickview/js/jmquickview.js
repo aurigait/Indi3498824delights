@@ -125,11 +125,12 @@
 				      productid = product[0].replace("product/","");
 					  quickviewtag = $("<a/>",{
 							"rel":"quickviewbox",
-							"href":"quickview/index",
+						//	"href":"quickview/index",
 							"id":"quickviewbox"+productid,
 							"title":"Product quick view"
 					  });
-					  quickviewtag.attr("href","javascript::void()"); //baseurl+"quickview/index/index/id/"+productid
+					  //quickviewtag.attr("href","javascript::void()"); //baseurl+"quickview/index/index/id/"+productid
+					  
 					  quickviewtag.append(' <button class="form-button jmquickview"><span>Quick View</span></button>');
 					  $(bcart).after(quickviewtag);
 				      quickviewtag.colorbox({href:baseurl+"quickview/index/index/id/"+productid,current: "Product {current} of {total}",onComplete:$.proxy(function(){

@@ -29,6 +29,26 @@
         <class>Aurigait_Landingpage_Helper</class>
       </landingpage>
     </helpers>
+    
+    <models>
+	  <Landingpage>
+		<class>Aurigait_Landingpage_Model</class>
+	  </Landingpage>
+	</models>
+	
+ 
+	<events>
+	  <customer_register_success> <!-- identifier of the event we want to catch -->
+        <observers>
+          <customer_reg> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>Landingpage/observer</class> <!-- observers class alias -->
+            <method>saveEthnicity</method>  <!-- observer's method to be called -->
+           </customer_reg>          
+        </observers>
+      </customer_register_success>
+      </events>
+    
 	<blocks>
 	  <landingpage>
 		<class>Aurigait_Landingpage_Block</class>

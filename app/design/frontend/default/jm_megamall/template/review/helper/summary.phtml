@@ -55,16 +55,17 @@
     </div>
 <?php endif; ?>
 <script>
+function writeReview(){
+	jQuery("#ja-tab-products li.first").removeClass("active").next().addClass("active")
+	jQuery("#ja-tabitem-reviews").hide();
+	jQuery("#ja-tabitem-reviewform").show();
+	jQuery('html, body').animate({
+	        scrollTop: jQuery("#ja-tab-products").offset().top-100
+	    }, 1000);
+	
+	}
 jQuery("#writeReview").click(
-		function(){
-			jQuery("#ja-tab-products li.first").removeClass("active").next().addClass("active")
-			jQuery("#ja-tabitem-reviews").hide();
-			jQuery("#ja-tabitem-reviewform").show();
-			jQuery('html, body').animate({
-			        scrollTop: jQuery("#ja-tab-products").offset().top-100
-			    }, 1000);
-			
-			}
+		function(){writeReview();}
 		);
 
 </script>

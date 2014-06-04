@@ -393,7 +393,11 @@ $attributeSetName = $attributeSetModel->getAttributeSetName();
 				</div>
 				<?php endif;?>
 		</div>
-	</div>
- 
-	
+	</div>	
 </div>
+<?php 
+if(Mage::app()->getRequest()->getParam('review'))
+{
+?>
+<script>jQuery(document).ready(function(){writeReview();});</script>
+<?php }?>
