@@ -32,7 +32,7 @@
 						$this->selectedone = true;
 					}
 					$html.='<li class="filter-cat">';
-					$html.='<a href="'.Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>array('cat'=>$cate->getId()))).'"  style="'.$style.'">'.$cate->getName().'('.$cate->getProductCount().')</a>';
+					$html.='<a href="'.Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>array('cat'=>$cate->getId()))).'"  style="'.$style.'">'.$cate->getName().'</a>';
 					$subhtml=$this->genSubCats($cate);
 					if($subhtml)
 						$html.='<div class="filter-showsub"><span>+</span></div>';
@@ -62,7 +62,7 @@
 						$style="font-weight: bold;";
 						$this->selectedone = true;
 					}
-					$html.='<a href="'.Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>array('cat'=>$subcate->getId()))).'" style="'.$style.'">'.$subcate->getName().'('.$subcate->getProductCount().')</a>';
+					$html.='<a href="'.Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>array('cat'=>$subcate->getId()))).'" style="'.$style.'">'.$subcate->getName().'</a>';
 					
 					if ($subcate->getData('children_count')){
 						$subhtml.= $this->genSubCats($subcate);

@@ -199,7 +199,8 @@ ul.megamenu{ margin:15px 20px;}
 /*Product detail page*/
 .product-view .product-img-box{ margin:0 20px 0 0;}
 .product-view .product-shop{ padding:0; width:655px;}
-.product-view .product-img-box .product-image-zoom{ border:#eaeaea solid 1px;}
+.product-view .product-img-box .product-image-zoom{ border:#eaeaea solid 1px;width:auto}
+.product-view .product-img-box .product-image-zoom img{max-width:100%;}
 .product-shop .product-name h1{ margin:0 0 5px 0;}
 .product-view .product-shop .add-to-links { top:10px;}
 .product-view .product-shop .base-info li{ margin:5px 0;}
