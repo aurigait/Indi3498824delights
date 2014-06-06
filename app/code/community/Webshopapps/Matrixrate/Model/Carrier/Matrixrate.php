@@ -162,7 +162,7 @@ class Webshopapps_Matrixrate_Model_Carrier_Matrixrate
 				if($rate['is_cod_enable'])
 				{
 				//	echo "hii";
-					$method->setMethodTitle(Mage::helper('matrixrate')->__($rate['delivery_type'])." (Cod Available) ");
+					$method->setMethodTitle(Mage::helper('matrixrate')->__($rate['delivery_type'])." (Cod available) ");
 					$method->setDeliveryType($rate['delivery_type']);
 					
 				}
