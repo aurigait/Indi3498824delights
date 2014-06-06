@@ -23,8 +23,6 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
 /**
  * Order create model
  *
@@ -312,8 +310,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                     if (is_string($item)) {
                         Mage::throwException($item);
                     }
-                }
-                
+                }                
             }
         }
         $shippingAddress = $order->getShippingAddress();
