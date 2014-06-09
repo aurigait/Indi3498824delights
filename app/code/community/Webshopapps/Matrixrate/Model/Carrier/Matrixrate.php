@@ -153,21 +153,30 @@ class Webshopapps_Matrixrate_Model_Carrier_Matrixrate
 	   foreach ($ratearray as $rate)
 		{
 		   if (!empty($rate) && $rate['price'] >= 0) {
-			  $method = Mage::getModel('shipping/rate_result_method');
-
+				$method = Mage::getModel('shipping/rate_result_method');
+				$cod="";
 				$method->setCarrier('matrixrate');
 				$method->setCarrierTitle($this->getConfigData('title'));
-
 				$method->setMethod('matrixrate_'.$rate['pk']);
-
-				$method->setMethodTitle(Mage::helper('matrixrate')->__($rate['delivery_type']));
-
+				
+				if($rate['is_cod_enable'])
+				{
+				//	echo "hii";
+					$method->setMethodTitle(Mage::helper('matrixrate')->__($rate['delivery_type'])." (Cod available) ");
+					$method->setDeliveryType($rate['delivery_type']);
+					
+				}
+				else
+				{
+					$method->setMethodTitle(Mage::helper('matrixrate')->__($rate['delivery_type'])." (Cod not available) ");
+					$method->setDeliveryType($rate['delivery_type']);
+					
+				}
 				$shippingPrice = $this->getFinalPriceWithHandlingFee($rate['price']);
+				
 				$method->setCost($rate['cost']);
-				$method->setDeliveryType($rate['delivery_type']);
-        		
+				
 				$method->setPrice($shippingPrice);
-
 				$result->append($method);
 			}
 		}

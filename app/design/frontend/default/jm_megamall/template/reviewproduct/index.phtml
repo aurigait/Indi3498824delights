@@ -42,11 +42,9 @@
     <col width="1" />
     <thead>
         <tr>
-            <th><?php echo $this->__('Order #') ?></th>
-            <th><?php echo $this->__('Date') ?></th>
-            <th><?php echo $this->__('Product') ?></th>
-            <th><span class="nobr"><?php echo $this->__('Order Total') ?></span></th>
-            <th><span class="nobr"><?php echo $this->__('Order Status') ?></span></th>
+            <th><?php echo $this->__('') ?></th>
+            <th colspan="2"><?php echo $this->__('Product Name') ?></th>
+            <th><?php echo $this->__('Purchased On') ?></th>
             <th>Review</th>
         </tr>
     </thead>
@@ -55,25 +53,24 @@
         <?php foreach ($_orders as $_order){ ?>
         <?php $products=$_order->getAllItems();
          foreach ($products as $item):
-         $my_product = Mage::getModel('catalog/product')->load($item->getProductId());
+         		$my_product = Mage::getModel('catalog/product')->load($item->getProductId());
         	?>
         <tr>
         
             <td>
-            	<a href="<?php echo $my_product->getProductUrl() ?>" class="product-image">
+            	<a href="<?php echo $my_product->getProductUrl();?>" class="product-image">
 					<img src="<?php echo $this->helper('catalog/image')->init($my_product, 'small_image')->resize(100,100); ?>" width="100" height="100" />
 				</a>
 			</td>
-            <td><span class="nobr"><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></span></td>
-            <td>
+            <td colspan="2">
             	<a href="<?php echo $my_product->getProductUrl() ?>">
             	<?php echo $my_product->getName() ?>
             	</a>
             </td>
-            <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
-            <td><em><?php echo $_order->getStatusLabel() ?></em></td>
+            <td><span class="nobr"><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></span></td>
+          
             <td class="a-center">
-              <a href="<?php echo $my_product->getProductUrl();?>#ja-tab-products">Review Product </a>
+              <a href="<?php echo $my_product->getProductUrl();?>?review=1">Review Product </a>
             </td>
         </tr>
         <?php endforeach;} ?>

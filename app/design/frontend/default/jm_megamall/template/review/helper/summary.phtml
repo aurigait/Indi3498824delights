@@ -35,7 +35,7 @@
             </div>
         <?php endif;?>
         <p class="rating-links">
-            <a href="<?php echo $this->getReviewsUrl() ?>"><?php echo $this->__('%d reviews', $this->getReviewsCount()) ?></a>
+            <a href="javascript:void(0)" class="reviewread"><?php echo $this->__('%d reviews', $this->getReviewsCount()) ?></a>
         </p>
     </div>
 <?php elseif ($this->getDisplayIfEmpty()): 
@@ -46,25 +46,33 @@
                 <div class="rating"></div>
             </div>
         <p class="rating-links">
-            <a href="<?php echo $this->getReviewsUrl() ?>"><?php echo $this->__('0 review') ?></a>
+            <a href="javascript:void(0)" class="writeReview"><?php echo $this->__('0 review') ?></a>
 			 <span class="separator">|</span>
         <?php /*    <a class="link-review" href="<?php echo $this->getReviewsUrl() ?>#review-form"><?php echo $this->__('Add your review') ?></a>
          */ ?>
-         <a class="link-review" id="writeReview" href="javascript:void(0)"><?php echo $this->__('Add your review') ?></a>
+         <a class="link-review writeReview"  href="javascript:void(0)"><?php echo $this->__('Add your review') ?></a>
          </p>
     </div>
 <?php endif; ?>
 <script>
-jQuery("#writeReview").click(
-		function(){
-			jQuery("#ja-tab-products li.first").removeClass("active").next().addClass("active")
-			jQuery("#ja-tabitem-reviews").hide();
-			jQuery("#ja-tabitem-reviewform").show();
-			jQuery('html, body').animate({
-			        scrollTop: jQuery("#ja-tab-products").offset().top-100
-			    }, 1000);
-			
-			}
+function writeReview(){
+	jQuery("#ja-tab-products li.first").removeClass("active").next().addClass("active")
+	jQuery("#ja-tabitem-reviews").hide();
+	jQuery("#ja-tabitem-reviewform").show();
+	jQuery('html, body').animate({
+	        scrollTop: jQuery("#ja-tab-products").offset().top-100
+	    }, 1000);
+	}
+jQuery(".writeReview").click(
+		function(){writeReview();}
 		);
+jQuery(".reviewread").click(function(){
+	jQuery("#ja-tab-products li.first").addClass("active").next().removeClass("active")
+	jQuery("#ja-tabitem-reviews").show();
+	jQuery("#ja-tabitem-reviewform").hide();
+	jQuery('html, body').animate({
+	        scrollTop: jQuery("#ja-tab-products").offset().top-100
+	    }, 1000);		
+});		
 
 </script>

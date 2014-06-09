@@ -64,11 +64,11 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
      */
     public function getClearUrl()
     {
-        if(!Mage::registry("current_category")){
+      /*  if(!Mage::registry("current_category")){
 
          return Mage::getBaseUrl();
       
-        }
+        }*/
         $filterState = array();
         foreach ($this->getActiveFilters() as $item) {
             $filterState[$item->getFilter()->getRequestVar()] = $item->getFilter()->getCleanValue();

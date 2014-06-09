@@ -41,9 +41,9 @@
             <default_setup>
                 <connection>
                     <host><![CDATA[localhost]]></host>
-                    <username><![CDATA[root]]></username>
-                    <password><![CDATA[]]></password>
-                    <dbname><![CDATA[indidelight_1]]></dbname>
+                    <username><![CDATA[indide_demo]]></username>
+                    <password><![CDATA[indide123]]></password>
+                    <dbname><![CDATA[indidelights_demo]]></dbname>
                     <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
                     <model><![CDATA[mysql4]]></model>
                     <type><![CDATA[pdo_mysql]]></type>

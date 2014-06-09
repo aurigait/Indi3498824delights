@@ -17,17 +17,13 @@
         {
         	/*if (!$this->getConfigFlag('active')) {
         		return false;
-        	}
+        	}*/
         
-        	/* if(count($request->getAllItems())<2)
+        	 if(count($request->getAllItems())<2)
         	 {
-        	$allItem=$request->getAllItems();
-        	if($allItem[0]->getQty()<2)
-        	{
-        	return false;
-        	}
-        	}
-        	*/
+	        	return false;
+          	 }
+        	
         
         	// exclude Virtual products price from Package value if pre-configured
         	if ($request->getAllItems()) {
@@ -115,14 +111,22 @@
         	{
         		if (!empty($rate) && $rate['price'] >= 0) {
         			$method = Mage::getModel('shipping/rate_result_method');
-        
         			$method->setCarrier('multishipping');
         			$method->setCarrierTitle($this->getConfigData('title'));
         			$method->setMethod('multishipping_'.$rate['pk']);
-        			$method->setMethodTitle($rate['delivery_type']);
+        			
+        			if($rate['is_cod_enable'])
+        			{
+        				$method->setMethodTitle($rate['delivery_type']." (Cod vailable) ");
+        			}
+        			else 
+        			{
+        				$method->setMethodTitle($rate['delivery_type']." (Cod not available) ");
+        			}
+        			
+        			$method->setDeliveryType($rate['delivery_type']);
         			$shippingPrice = $this->getFinalPriceWithHandlingFee($rate['price']);
         			$method->setCost($rate['cost']);
-        			$method->setDeliveryType($rate['delivery_type']);
         			$method->setPrice($shippingPrice);
         			$result->append($method);
         		}

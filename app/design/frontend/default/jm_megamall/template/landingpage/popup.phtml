@@ -66,7 +66,7 @@
 	
 	<div class="second-column">
 		<div class="block-popup">
-		<form action="<?php echo MAGE::getUrl('landingpage/registeruser/createPost');?>" method="post" onSubmit="return submitReg(this)">
+		<form action="<?php echo MAGE::getUrl('customer/account/createPost');?>" method="post" onSubmit="return submitReg(this)">
 		<input type="hidden" value="<?php echo Mage::helper('core')->urlEncode(Mage::helper('core/url')->getCurrentUrl())?>" name="referer"/>
 		<h2><?php echo $this->__('CREATE AN ACCOUNT') ?></h2>
 		<ul class="form-list">
@@ -118,7 +118,8 @@
       <h2><?php echo $this->__('Login') ?></h2>
         <div class="col login-left">
 	      
-	        <form id="login-form" action="<?php echo $this->helper('customer')->getLoginPostUrl();?>" method="post" onSubmit="return submitLogin()">
+	        <form id="login-form" action="<?php echo MAGE::getUrl('landingpage/registeruser/loginPost');?>" method="post" onSubmit="return submitLogin()">
+	        <input type="hidden" value="<?php echo Mage::helper('core')->urlEncode(Mage::helper('core/url')->getCurrentUrl())?>" name="referers"/>
 		            <?php  echo $this->getBlockHtml('formkey'); ?>
 		            <ul class="form-list">
 		               <li class="fields">
