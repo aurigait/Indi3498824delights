@@ -81,21 +81,51 @@ class Aurigait_Invitefriend_Model_Invitefriend extends Mage_Core_Model_Abstract
 				$customer->setWebsiteId(Mage::app()->getWebsite()->getId()); 
 				$data=  $customer->loadByEmail($customer_email);
 				
-				$registerdate = strtotime($data['created_at']);
+				$registerdate = strtotime($data['created_at']);//echo $data['created_at'].'###'.$row['senddatetime'].'%%%%';
 				$referaldate = strtotime($row['senddatetime']);
-			 	
+				
+				$friendacceptationperiod  = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/friendacceptationperiod');
+				$friendacceptationdate  =  $referaldate + ( (24*60*60) * $friendacceptationperiod);
+				
 				if($data['created_at'])
 				{
+					$referaldate -= 45000;
+					//echo $registerdate.'###'.$referaldate.'<br>';
+					
 					if(($registerdate>=$referaldate ))
 					{
-						if($row['register_status'] ==1)
+						
+						if($registerdate<=$friendacceptationdate)
 						{
-							$row['show_message'] = 'Coupon Generated';
+							
+							$orders = Mage::getResourceModel('sales/order_collection')
+							->addFieldToSelect('*')
+							->addFieldToFilter('customer_id', $data['entity_id']);
+							
+							if($orders->getSize())
+							{
+								if($row['register_status'] ==1)
+								{
+									$row['show_message'] = 'Hurray!!! Our friend has made a purchase. You would be issued a voucher very shortly';
+								}
+								else
+								{
+									$row['show_message'] = 'Sorry!! Seems someone else got lucky this time with the voucher this time';
+								}
+							}
+							else
+							{
+								$row['show_message'] = 'Hurray!! Our friend has registered with us. Now, can you convince them to shop quickly enough so that one lucky friend’s invitor could win a discount voucher';
+							}
+							
 						}
 						else
 						{
-							$row['show_message'] = 'Registered but Coupon not generated';
+							$row['show_message'] ="Expired";
 						}
+						
+						
+						
 					}
 					else
 					{
@@ -104,7 +134,16 @@ class Aurigait_Invitefriend_Model_Invitefriend extends Mage_Core_Model_Abstract
 				}
 				else
 				{
-					$row['show_message'] = 'Not Registered Yet';
+					$currnettime = time();
+					if($currnettime>=$friendacceptationdate)
+					{
+						$row['show_message'] ="Expired";
+					}
+					else
+					{
+						$row['show_message'] = 'Awaiting our friend to register and shop with us soon.';
+					}
+					
 				}
 				
 			
