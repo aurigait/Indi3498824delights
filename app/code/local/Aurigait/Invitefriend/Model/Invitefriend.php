@@ -26,6 +26,12 @@ class Aurigait_Invitefriend_Model_Invitefriend extends Mage_Core_Model_Abstract
     {
     	 
     	$write = Mage::getSingleton('core/resource')->getConnection('core_write');
+    	
+
+    	
+    	$sql = "update   {$this->thistablename()} set register_status = 2  where receiver_emailid = '".$receiver_emailid."' and  senddate = '".$senddate."'   and   status= 1 " ;
+    	$write->query($sql);
+    	
     	$sql = "update   {$this->thistablename()} set register_status = 1  where sender_emailid =  '".$sender_emailid."' and  receiver_emailid = '".$receiver_emailid."' and  senddate = '".$senddate."'   and   status= 1 " ;
     	$write->query($sql);
     	 
@@ -89,12 +95,12 @@ class Aurigait_Invitefriend_Model_Invitefriend extends Mage_Core_Model_Abstract
 				
 				if($data['created_at'])
 				{
-					$referaldate -= 45000;
+					//$referaldate -= 45000;
 					//echo $registerdate.'###'.$referaldate.'<br>';
 					
 					if(($registerdate>=$referaldate ))
 					{
-						
+						$registerdate=$friendacceptationdate;
 						if($registerdate<=$friendacceptationdate)
 						{
 							
@@ -106,11 +112,15 @@ class Aurigait_Invitefriend_Model_Invitefriend extends Mage_Core_Model_Abstract
 							{
 								if($row['register_status'] ==1)
 								{
-									$row['show_message'] = 'Hurray!!! Our friend has made a purchase. You would be issued a voucher very shortly';
+									$row['show_message'] = 'Coupon generated for you';
 								}
-								else
+								else if($row['register_status'] ==2)
 								{
 									$row['show_message'] = 'Sorry!! Seems someone else got lucky this time with the voucher this time';
+								}
+								else if($row['register_status'] ==0)
+								{
+									$row['show_message'] = 'Hurray!!! Our friend has made a purchase. You would be issued a voucher very shortly';
 								}
 							}
 							else

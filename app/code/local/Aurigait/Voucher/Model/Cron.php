@@ -336,10 +336,10 @@ class Aurigait_Voucher_Model_Cron{
 					  
 					$friendacceptationdate  =  $referaldate + ( (24*60*60) * $friendacceptationperiod);
 
-					//echo $registerdate.'@@@'.$referaldate.'%%'.$registerdate.'@@@'.$friendacceptationdate;
-					$referaldate -= 45000;
+				//	echo $registerdate.'@@@'.$referaldate.'%%'.$registerdate.'@@@'.$friendacceptationdate;
+				//	$referaldate -= 45000;
 					if( ($registerdate>=$referaldate )  && $registerdate<=$friendacceptationdate)
-					{
+					{ 
 					//	echo '##s<br>'.$orderrow->getId();//die;
 					//	print_r($response);
 					

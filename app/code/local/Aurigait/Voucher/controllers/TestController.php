@@ -342,10 +342,10 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 					  
 					$friendacceptationdate  =  $referaldate + ( (24*60*60) * $friendacceptationperiod);
 
-					//echo $registerdate.'@@@'.$referaldate.'%%'.$registerdate.'@@@'.$friendacceptationdate;
-					$referaldate -= 45000;
+				//	echo $registerdate.'@@@'.$referaldate.'%%'.$registerdate.'@@@'.$friendacceptationdate;
+				//	$referaldate -= 45000;
 					if( ($registerdate>=$referaldate )  && $registerdate<=$friendacceptationdate)
-					{
+					{ 
 					//	echo '##s<br>'.$orderrow->getId();//die;
 					//	print_r($response);
 					
