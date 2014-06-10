@@ -301,14 +301,15 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 } else {
                     $qty = $orderItem->getQtyOrdered() - $orderItem->getQtyShipped() - $orderItem->getQtyInvoiced();
                 }
-				if($orderItem->getUserRemark())
-				{
-					$item->setUserRemark($orderItem->getUserRemark());
-				}
+				
                 if ($qty > 0) {
                     $item = $this->initFromOrderItem($orderItem, $qty);
                     if (is_string($item)) {
                         Mage::throwException($item);
+                    }
+                    if($orderItem->getUserRemark())
+                    {
+                    	$item->setUserRemark($orderItem->getUserRemark());
                     }
                 }                
             }
