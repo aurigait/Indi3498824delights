@@ -139,12 +139,13 @@ class Aurigait_Invitefriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         $customer = Mage::getSingleton('customer/session')->getCustomer();
     //    Mage::getModel('voucher/invitefriend')->savecustom($customer->getId(), $sender['email'],$email,date('Y-m-d'));
 
+        
         $errorMessage = '';
         foreach ($this->getRecipients()->getEmails() as $k => $email) {
             
-        	$customer = Mage::getModel("customer/customer");
-        	$customer->setWebsiteId(Mage::app()->getWebsite()->getId());
-        	$data=  $customer->loadByEmail($email);
+        	$customer2 = Mage::getModel("customer/customer");
+        	$customer2->setWebsiteId(Mage::app()->getWebsite()->getId());
+        	$data=  $customer2->loadByEmail($email);
         	 
         	if(!$data['email'])
         	{
@@ -175,7 +176,8 @@ class Aurigait_Invitefriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         	}
         }
 
-        Mage::getSingleton('catalog/session')->addError($errorMessage);
+        if($errorMessage!='')
+        	Mage::getSingleton('catalog/session')->addError($errorMessage);
         $translate->setTranslateInline(true);
         $this->_incrementSentCount();
 
