@@ -28,6 +28,17 @@
 	$_product = $this->getProduct();
 	$_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product);
 	?>
+<?php 
+    $userRemark="";
+    $quote = Mage::getSingleton('checkout/session')->getQuote();
+    foreach($quote->getAllVisibleItems() as $item) {
+    	if ($item->getData('product_id') == $_product->getId()) {
+         	$userRemark = $item->getData('user_remark');
+         	break;
+         }
+    }
+?>
+         
 <?php $buttonTitle = $this->__('Add to Cart'); ?>
 <?php if($_product->isSaleable()): ?>
     <div class="add-to-cart">
@@ -39,8 +50,31 @@
         <li>
         <button type="submit" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submitLight(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
          <button type="submit" style="clear: none;margin-left:15px" title="Wishlist" class="button btn-cart"  onclick="productAddToCartForm.submitLight(this,'<?php echo $_wishlistSubmitUrl;?>')"><span><span>Wishlist</span></span></button>
+        </li>
+        <li>
+         <span class="separator">|</span>  
+        	<a href="javascript:void(0);" id="user-remarks">Special Note</a> 
+    		<div class="tool-tip"><i class="fa fa-caret-up">
+    			</i> <textarea name="user_remark" cols="" rows=""><?php echo $userRemark;?></textarea>
+    		</div>
          </li>
+         
          </ul>
         <?php echo $this->getChildHtml('', true, true) ?>
     </div>
 <?php endif; ?>
+<script>
+	jQuery(document).ready(function(){
+		jQuery('#user-remarks').click(function(event){
+			jQuery('.tool-tip').toggle();
+			event.stopPropagation()
+			});
+			jQuery('.tool-tip').click(function(event){
+				event.stopPropagation()
+				});
+			jQuery('html').click(function(){
+					jQuery('.tool-tip').hide();
+					
+				});
+		});
+</script>

@@ -21,8 +21,8 @@
  */
 -->
 <layout>    
-    <catalog_product_view>
-        <reference name="head">
+	<default>
+	<reference name="head">
             <action method="addCss">
                 <stylesheet>css/cloud-zoom.css</stylesheet>
             </action>
@@ -31,7 +31,18 @@
             </action>
          
         </reference>
-		
+	</default>
+    <catalog_product_view>
+      <!--    <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/cloud-zoom.css</stylesheet>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/lightbox.css</stylesheet>
+            </action>
+         
+        </reference>
+		-->
         <reference name="product.info.media">
             <action method="setTemplate" ifconfig="moo_cloudzoom/general/enabled">
                 <template>moo/catalog/product/view/media.phtml</template>
