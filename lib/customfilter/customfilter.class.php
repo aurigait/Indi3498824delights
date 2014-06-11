@@ -43,8 +43,7 @@
 					$html.= $subhtml;
 					$html.='</ul>';
 					$html.='</li>';
-				}
-				
+				}				
 			}
 			$html.='</ul>';
 			return $html;
