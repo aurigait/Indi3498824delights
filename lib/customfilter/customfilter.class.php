@@ -23,7 +23,9 @@
 			$html='<ul>';
 			foreach ($child_cates as $cate){
 				
-				if ($cate->getProductCount()){
+				$cate=$cate->load($cate->getId());
+				$subhtml=$this->genSubCats($cate);
+				if ($cate->hasProduct() || $subhtml){
 					
 					$style="";
 					if($this->currentselecedcat==$cate->getId() && !$this->selectedone )
@@ -33,7 +35,7 @@
 					}
 					$html.='<li class="filter-cat">';
 					$html.='<a href="'.Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>array('cat'=>$cate->getId()))).'"  style="'.$style.'">'.$cate->getName().'</a>';
-					$subhtml=$this->genSubCats($cate);
+					
 					if($subhtml)
 						$html.='<div class="filter-showsub"><span>+</span></div>';
 
