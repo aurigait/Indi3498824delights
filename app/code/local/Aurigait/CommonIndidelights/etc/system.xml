@@ -1,13 +1,32 @@
 <?xml version="1.0"?>
 <config>
+	<sections>
+		<sales_email>
+			<groups>
+                <order>
+                	<fields>
+	             		<systemplate translate="label">
+	                            <label>Backend Order Confirmation Template</label>
+	                            <frontend_type>select</frontend_type>
+	                            <source_model>adminhtml/system_config_source_email_template</source_model>
+	                            <sort_order>17</sort_order>
+	                            <show_in_default>1</show_in_default>
+	                            <show_in_website>1</show_in_website>
+	                            <show_in_store>1</show_in_store>
+	                   </systemplate>
+                   </fields>
+             	</order>
+             </groups>   
+		</sales_email>
+	</sections>
     <tabs>
     	<general translate="label" module="CommonIndidelights">
             <label>General</label>
             <sort_order>100</sort_order>
         </general>
     </tabs>
-    <sections>
-       
+    
+    <sections>       
     <trans_email translate="label" module="CommonIndidelights">
             <class>separator-top</class>
             <label>Store Email Addresses</label>

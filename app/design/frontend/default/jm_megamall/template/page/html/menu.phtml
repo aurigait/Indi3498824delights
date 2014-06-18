@@ -6,25 +6,31 @@ $layer = Mage::getModel("catalog/layer");
 ?>
 <div class="menu-group">
 <?php 
+$html="";
 foreach ($sub_cat as $cat)
 {
 	if($cat->getIsActive()){
 	?>
-<div class="menu-i">
-<div class="title">
-<?php	echo "<h2><a href='".$cat->getURL()."'>".$cat->getName()."</a></h2></div>";
+<?php	
 	if($cat->hasChildren())
 	{
-		echo "<ul>";
 		foreach ($cat->getChildrenCategories() as $scat)
 		{
-			if($scat->getIsActive())
-				echo "<li><a href='".$scat->getURL()."'>".$scat->getName()."</a></li>";
-		}
-		echo "</ul>";		
+			if($scat->getIsActive() && $scat->getProductCount())
+				$html.="<li><a href='".$scat->getURL()."'>".$scat->getName()."</a></li>";
+		}				
 	}
+	if($cat->getProductCount()||$html)
+	{
+		echo '<div class="menu-i"><div class="title">';
+		echo "<h2><a href='".$cat->getURL()."'>".$cat->getName()."</a></h2></div>";
+		if($html)
+			echo "<ul>".$html."<ul>";
+		echo "</div>";
+	}
+	$html='';
 ?>
-</div>
+
 <?php 	
 }}
 ?>

@@ -14,7 +14,7 @@ body{font-family: 'Open Sans', sans-serif;}
 .text-right{ text-align:right;}
 
 #logo{ margin:0;}
-#jm-head {border-bottom:#d3d3d3 solid 1px;}
+#jm-head {border-bottom:#d3d3d3 solid 1px; z-index:9999;}
 #jm-tops2 .col3-set .col-3{ margin-left:10px;}
 #jm-tops2 .col3-set .col-3 iframe{ margin-bottom:5px;}
 #jm-tops2 .col3-set .col-2{margin:0; width: auto;  float: none;}
@@ -345,6 +345,10 @@ button.button{ padding:11px 16px;}
 .fb_iframe_widget{ position:absolute!important; left:282px;}
 #off-canvas-nav .megamenu .menu-i h2{ border-bottom:none;}
 #mainnav-inner{ margin-top:0;}
+.atc-qview { display:block;}
+.atc-qview li{ display:inline-block; vertical-align:middle; position:relative;}
+.atc-qview .tool-tip{ left:-125px; top:30px;}
+.atc-qview .tool-tip .fa-caret-up{ left:auto; right:70px;}
 
 @media only screen and (max-width: 1024px) {
 	#jm-tops2 .col3-set .col-3{ display:none;}

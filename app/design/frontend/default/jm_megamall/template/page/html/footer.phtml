@@ -21,3 +21,12 @@
 <div class="jm-legal">
 	<?php echo $this->getCopyright() ?>
 </div>
+<script>
+jQuery(document).ready(function(){
+jQuery('.menu-region').each(function(obj){
+	var height=jQuery(this).find('ul').height();
+	if(height>20){
+		jQuery(this).parents().find('.group').css('min-height',(height+50)+"px");	
+		}
+	});});
+</script>

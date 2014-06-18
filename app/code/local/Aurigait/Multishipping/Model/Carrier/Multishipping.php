@@ -19,7 +19,7 @@
         		return false;
         	}*/
         
-        	 if(count($request->getAllItems())<2)
+        	 if(Mage::helper('checkout/cart')->getCart()->getItemsCount()<2)
         	 {
 	        	return false;
           	 }
