@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <ordercustomfeild_adminhtml_ordercustomfeild_index>
+	<reference name="content">
+	  <block type="ordercustomfeild/adminhtml_ordercustomfeild" name="ordercustomfeild" />
+	</reference>
+  </ordercustomfeild_adminhtml_ordercustomfeild_index>
+  
+  <ordercustomfeild_adminhtml_ordercustomfeild_itemlist>
+	<reference name="content">
+	  <block type="ordercustomfeild/adminhtml_itemlist" name="itemlist" />
+	</reference>
+  </ordercustomfeild_adminhtml_ordercustomfeild_itemlist>
+</layout>

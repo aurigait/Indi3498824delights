@@ -435,6 +435,12 @@ AdminOrder.prototype = {
     applyCoupon : function(code){
         this.loadArea(['items', 'shipping_method', 'totals', 'billing_method'], true, {'order[coupon][code]':code, reset_shipping: true});
     },
+    
+    
+    updateCouponcount : function(code,custid,url){
+    	updateAxaj(code,custid,url);
+        this.loadArea(['items', 'shipping_method', 'totals', 'billing_method'], true, {'order[coupon][code]':code, reset_shipping: true});
+    },
 
     addProduct : function(id){
         this.loadArea(['items', 'shipping_method', 'totals', 'billing_method'], true, {add_product:id, reset_shipping: true});

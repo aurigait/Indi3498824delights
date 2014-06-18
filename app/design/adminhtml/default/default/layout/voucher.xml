@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <voucher_adminhtml_voucherbackend_welcomereport>
+	<reference name="content">
+	  <block type="voucher/adminhtml_welcome" name="welcome" />
+	</reference>
+  </voucher_adminhtml_voucherbackend_welcomereport>
+  
+  <voucher_adminhtml_voucherbackend_invitivcreport>
+	<reference name="content">
+	  <block type="voucher/adminhtml_invitivoucherreport" name="invitivoucherreport" />
+	</reference>
+  </voucher_adminhtml_voucherbackend_invitivcreport>
+  
+   
+  <voucher_adminhtml_voucherbackend_adminvcreport>
+	<reference name="content">
+	  <block type="voucher/adminhtml_adminvcreport" name="adminvcreport" />
+	</reference>
+  </voucher_adminhtml_voucherbackend_adminvcreport>
+  <voucher_adminhtml_voucherbackend_usercumulativevcreport>
+	<reference name="content">
+	  <block type="voucher/adminhtml_usercumulativevcreport" name="usercumulativevcreport" />
+	</reference>
+  </voucher_adminhtml_voucherbackend_usercumulativevcreport>
+  <voucher_adminhtml_voucherbackend_ordercumulativevcreport>
+	<reference name="content">
+	  <block type="voucher/adminhtml_ordercumulativevcreport" name="ordercumulativevcreport" />
+	</reference>
+  </voucher_adminhtml_voucherbackend_ordercumulativevcreport>
+</layout>

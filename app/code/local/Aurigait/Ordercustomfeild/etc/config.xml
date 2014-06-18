@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Aurigait_Ordercustomfeild>
+      <version>0.1.0</version>
+    </Aurigait_Ordercustomfeild>
+  </modules>
+  <global>
+    <helpers>
+      <ordercustomfeild>
+        <class>Aurigait_Ordercustomfeild_Helper</class>
+      </ordercustomfeild>
+    </helpers>
+	<blocks>
+	  <ordercustomfeild>
+		<class>Aurigait_Ordercustomfeild_Block</class>
+	  </ordercustomfeild>
+	</blocks>
+	<models>
+	  <ordercustomfeild>
+		<class>Aurigait_Ordercustomfeild_Model</class>
+		<resourceModel>ordercustomfeild_mysql4</resourceModel>
+	  </ordercustomfeild>
+	  <ordercustomfeild_mysql4>
+		<class>Aurigait_Ordercustomfeild_Model_Mysql4</class>
+		<entities>		  
+			  <ordercustomfeild>
+				<table>aurigait_ordercustome</table>
+			  </ordercustomfeild>
+        </entities>
+	  </ordercustomfeild_mysql4>
+	</models>
+	<resources>
+	  <ordercustomfeild_setup>
+		<setup>
+		  <module>Aurigait_Ordercustomfeild</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </ordercustomfeild_setup>
+	  <ordercustomfeild_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </ordercustomfeild_write>
+	  <ordercustomfeild_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </ordercustomfeild_read>
+	</resources>
+  </global>
+  <admin>
+	<routers>
+	  <ordercustomfeild>
+	    <use>admin</use>
+		<args>
+		  <module>Aurigait_Ordercustomfeild</module>
+		  <frontName>ordercustomfeild</frontName>
+		</args>
+	  </ordercustomfeild>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <ordercustomfeild module="ordercustomfeild">
+		<title>Order Qty Update</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <ordercustomfeild module="ordercustomfeild">
+		    <title>Manage Order Qty Update</title>
+			<sort_order>0</sort_order>
+			<action>ordercustomfeild/adminhtml_ordercustomfeild</action>
+		  </ordercustomfeild>
+		</children>
+	  </ordercustomfeild>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<ordercustomfeild translate="title" module="ordercustomfeild">
+			  <title>Ordercustomfeild</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <ordercustomfeild translate="title">
+			<title>Manage Ordercustomfeild</title>
+			<sort_order>0</sort_order>
+		  </ordercustomfeild>
+			  </children>
+			</ordercustomfeild>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<ordercustomfeild>
+		  <file>ordercustomfeild.xml</file>
+		</ordercustomfeild>
+	  </updates>
+	</layout>
+	
+	<events>
+           
+            <core_block_abstract_prepare_layout_after>
+                <observers>
+                    <addMassactionsToGridJsCarrier>
+                    <type>model</type>
+                    <class>Aurigait_Ordercustomfeild_Model_Observer</class>
+                    <method>core_block_abstract_prepare_layout_after_javascript_init</method>
+                    </addMassactionsToGridJsCarrier>
+                </observers>
+            </core_block_abstract_prepare_layout_after>
+            
+        </events>
+  </adminhtml>
+</config> 

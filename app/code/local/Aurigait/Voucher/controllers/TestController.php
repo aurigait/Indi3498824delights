@@ -358,8 +358,8 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 							echo "voucher created for ".$response['sender_emailid'].'<br>';
 							
 							$totalavailablebal = $orderrow->getBaseSubtotal() - $orderrow->getBaseDiscountAmount();
-							$this->createcouponforreferaltype2($response['sender_id'],$totalavailablebal,$customerData['firstname']);
-						    Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
+							$couponcode = $this->createcouponforreferaltype2($response['sender_id'],$totalavailablebal,$customerData['firstname']);
+						    Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate'],$couponcode);
 	
 						}
 	
@@ -447,6 +447,7 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 		$customerData = Mage::getModel('customer/customer')->load($customerid);
 		$this->mailinvitevoucher($couponcode,$customerData);
 		Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($customerid,$couponcode,'',$helperobj->_fromdate,$helperobj->_todate,$helperobj->_ruletype);
+		return $couponcode;
 	}
 	
 	public function mailinvitevoucher($couponcode,$senderdata)
@@ -472,8 +473,6 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 	
 		$templateId = $oRule['email_template'];
 		//$templateId = Mage::getStoreConfig('invitationvoucher/ginvitationvoucher/email_template');
-	
-		
 		
 		$vars = array(
 				'coupon_prize' => $oRule['discount_amount'],
@@ -492,9 +491,6 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 			
 			$translate->setTranslateInline(true);
 		}
-		
-	
-	
 			
 	}
 	public function getOfferbyOrderamoutinvit($orderamount,$offerprice)
@@ -503,6 +499,17 @@ class Aurigait_Voucher_TestController extends Mage_Core_Controller_Front_Action
 	
 		return $retunamount ;
 	
+	}
+	
+	public function setCouponcountAction()
+	{
+		$write = Mage::getSingleton('core/resource')->getConnection('core_write');
+		
+		$couponcode =  Mage::app()->getRequest()->getParam('couponcode');// 'RAMRAM2';
+		$customerid =  Mage::app()->getRequest()->getParam('customerid');//'54';
+		
+		$sql = "update salesrule_coupon_usage as a inner join salesrule_coupon as b  on a.coupon_id = b.coupon_id left join salesrule as c on c.rule_id = b.rule_id  left join salesrule_customer as d on d.rule_id = c.rule_id set a.times_used = a.times_used-1 , b.times_used = b.times_used-1 , c.times_used = c.times_used-1 , d.times_used = d.times_used-1   where a.customer_id ='".$customerid."' and b.code = '".$couponcode."'  	";
+		$write->query($sql);
 	}
 }
 ?>

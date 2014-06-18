@@ -22,17 +22,21 @@ class Aurigait_Voucher_Model_Invitefriend extends Mage_Core_Model_Abstract
     }
     
     // update tabel
-    public function updatereferaldone($sender_emailid,$receiver_emailid,$senddate)
+ public function updatereferaldone($sender_emailid,$receiver_emailid,$senddate,$couponcode)
     {
     	 
     	$write = Mage::getSingleton('core/resource')->getConnection('core_write');
-    	$sql = "update   {$this->thistablename()} set register_status = 1  where sender_emailid =  '".$sender_emailid."' and  receiver_emailid = '".$receiver_emailid."' and  senddate = '".$senddate."'   and   status= 1 " ;
-    	$write->query($sql);
-    	 
+    	
+
     	
     	$sql = "update   {$this->thistablename()} set register_status = 2  where receiver_emailid = '".$receiver_emailid."' and  senddate = '".$senddate."'   and   status= 1 " ;
     	$write->query($sql);
+    	
+    	$sql = "update   {$this->thistablename()} set register_status = 1, voucher_code =  '".$couponcode."'  where sender_emailid =  '".$sender_emailid."' and  receiver_emailid = '".$receiver_emailid."' and  senddate = '".$senddate."'   and   status= 1 " ;
+    	$write->query($sql);
+    	 
     }
+    
     
     public function checkcustomerbyreferal($customeremail)
     {

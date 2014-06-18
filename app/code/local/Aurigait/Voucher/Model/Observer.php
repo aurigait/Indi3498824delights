@@ -232,7 +232,7 @@ class Aurigait_Voucher_Model_Observer
 				'name'      => 'rule_type',
 				'required' => true,
 				'options'    => array(
-						0 => 'Please Selete Voucher type',
+						'' => 'Please Selete Voucher type',
 						1 => 'Admin Defined Voucher',
 						2 => 'Welcome Voucher',
 						3 => 'User Cumulative Voucher',
@@ -292,6 +292,17 @@ class Aurigait_Voucher_Model_Observer
 		
 	}
 	
+	
+	public function core_block_abstract_prepare_layout_after_javascript_init($observer)
+	{
+	 
+		$block = $observer->getEvent()->getBlock();
+	 
+		if ($block->getLayout()->getBlock('head')) {
+			$block->getLayout()->getBlock('head')->addJs('voucher/sales/sales.js');
+		} 
+		 
+	}
 	
 	// to update custom coupon 
 	

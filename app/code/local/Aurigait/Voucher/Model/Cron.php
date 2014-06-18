@@ -304,9 +304,9 @@ class Aurigait_Voucher_Model_Cron{
 	
 	//  code for generate invitation vouchers
 	
-	public function setInvitationvoucher()
+	public function setInvitationvoucherAction()
 	{
-		
+	
 		$friendacceptationperiod  = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/friendacceptationperiod');
 		$friendpurchaseperiod = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/friendpurchaseperiod');
 		$voucherissueperiod = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/voucherissueperiod');
@@ -315,34 +315,34 @@ class Aurigait_Voucher_Model_Cron{
 		{
 	
 			$odercompletedate = date('Y-m-d' , strtotime('-'.$voucherissueperiod.' days'));
-			 
+	
 			$order = Mage::getModel('sales/order')->getCollection();
-			 
+	
 			$order->getSelect('main_table.customer_id')->where('main_table.status NOT IN ( "canceled" , "holded")  and date(main_table.created_at) = "'.$odercompletedate.'" ');
-			
+				
 			foreach ($order as $orderrow)
 			{
-				
-			 
+	
+	
 				$customerData = Mage::getModel('customer/customer')->load($orderrow->getCustomerId())->getData();
 				$registerdate = strtotime($customerData['created_at']);
-	 
+	
 				$response = Mage::getModel('invitefriend/invitefriend')->checkcustomerbylastreferal($customerData['email']);
 				if($response)
 				{
-					
+						
 					$referaldate = strtotime($response['senddatetime']);
-					
-					  
+						
+						
 					$friendacceptationdate  =  $referaldate + ( (24*60*60) * $friendacceptationperiod);
-
-				//	echo $registerdate.'@@@'.$referaldate.'%%'.$registerdate.'@@@'.$friendacceptationdate;
-				//	$referaldate -= 45000;
+	
+					//	echo $registerdate.'@@@'.$referaldate.'%%'.$registerdate.'@@@'.$friendacceptationdate;
+					//	$referaldate -= 45000;
 					if( ($registerdate>=$referaldate )  && $registerdate<=$friendacceptationdate)
-					{ 
-					//	echo '##s<br>'.$orderrow->getId();//die;
-					//	print_r($response);
-					
+					{
+						//	echo '##s<br>'.$orderrow->getId();//die;
+						//	print_r($response);
+							
 						$orderinfo = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('customer_id',$orderrow->getCustomerId());
 	
 						$firstorderdate = $registerdate + ( (24*60*60) * $friendpurchaseperiod);
@@ -350,10 +350,10 @@ class Aurigait_Voucher_Model_Cron{
 						if($orderdate<=$firstorderdate)
 						{
 							echo "voucher created for ".$response['sender_emailid'].'<br>';
-							
+								
 							$totalavailablebal = $orderrow->getBaseSubtotal() - $orderrow->getBaseDiscountAmount();
-							$this->createcouponforreferaltype2($response['sender_id'],$totalavailablebal,$customerData['firstname']);
-						    Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate']);
+							$couponcode = $this->createcouponforreferaltype2($response['sender_id'],$totalavailablebal,$customerData['firstname']);
+							Mage::getModel('invitefriend/invitefriend')->updatereferaldone($response['sender_emailid'],$customerData['email'],$response['senddate'],$couponcode);
 	
 						}
 	
@@ -378,7 +378,8 @@ class Aurigait_Voucher_Model_Cron{
 		$minimumpurchaseamount = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/minimumpurchaseamount');
 		$vouchervalidityperiod = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/vouchervalidityperiod');
 		$offertype =  Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/offertype');
-		
+	
+	
 		$helperobj = Mage::Helper('voucher/data');
 	
 		$helperobj->_fromdate ='';
@@ -389,7 +390,7 @@ class Aurigait_Voucher_Model_Cron{
 			$helperobj->_todate =  date('Y-m-d' , strtotime('+'.$vouchervalidityperiod.' days' ));
 		}
 	
-		$helperobj->_offerprice =$offerprice ;
+	
 	
 		if($offertype==1)
 		{
@@ -401,10 +402,15 @@ class Aurigait_Voucher_Model_Cron{
 		}
 		else if($offertype==3)
 		{
-			$helperobj->_offerprice = $this->getOfferbyOrderamoutinvit($orderamount,$offerprice);
+			$offerprice = $this->getOfferbyOrderamoutinvit($orderamount,$offerprice);
+	
+			//$helperobj->_actiontype ="by_fixed";
 			$helperobj->_actiontype ="cart_fixed";
-				
+	
+	
 		}
+	
+		$helperobj->_offerprice =$offerprice ;
 		$iconimage  = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/icon');
 		$termsconditions  = Mage::getStoreConfig('invitationvoucher2/ginvitationvoucher2/termsconditions');
 	
@@ -428,13 +434,15 @@ class Aurigait_Voucher_Model_Cron{
 	
 		$helperobj->_code ='INVITE';
 		$helperobj->_friendnamecode = substr($customerName, 0,4);
-		 
+	
+	
+			
 		$couponcode = $helperobj->CreateCustomCoupon();
 		$customerData = Mage::getModel('customer/customer')->load($customerid);
 		$this->mailinvitevoucher($couponcode,$customerData);
 		Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($customerid,$couponcode,'',$helperobj->_fromdate,$helperobj->_todate,$helperobj->_ruletype);
+		return $couponcode;
 	}
-	
 	public function mailinvitevoucher($couponcode,$senderdata)
 	{
 	

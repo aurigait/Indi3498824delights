@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 	<config>
+	 
 		<acl>
 			<resources>
 				<admin>
@@ -42,8 +43,21 @@
 								</config>
 							</children>
 						</system>
+						<reports>
+						<children>
+							<voucher  translate="title" module='aurigait_vouhcer'>
+								  <title>Vouhcer</title>
+			                                       
+							</voucher>
+						</children>
+						
+					</reports>	
 					</children>
 				</admin>
 			</resources>
 		</acl>
+		
+	 
+        
+ 
 	</config>

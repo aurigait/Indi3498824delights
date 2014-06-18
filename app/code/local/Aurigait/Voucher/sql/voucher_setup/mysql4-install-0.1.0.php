@@ -48,6 +48,8 @@ ALTER TABLE `voucher_allcouponlist` ADD `voucher_type` INT( 4 ) NOT NULL DEFAULT
 	
 ALTER TABLE `voucher_referfriendlist` ADD `senddatetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ;
 
+ALTER TABLE `voucher_referfriendlist` ADD `voucher_code` VARCHAR( 20 ) NOT NULL AFTER `register_status` ;
+
 
 ALTER TABLE `salesrule` ADD `isdisplay_in_cart` INT( 2 ) NOT NULL AFTER `email_template` ,
 ADD `alert_threshold_amount` DOUBLE NOT NULL AFTER `isdisplay_in_cart` ;

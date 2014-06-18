@@ -91,6 +91,11 @@
 				<promo_quote_edit_tab_main>Aurigait_Voucher_Block_Adminhtml_Promo_Quote_Edit_Tab_Main</promo_quote_edit_tab_main>
 			</rewrite>
 		</adminhtml> -->
+		<adminhtml>
+			<rewrite>
+				<sales_order_create_coupons>Aurigait_Voucher_Block_Adminhtml_Sales_Order_Create_Coupons</sales_order_create_coupons>
+			</rewrite>
+		</adminhtml>
 		
 		
 	</blocks>
@@ -108,6 +113,9 @@
 			  	<invitefriend>
 					<table>voucher_referfriendlist</table>
 			  	</invitefriend>
+			  	<invitivoucherreport>
+				<table>voucher_referfriendlist</table>
+			  </invitivoucherreport>
         	</entities>
 	  	</voucher_mysql4>
 	    
@@ -157,6 +165,18 @@
             </aurigait_voucher_sendfriend_productcontroller>
 		</rewrite> -->
 	<events>
+	
+	<core_block_abstract_prepare_layout_after>
+                <observers>
+                    <addJsforcouponupdate>
+                    <type>model</type>
+                    <class>Aurigait_Voucher_Model_Observer</class>
+                    <method>core_block_abstract_prepare_layout_after_javascript_init</method>
+                    </addJsforcouponupdate>
+                </observers>
+            </core_block_abstract_prepare_layout_after>
+	
+	
 	<adminhtml_promo_quote_edit_tab_main_prepare_form> <!-- identifier of the event we want to catch -->
        <observers>
          <adminhtml_promo_quote_edit_tab_main_prepare_form_handler> <!-- identifier of the event handler -->
@@ -229,17 +249,45 @@
   
   <adminhtml>
 	<menu>
-	  <voucher module="voucher">
-		<title>Voucher</title>
-		<sort_order>100</sort_order>
-		<children>
-		  <voucherbackend module="voucher">
-			<title>Set up Voucher</title>
-			<sort_order>0</sort_order>
-			<action>voucher/adminhtml_voucherbackend</action>
-		  </voucherbackend>
-		</children>
-	  </voucher>
+		<report>
+			<children>
+	  			<voucher module="voucher">
+					<title>Voucher</title>
+						<sort_order>100</sort_order>
+						<children>
+							<welcomereport module="voucher">
+								<title>Welcome Voucher Report</title>
+								<sort_order>0</sort_order>
+								<action>voucher/adminhtml_voucherbackend/welcomereport</action>
+							</welcomereport>
+							<adminvcreport module="voucher">
+								<title>Admin Defined Voucher Report</title>
+								<sort_order>1</sort_order>
+								<action>voucher/adminhtml_voucherbackend/adminvcreport</action>
+							</adminvcreport>
+							
+							<invitivcreport module="voucher">
+								<title>Invitation Voucher Report</title>
+								<sort_order>2</sort_order>
+								<action>voucher/adminhtml_voucherbackend/invitivcreport</action>
+							</invitivcreport>
+							
+							<usercumulativevcreport module="voucher">
+								<title>User Cumulative Voucher Report</title>
+								<sort_order>3</sort_order>
+								<action>voucher/adminhtml_voucherbackend/usercumulativevcreport</action>
+							</usercumulativevcreport>
+							<ordercumulativevcreport module="voucher">
+								<title>Order Cumulative Voucher Report</title>
+								<sort_order>4</sort_order>
+								<action>voucher/adminhtml_voucherbackend/ordercumulativevcreport</action>
+							</ordercumulativevcreport>
+							
+						</children>
+	  			</voucher>
+	  		</children>
+	  </report>
+	  
 	</menu>
 	<acl>
 	  <resources>
@@ -247,17 +295,49 @@
 		  <title>Allow Everything</title>
 		</all>
 		<admin>
+		  
+		  <report>
+		  
 		  <children>
+		  
 			<voucher translate="title" module="voucher">
 			  <title>Voucher</title>
 			  <sort_order>1000</sort_order>
 			  <children>
-		  <voucherbackend translate="title">
-			<title>Set up Voucher</title>
-		  </voucherbackend>
+				  <welcomereport module="voucher">
+						<title>Welcome Voucher Report</title>
+						<sort_order>0</sort_order>
+						<action>voucher/adminhtml_voucherbackend/welcomereport</action>
+					</welcomereport>
+					<adminvcreport module="voucher">
+						<title>Admin Defined Voucher Report</title>
+						<sort_order>1</sort_order>
+						<action>voucher/adminhtml_voucherbackend/adminvcreport</action>
+					</adminvcreport>
+					
+					<invitivcreport module="voucher">
+						<title>Invitation Voucher Report</title>
+						<sort_order>2</sort_order>
+						<action>voucher/adminhtml_voucherbackend/invitivcreport</action>
+					</invitivcreport>
+					
+					<usercumulativevcreport module="voucher">
+						<title>User Cumulative Voucher Report</title>
+						<sort_order>3</sort_order>
+						<action>voucher/adminhtml_voucherbackend/usercumulativevcreport</action>
+					</usercumulativevcreport>
+					<ordercumulativevcreport module="voucher">
+						<title>Order Cumulative Voucher Report</title>
+						<sort_order>4</sort_order>
+						<action>voucher/adminhtml_voucherbackend/ordercumulativevcreport</action>
+					</ordercumulativevcreport>
+					
 			  </children>
 			</voucher>
-		  </children>
+			</children>
+			</report>
+			
+		   
 		</admin>
 	      <voucher_setup>
 		<setup>

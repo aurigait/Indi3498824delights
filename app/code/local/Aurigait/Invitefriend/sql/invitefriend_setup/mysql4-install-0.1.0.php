@@ -14,7 +14,9 @@ CREATE TABLE IF NOT EXISTS `voucher_referfriendlist` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-		
+ALTER TABLE `voucher_referfriendlist` ADD `senddatetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ;
+
+ALTER TABLE `voucher_referfriendlist` ADD `voucher_code` VARCHAR( 20 ) NOT NULL AFTER `register_status`; 
 SQLTEXT;
 
 $installer->run($sql);
