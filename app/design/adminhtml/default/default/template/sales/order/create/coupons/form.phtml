@@ -43,6 +43,7 @@
             
             ?>
              <a href="#" onclick="order.updateCouponcount('<?php   echo $this->getCouponCodeval()?>', '<?php echo $this->_getSession()->getOrder()->getCustomerId();?>', '<?php echo $this->getActivecouponUrl();?>')" title=""><?php echo Mage::helper('sales')->__('Reactive ') ?></a>
+          	(currently coupon is not attached)
              <?php endif;?> 
             <script type="text/javascript">	
                 order.overlay('shipping-method-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif; ?>);

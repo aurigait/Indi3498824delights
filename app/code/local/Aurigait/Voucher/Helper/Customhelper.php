@@ -111,7 +111,14 @@ class Aurigait_Voucher_Helper_Customhelper extends Mage_Core_Helper_Abstract
 						//echo $subtotal.'@@@@@@@@@@@@@@@@@@@@@'.$rule->getAlertThresholdAmount();
 					 	if($subtotal >= $rule->getAlertThresholdAmount() )
 						{
-							$isValidcoupon = true;
+							if($subtotal <= $rule->getAlertThresholdAmountMax())
+							{
+								$isValidcoupon = true;
+							}
+							else
+							{
+								$isValidcoupon = false;
+							}
 						}
 						else
 						{

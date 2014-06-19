@@ -166,6 +166,18 @@
 		</rewrite> -->
 	<events>
 	
+	
+	
+	<order_cancel_after>
+                <observers>
+                    <updatecouponcountOrdercancel>
+                    <type>model</type>
+                    <class>Aurigait_Voucher_Model_Observer</class>
+                    <method>ordercancel</method>
+                    </updatecouponcountOrdercancel>
+                </observers>
+    </order_cancel_after>
+    
 	<core_block_abstract_prepare_layout_after>
                 <observers>
                     <addJsforcouponupdate>
@@ -174,7 +186,8 @@
                     <method>core_block_abstract_prepare_layout_after_javascript_init</method>
                     </addJsforcouponupdate>
                 </observers>
-            </core_block_abstract_prepare_layout_after>
+    </core_block_abstract_prepare_layout_after>
+	
 	
 	
 	<adminhtml_promo_quote_edit_tab_main_prepare_form> <!-- identifier of the event we want to catch -->

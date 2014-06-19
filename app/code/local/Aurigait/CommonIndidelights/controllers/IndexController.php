@@ -97,14 +97,16 @@ class Aurigait_CommonIndidelights_IndexController extends Mage_Core_Controller_F
                 if ($error) {
                     throw new Exception();
                 }
+                
+                //  change by sandeep to get mail id by subject  
                  
                 $tomailid =  Mage::getStoreConfig('contactcustomsec/gcontactcustomsec/'.$post['subject']);
                 if(!$tomailid)
                 	$tomailid = Mage::getStoreConfig(self::XML_PATH_EMAIL_RECIPIENT);
                 
-               
-            //    $mailTemplate = Mage::getModel('core/email_template');
+                $mailTemplate = Mage::getModel('core/email_template');
                 /* @var $mailTemplate Mage_Core_Model_Email_Template */
+                
                 
             
                 $fileName = '';
@@ -134,28 +136,39 @@ class Aurigait_CommonIndidelights_IndexController extends Mage_Core_Controller_F
                 if ($error) {
                 	throw new Exception();
                 }
-                $mailTemplate = Mage::getModel('core/email_template');
+              
+                
+                $emailtemplate =  Mage::getStoreConfig('contactcustomsec/gcontactcustomsec/'.$post['subject'].'_email_template');
+                if(!$emailtemplate)
+                	$emailtemplate = Mage::getStoreConfig(self::XML_PATH_EMAIL_TEMPLATE);
+                
+                 
+               
                 /* @var $mailTemplate Mage_Core_Model_Email_Template */
                 
                 /**************************************************************/
                 //sending file as attachment
+                 
+                
                 $attachmentFilePath = Mage::getBaseDir('media'). DS . 'contacts' . DS . $fileName;
-                if(file_exists($attachmentFilePath)){
+                
+                if($fileName && file_exists($attachmentFilePath)){
+                	 
                 	$fileContents = file_get_contents($attachmentFilePath);
                 	$attachment   = $mailTemplate->getMail()->createAttachment($fileContents);
                 	$attachment->filename = $fileName;
                 }
-                
+                 
                    $mailTemplate->setDesignConfig(array('area' => 'frontend'))
                  ->setReplyTo($post['email'])
                 ->sendTransactional(
-                		Mage::getStoreConfig(self::XML_PATH_EMAIL_TEMPLATE),
+                		$emailtemplate,
                 		Mage::getStoreConfig(self::XML_PATH_EMAIL_SENDER),
                 		$tomailid,
                 		null,
                 		array('data' => $postObject)
                 );
-                
+           
        //         $mailTemplate->getMail()->createAttachment($string,'text/UTF-8')->filename =  ;
 
                 if (!$mailTemplate->getSentSuccess()) {

@@ -39,20 +39,24 @@ $customer = Mage::getSingleton('customer/session')->getCustomer();
 					<div class="contact-inner">
 						<ul class="form-list">
 							<li>
-								<label for="subject" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Subject') ?></label>
+								<label for="subject" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Feedback Type') ?></label>
 								
 								 <select name="subject" id="subject" title=""   class="required-entry input-box" onchange="hideorderno(this.value)"> 
-				                   <option value="" selected>Please select the subject of your inquiry...</option>
-				                   <option value="inquiry">Inquiry</option>
-				                   <option value="business">Business</option>
-				                   <option value="careers">Careers</option>
+				                   <option value="" selected>Please select feedback type of your inquiry...</option>
+				                   <option value="inquiry">Order Inquiry</option>
 				                   <option value="complains">Complains</option>
-				                  <?php if($customer->getId())
+				                   <option value="business">Business Association</option>
+				                  	<?php if($customer->getId())
 							        {
-							        ?> <option value="returnrequest">Return Request</option>
+							        ?> <option value="returnrequest">Raise return request</option>
 							        <?php 
 							        }
 							        ?>
+							        <option value="suggestions">Suggestions</option>
+				                    <option value="careers">Careers</option>
+				                   
+				                  
+				                  
 				                  </select>
 							
 							</li>	

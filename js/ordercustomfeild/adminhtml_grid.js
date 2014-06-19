@@ -10,10 +10,28 @@ var varienGridMassaction = Class.create(varienGridMassaction, {
 			   var iteminfo = $('order_qty_'+row.value);
 			    
 			   orderqty = iteminfo.value;
-			   var orderqtyreciv1 = $('qty_'+row.value+'_1').value;
-			   var orderqtyreciv2 =  $('qty_'+row.value+'_2').value;
-			   var orderqtyreciv3 =  $('qty_'+row.value+'_3').value;
-			   
+			   if($('qty_'+row.value+'_1')){
+				   orderqtyreciv1 =  $('qty_'+row.value+'_1').value;
+			   }
+			   else
+				{
+				   orderqtyreciv1 = 0;
+				}
+			   if($('qty_'+row.value+'_2')){
+				   orderqtyreciv2 =  $('qty_'+row.value+'_2').value;
+			   }
+			   else
+				{
+				   orderqtyreciv2 = 0;
+				}
+			   if($('qty_'+row.value+'_3')){
+				   orderqtyreciv3 =  $('qty_'+row.value+'_3').value;
+			   }
+			   else
+				{
+				   orderqtyreciv3 = 0;
+				}
+			    
 			   var totalrecive = parseInt(orderqtyreciv1) +parseInt(orderqtyreciv2) +parseInt(orderqtyreciv3) ;  
 			   
 			   if(totalrecive>orderqty)

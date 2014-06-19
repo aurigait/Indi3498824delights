@@ -65,11 +65,11 @@
   <adminhtml>
 	<menu>
 	  <ordercustomfeild module="ordercustomfeild">
-		<title>Order Qty Update</title>
+		<title>Custom Shippment</title>
 		<sort_order>100</sort_order>
 		<children>
 		  <ordercustomfeild module="ordercustomfeild">
-		    <title>Manage Order Qty Update</title>
+		    <title>Manage Custom Shippment</title>
 			<sort_order>0</sort_order>
 			<action>ordercustomfeild/adminhtml_ordercustomfeild</action>
 		  </ordercustomfeild>

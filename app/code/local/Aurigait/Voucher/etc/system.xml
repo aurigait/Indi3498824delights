@@ -26,45 +26,115 @@
 					  <show_in_store>1</show_in_store>
 				       <fields>
                           <inquiry translate="label">
-                            <label>Inquiry</label>
+                            <label>Order Inquiry</label>
 							<frontend_type>text</frontend_type>
                             <sort_order>0</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                           </inquiry>
-                          <business translate="label">
-                            <label>Business</label>
-							<frontend_type>text</frontend_type>
-                            <sort_order>0</sort_order>
+                          <inquiry_email_template translate="label">
+                            <label>Order Inquiry Email Template </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                          </business>
-                          <careers translate="label">
-                            <label>Careers</label>
-							<frontend_type>text</frontend_type>
-                            <sort_order>0</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                          </careers>
-                          <complains translate="label">
+                        </inquiry_email_template>
+                        <complains translate="label">
                             <label>Complains</label>
 							<frontend_type>text</frontend_type>
-                            <sort_order>0</sort_order>
+                            <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                           </complains>
-                          <returnrequest translate="label">
+                           <complains_email_template translate="label">
+                            <label>Complains Email Template </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </complains_email_template>
+                          
+                          <business translate="label">
+                            <label>Business Association</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </business>
+                          
+                          <business_email_template translate="label">
+                            <label>Business Email Template </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </business_email_template>
+                         <returnrequest translate="label">
                             <label>Return Request</label>
 							<frontend_type>text</frontend_type>
-                            <sort_order>0</sort_order>
+                            <sort_order>6</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                           </returnrequest>
+                        <returnrequest_email_template translate="label">
+                            <label>Return Request Email Template </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </returnrequest_email_template>
+                        
+                        <suggestions translate="label">
+                            <label>Suggestions</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </suggestions>
+                          <suggestions_email_template translate="label">
+                            <label>Suggestions Email Template </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </suggestions_email_template>
+                        
+                          <careers translate="label">
+                            <label>Careers</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </careers>
+                          
+                         <careers_email_template translate="label">
+                            <label>Careers Email Template </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </careers_email_template>
+                        
+                          
+                          
 					   </fields>
 					   </gcontactcustomsec>
 					</groups>

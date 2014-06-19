@@ -53,6 +53,9 @@ ALTER TABLE `voucher_referfriendlist` ADD `voucher_code` VARCHAR( 20 ) NOT NULL 
 
 ALTER TABLE `salesrule` ADD `isdisplay_in_cart` INT( 2 ) NOT NULL AFTER `email_template` ,
 ADD `alert_threshold_amount` DOUBLE NOT NULL AFTER `isdisplay_in_cart` ;
+
+
+ALTER TABLE `salesrule` ADD `alert_threshold_amount_max` DOUBLE NOT NULL AFTER `alert_threshold_amount` ;
 SQLTEXT;
 $installer->run($sql);
 //demo 
