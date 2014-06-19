@@ -338,6 +338,8 @@ button.button{ padding:11px 16px;}
 .box-reviews dt{ margin:10px 0 5px; font-style:italic;}
 .box-reviews .ratings-table{ margin-bottom:5px;}
 .about-follow-us{padding:25px 0;}
+.list-categories .cols2{width:96% !important;}
+.cols2 .jm-products-slider-horizon{border:none;}
 #jm-bots1 .block-subscribe{padding:25px 0 20px 0;}
 #jm-footer{ padding:18px 0;}
 .product-image .out-of-stock{position: absolute; left: 0; right: 0; bottom: 0px; margin: auto; display: block;}

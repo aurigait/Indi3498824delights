@@ -1302,9 +1302,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         {
         	$templateId = Mage::getStoreConfig('sales_email/order/systemplate', $storeId);
         	if ($this->getCustomerIsGuest())
+        	{
         		$customerName = $this->getBillingAddress()->getName();
-        	else 
+        	}
+        	else
+        	{ 
         		$customerName = $this->getCustomerName();
+        		$templateId = Mage::getStoreConfig('sales_email/order/systemplateguest', $storeId);
+        	}	
         }
         else 
         	//Somesh End Customization

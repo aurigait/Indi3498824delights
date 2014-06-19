@@ -42,26 +42,40 @@
  */
 ?>
 <?php 
- /*   $_helper    = $this->helper('catalog/output');
-    $_category  = $this->getCurrentCategory();
-    $_imgHtml   = '';
-    if ($_imgUrl = $_category->getImageUrl()) {
-        $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->escapeHtml($_category->getName()).'" title="'.$this->escapeHtml($_category->getName()).'" /></p>';
-        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
-    }
-	*/
-	// echo $this->getLayout()->createBlock('cms/block')->setBlockId('tiles-1')->toHtml();
+$block=$this->getLayout()->createBlock('joomlart_jmproductsslider/list')->setTemplate("joomlart/jmproductsslider/horizontallist.phtml");
+$block->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
+
 $_categories  = Mage::getModel('catalog/category')->getCollection()
-->addAttributeToSelect('*')->addFieldToFilter("is_tile",1);
+->addAttributeToSelect('*')->addFieldToFilter("is_tile",1)->addFieldToFilter("show_on_homepage",1);
 foreach ($_categories as $scat)
 {
-	$val=$scat->getTilePageImage();
-	if(!empty($val))
-	{
+	$_subcat = Mage::getModel('catalog/category')->load($scat->getId());
+	$block->setCatsid($scat->getId())->setTitle($_subcat->getTitleOnHome());
 ?>		
-<div class="col-4">
-	<a href="<?php echo $scat->getUrl(); ?>" >
-		<img src="<?php  echo  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."catalog/category/".$scat->getTilePageImage(); ?>" alt="" />
-	</a>
+
+<div class="block block-cate sp-block-cate">
+<h2><a href="<?php echo $_subcat->getUrl()?>"><?php echo $_subcat->getName()?></a></h2>
+<p><?php echo $_subcat->getDescription();?></p>
+<?php $childcategory=$_subcat->getChildrenCategories();
+	
+	if($childcategory){
+?>
+<ul>
+	<?php foreach ($childcategory as $child){ ?>
+<li><a href="<?php echo $child->getUrl()?>"><?php echo $child->getName()?></a></li>
+<?php } ?>
+</ul>
+<?php } ?>
 </div>
-<?php } }?>
+<div class="col2-set list-categories list-cate-colr">
+<div class="col-2 cols2">
+<?php echo $block->toHtml(); ?>
+</div>
+</div>
+
+<?php  }?>
+
+
+
+
+
