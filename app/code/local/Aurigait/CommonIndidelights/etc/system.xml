@@ -98,4 +98,38 @@
                </groups>
         </trans_email>
      </sections>
+     
+     
+     <sections>
+		<codoption  translate="label" module="commonindidelights">                    
+		<label>COD Options</label>
+		<tab>sales</tab>
+		<frontend_type>text</frontend_type>
+		<sort_order>0</sort_order>
+		<show_in_default>1</show_in_default>
+		<show_in_website>1</show_in_website>
+		<show_in_store>1</show_in_store>            
+					<groups>
+				      <codgen translate="label"> 
+					  <label>General</label>
+					  <frontend_type>text</frontend_type>
+					  <sort_order>0</sort_order>
+					  <show_in_default>1</show_in_default>
+					  <show_in_website>1</show_in_website>
+					  <show_in_store>1</show_in_store>
+				       <fields>
+                          <cod_order_max translate="label">
+                            <label>Max Order Total</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </cod_order_max>
+					   </fields>
+					   </codgen>
+					</groups>
+		</codoption>
+	  </sections>
+     
 </config>
