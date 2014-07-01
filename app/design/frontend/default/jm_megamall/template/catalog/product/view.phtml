@@ -105,16 +105,15 @@ $attributeSetName = $attributeSetModel->getAttributeSetName();
                  <?php  }?>
                  <?php 
                  
-                 $vendor_display= $_product->getResource()->getAttribute('ga_vendor_display')->getFrontend()->getValue($_product);
-                 $vendor= $_product->getResource()->getAttribute('ga_vender')->getFrontend()->getValue($_product);
-                if(!empty($vendor)&& $vendor!="No" && $vendor_display!="No"){
+                $vendor= $_product->getResource()->getAttribute('ga_vender')->getFrontend()->getValue($_product);
+                if(!empty($vendor)&& $vendor!="No"){
                 ?>
                     <li><label>Vendor:</label> <strong><?php echo $vendor; ?></strong></li>
                 <?php } ?>
                  
                  <?php 
-                 $product_occ= $_product->getData('product_occasion');
-                 if(!empty($product_occ)):
+                 $product_occ= $_product->getResource()->getAttribute('ga_asso_occassions')->getFrontend()->getValue($_product);
+                /* if(!empty($product_occ)):
                  	$product_occ=explode(",",$product_occ);
                  ?>
                  <?php 
@@ -126,14 +125,14 @@ $attributeSetName = $attributeSetModel->getAttributeSetName();
                  	if($cat){
                  	$html.="<a href=".$cat->getUrl().">". $cat->getName()."</a>";
                   	if($count>$i) $html.= ",&nbsp;"; }}?>
-                <?php 
-                if($html)
+                <?php*/ 
+                if($product_occ)
                 {?>
                 	<li><label>Used in following Festivels:</label> <strong>
-                	<?php echo $html; ?> 
+                	<?php echo $product_occ; ?> 
                 	</strong></li>
                 <?php }
-                endif;?>
+               // endif;?>
                
                 </ul>
                 

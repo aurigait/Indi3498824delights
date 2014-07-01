@@ -25,7 +25,7 @@
 				
 				$cate=$cate->load($cate->getId());
 				$subhtml=$this->genSubCats($cate);
-				if ($cate->hasProduct() || $subhtml){
+				if ($cate->getProductCount() || $subhtml){
 					
 					$style="";
 					if($this->currentselecedcat==$cate->getId() && !$this->selectedone )
