@@ -307,7 +307,8 @@
 				    'label'     => Mage::helper('jmmegamenu')->__('Custom block xml'),
 				     'title'     => Mage::helper('jmmegamenu')->__('Custom block xml'),
 				     'style'     => 'width:400px; height:200px;',
-				     'wysiwyg'   => false,
+					'config' => Mage::getSingleton('cms/wysiwyg_config')->getConfig(),
+				     'wysiwyg'   => true,
 				     'required'  => false,
 			     ));
 				$fieldset->addField('description', 'editor', array(

@@ -19,6 +19,9 @@
 				'enctype' => 'multipart/form-data'
 			)
 			);
+			if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
+				$this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
+			}
 			$form->setUseContainer(true);
 			$this->setForm($form);
 			return parent::_prepareForm();
