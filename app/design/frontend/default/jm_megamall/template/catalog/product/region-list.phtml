@@ -19,7 +19,7 @@ foreach ( $attribute->getSource()->getAllOptions(true, true) as $option){
 }
 
 $block->setTitle(" ")->setRegion($region);
-
+$count_flag=0;
 $_subCaegories=explode(',',$rootCat->getChildren());
 foreach ($_subCaegories as $scatid)
 {
@@ -30,6 +30,7 @@ foreach ($_subCaegories as $scatid)
 		$count=count($block->getListProducts());
 		if($count && (empty($catVal) || in_array($scatid,$catVal)))
 		{
+			$count_flag=1;
 			$block->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
 ?>
 <div class="list-type-slider">
@@ -57,19 +58,8 @@ foreach ($_subCaegories as $scatid)
 <?php 
 	
 	}}}
-	
-	?>
 
-
-<?php /*?>
-<div class="list-type-slider">
-<div class="block block-cate sp-block-cate">
-<h1>Dining</h1>
-<p>Adrianan Papell Women’s Long Sleeve lace dress adrinna papel women’s long sleeve lace dress drianna papel women’s long sleeve</p>
-<ul>
-<li><a href="#">View All</a></li>
-</ul>
-</div>
-<div><?php echo $block->toHtml(); ?></div>
-</div>
-*/?>
+if(!$count_flag){
+?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php  } ?>	
