@@ -31,9 +31,9 @@ foreach ($_subCaegories as $scatid)
 		if($count && (empty($catVal) || in_array($scatid,$catVal)))
 		{
 			$count_flag=1;
-			$block->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
+			$block->setTitle(" ")->setNumberItems(5)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
 ?>
-<div class="list-type-slider">
+<div class="list-type-slider region">
 <div class="block block-cate sp-block-cate">
 <h1 class="catview"><a href='<?php echo $_subcat->getURL();?>?region=<?php echo $region;?>' ><?php echo $_subcat->getName()?></a></h1>
 <a href='<?php echo $_subcat->getURL()."?region=".$region;?>'>(View all)</a>
