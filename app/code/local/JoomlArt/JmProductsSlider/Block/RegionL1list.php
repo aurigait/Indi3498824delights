@@ -276,7 +276,8 @@ class JoomlArt_JmProductsSlider_Block_RegionL1List extends Mage_Catalog_Block_Pr
 					->addAttributeToSort($fieldorder, $order);
 		if($this->_config['region'])
 		{
-			$products_collection->addFieldToFilter('region',$this->_config['region']);
+			//$products_collection->addAttributeToFilter('region');
+			$products_collection->addFieldToFilter(array(array('attribute'=>'region','finset'=>array($this->_config['region']))));
 		}
         /*if($this->_config['catsid']){
         	$products_collection->addAttributeToFilter('category_id',$this->_config['catsid']);
@@ -285,7 +286,8 @@ class JoomlArt_JmProductsSlider_Block_RegionL1List extends Mage_Catalog_Block_Pr
 		if ($products_collection && $products_collection->getSize()){
 		    $products_collection->getSelect()->limit($perPage);
 		}	
-	//	echo $products_collection->getSelect();die;
+		
+		//echo $products_collection->getSelect();echo "<br>";
 		$this->setProductCollection($products_collection);
 
 		if (($_products = $this->getProductCollection()) && $_products->getSize()){
