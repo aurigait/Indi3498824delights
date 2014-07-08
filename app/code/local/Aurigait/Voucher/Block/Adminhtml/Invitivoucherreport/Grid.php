@@ -85,14 +85,7 @@ class Aurigait_Voucher_Block_Adminhtml_Invitivoucherreport_Grid extends Mage_Adm
 						'width' => 100,
 							
 				));
-				$this->addColumn('discount_amount',array(
-						'header' =>  Mage::helper("voucher")->__('Voucher Amount'),
-						'type' => 'number',
-						'sortable' => true,
-						"index" => "discount_amount",
-						'width' => 100,
-							
-				));
+				 
 				$this->addColumn('use_satus',array(
 						'header' =>  Mage::helper("voucher")->__('Status'),
 		 
