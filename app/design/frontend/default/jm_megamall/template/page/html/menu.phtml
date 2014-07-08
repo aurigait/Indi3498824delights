@@ -2,7 +2,7 @@
 $categoryId=  $this->getData('category_id'); 
 $_category = Mage::getModel('catalog/category')->load($categoryId);
 $sub_cat=$_category->getChildrenCategories();
-$layer = Mage::getModel("catalog/layer");
+
 ?>
 <div class="menu-group">
 <?php 
@@ -37,17 +37,36 @@ foreach ($sub_cat as $cat)
 </div>
 
 <?php 
+$layer =  Mage::getModel("catalog/layer");
 $reset_cat=$layer->getCurrentCategory();
 $layer->setCurrentCategory($_category);
 $attributes = $layer->getFilterableAttributes();
 foreach ($attributes as $attribute) {
 	if ($attribute->getAttributeCode() == 'region') {
+		
 		$filterBlockName = 'catalog/layer_filter_attribute';
 		//$result = $this->getLayout()->createBlock($filterBlockName)->setLayer($layer)->setAttributeModel($attribute)->init();
+		
 		$result=Mage::getModel($filterBlockName)->setAttributeModel($attribute)->setLayer($layer);
-		//echo "<pre>";print_r($result->getData())."<br/>";
-		$resitem=$result->getItems();
-		if(!empty($resitem))
+		$options=$attribute->getFrontend()->getSelectOptions();
+		$optionsCount=Mage::getResourceModel($filterBlockName)->getCount($result);
+		
+		foreach ($options as $option) {
+			if (is_array($option['value'])) {
+				continue;
+			}
+			if (!empty($optionsCount[$option['value']])) {
+				$data[] = array(
+						'label' => $option['label'],
+						'value' => $option['value'],
+						
+				);
+			}
+
+		}
+		
+		
+		if(!empty($data))
 		{
 			//print_r($option);
 			?>
@@ -55,9 +74,9 @@ foreach ($attributes as $attribute) {
 			<div class='title'><h2>Regions</h2></div>
 			<ul class="">
 			<?php 
-			foreach($result->getItems() as $option) {
+			foreach($data as $option) {
 			?>
-			<li><a href="<?php echo $_category->getUrl().'?region='.$option->getValue()?>"><span><?php echo $option->getLabel()?></span></a></li>
+			<li><a href="<?php echo $_category->getUrl()?>?region=<?php echo $option['value']?>"><span><?php echo $option['label']?></span></a></li>
 			<?php
 			}?>
 			</ul>

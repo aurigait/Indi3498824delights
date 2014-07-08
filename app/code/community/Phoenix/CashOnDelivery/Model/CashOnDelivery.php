@@ -202,7 +202,23 @@ class Phoenix_CashOnDelivery_Model_CashOnDelivery extends Mage_Payment_Model_Met
 	            }
             }
             /*Somesh Ends Shipping Method Level COD*/
-			
+			/*Somesh if order maximum */
+            $baseCurrencyCode = Mage::app()->getStore()->getBaseCurrencyCode();
+            $currentCurrencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
+            $maxOderLimit=Mage::getStoreConfig('codoption/codgen/cod_order_max');
+            $orderTotal=$quote->getGrandTotal();
+            if ($baseCurrencyCode != $currentCurrencyCode) {
+            	$maxOderLimit = Mage::helper('directory')->currencyConvert($maxOderLimit,$baseCurrencyCode);
+            	 
+            }
+            if($maxOderLimit < $orderTotal)
+            {
+            	if(!Mage::registry('Cod_not_avail'))
+            		Mage::register('Cod_not_avail'," COD is not available on order up to ".$maxOderLimit);
+            	return false;
+            }
+            
+            /*ends*/
             /* Somesh : If Product Level COD is Not Available*/
             foreach($quote->getAllItems() as $item)
             {

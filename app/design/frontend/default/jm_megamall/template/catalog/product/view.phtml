@@ -90,46 +90,50 @@ $attributeSetName = $attributeSetModel->getAttributeSetName();
                 	
                 	if($attributeSetName=="Food_AS")
                 		$brand_attr="fa_brand";
-                	if($attributeSetName=="Accessories_Bags_AS")
-                		$brand_attr="acb_brand";
-                	if($attributeSetName=="Accessories_Footwear_AS")
+                	if($attributeSetName=="Bags")
+                		$brand_attr="acba_brand";
+                	if($attributeSetName=="Footwear")
                 		$brand_attr="acfa_brand";
-                	if($attributeSetName=="Accessories_Jewellery")
-                		$brand_attr="acj_brand";
-                	if($attributeSetName=="Accessories_StolesNShawls")
-                		$brand_attr="acfa_brand";
+                	if($attributeSetName=="Jewellery")
+                		$brand_attr="acja_brand";
                 	
                 	$brand= $_product->getResource()->getAttribute($brand_attr);
-                	
                 	if($brand){
                 		$brand=$brand->getFrontend()->getValue($_product);
                 		?>
                     <li><label>Brand:</label> <strong><?php echo $brand; ?></strong></li>
                  <?php  }?>
-                 <?php $vendor= $_product->getResource()->getAttribute('ga_vender')->getFrontend()->getValue($_product);
-                if(!empty($vendor) && $vendor!="No"){
+                 <?php 
+                 
+                $vendor= $_product->getResource()->getAttribute('ga_vender')->getFrontend()->getValue($_product);
+                if(!empty($vendor)&& $vendor!="No"){
                 ?>
                     <li><label>Vendor:</label> <strong><?php echo $vendor; ?></strong></li>
                 <?php } ?>
                  
                  <?php 
-                 $product_occ= $_product->getData('product_occasion');
-                 if(!empty($product_occ)):
-                 $product_occ=explode(",",$product_occ);
+                 $product_occ= $_product->getResource()->getAttribute('ga_asso_occassions')->getFrontend()->getValue($_product);
+                /* if(!empty($product_occ)):
+                 	$product_occ=explode(",",$product_occ);
                  ?>
-                     <li><label>Used in following Festivels:</label> <strong>
                  <?php 
                  	$count = count($product_occ);
-                 	$i=0;
+                 	$i=0;$html='';
                  	foreach ($product_occ as $occ){
 					$i++; 
                  	$cat=Mage::getModel("catalog/category")->load($occ);
-                 	?>
-                 	<a href="<?php echo $cat->getName();?>"><?php echo $cat->getName();?></a>
-                 
-                 <?php if($count>$i) echo ",&nbsp;"; }?>
-                 </strong></li> 
-                <?php endif;?>
+                 	if($cat){
+                 	$html.="<a href=".$cat->getUrl().">". $cat->getName()."</a>";
+                  	if($count>$i) $html.= ",&nbsp;"; }}?>
+                <?php*/ 
+                if($product_occ)
+                {?>
+                	<li><label>Used in following Festivels:</label> <strong>
+                	<?php echo $product_occ; ?> 
+                	</strong></li>
+                <?php }
+               // endif;?>
+               
                 </ul>
                 
                 <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>

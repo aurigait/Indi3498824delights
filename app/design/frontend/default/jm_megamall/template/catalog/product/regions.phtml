@@ -50,7 +50,7 @@ foreach ( $attribute->getSource()->getAllOptions(true, true) as $option){
 }
 $count_flag=0;
 $block=$this->getLayout()->createBlock('joomlart_jmproductsslider/RegionL1')->setTemplate("joomlart/jmproductsslider/horizontallist.phtml");
-$block->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
+$block->setTitle(" ")->setNumberItems(5)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
 $_subCaegories=explode(',',$cat_r->getChildren());
 
 foreach ($_subCaegories as $scatid)
@@ -63,9 +63,9 @@ foreach ($_subCaegories as $scatid)
 		if($count)
 		{
 			$count_flag=1;
-			$block->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
+			$block->setTitle(" ")->setNumberItems(5)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
 ?>
-		<div class="list-type-slider">
+		<div class="list-type-slider region">
 			<div class="block block-cate sp-block-cate">
 				<h1 class="catview"><a href='<?php echo $_subcat->getURL();?>' ><?php echo $_subcat->getName()?></a></h1>
 			<a href='<?php echo $_subcat->getURL()?>'>(View all)</a>

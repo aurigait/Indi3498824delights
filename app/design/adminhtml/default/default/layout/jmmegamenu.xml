@@ -12,7 +12,20 @@
 	</jmmegamenu_adminhtml_jmmegamenu_group>
 	<jmmegamenu_adminhtml_jmmegamenu_edit>
         <reference name="head">
-            <action method="addItem" ><type>js</type><name>joomlart/jmmegamenu/event.simulate.js</name></action>
+         <action method="setCanLoadExtJs"><flag>1</flag></action>
+            <action method="setCanLoadTinyMce"><flag>1</flag></action>
+            <action method="addJs"><script>mage/adminhtml/variables.js</script></action>
+            <action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
+            <action method="addJs"><script>lib/flex.js</script></action>
+            <action method="addJs"><script>lib/FABridge.js</script></action>
+            <action method="addJs"><script>mage/adminhtml/flexuploader.js</script></action>
+            <action method="addJs"><script>mage/adminhtml/browser.js</script></action>
+            <action method="addJs"><script>prototype/window.js</script></action>
+            <action method="addJs"><script>prototype/prototype.js</script></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
+         	<action method="addItem" ><type>js</type><name>joomlart/jmmegamenu/event.simulate.js</name></action>
+         	
           </reference>
     </jmmegamenu_adminhtml_jmmegamenu_edit>
 </layout>

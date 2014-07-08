@@ -227,6 +227,7 @@ class Aurigait_Voucher_Model_Cron{
 		
 		// Set variables that can be used in email template. To get this variable write like {{var customerEmail}} in transactional Email.
 		$vars = array(	
+				'name' => $customername,
 				'coupon_prize' => $amount,
 				'coupon_code' => $couponcode,
 				);
@@ -439,11 +440,11 @@ class Aurigait_Voucher_Model_Cron{
 			
 		$couponcode = $helperobj->CreateCustomCoupon();
 		$customerData = Mage::getModel('customer/customer')->load($customerid);
-		$this->mailinvitevoucher($couponcode,$customerData);
+		$this->mailinvitevoucher($couponcode,$customerData,$customerName);
 		Mage::getModel('voucher/voucherlistcustomer')->savecuoponinfo($customerid,$couponcode,'',$helperobj->_fromdate,$helperobj->_todate,$helperobj->_ruletype);
 		return $couponcode;
 	}
-	public function mailinvitevoucher($couponcode,$senderdata)
+	public function mailinvitevoucher($couponcode,$senderdata,$customerName)
 	{
 	
 	
@@ -469,6 +470,7 @@ class Aurigait_Voucher_Model_Cron{
 				'coupon_prize' => $oRule['discount_amount'],
 				'coupon_code' =>$couponcode,
 				'name' => $recepientName,
+				'invitee'=>$customerName,
 				'email' => $recepientEmail,
 		);
 	

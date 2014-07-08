@@ -1,0 +1,28 @@
+title:MAGMI by dweeves - version:0.7.18
+startup:Running Magmi Product Import Engine v1.7.1 by dweeves
+startup:Import Profile:default
+startup:Import Mode:update
+step:step:0.5%
+plugin;Magmi_CSVDataSource;pluginhello:CSV Datasource-1.3-Dweeves- 
+plugin;CategoryImporter;pluginhello:On the fly category creator/importer-0.2.3-Dweeves-http://sourceforge.net/apps/mediawiki/magmi/index.php?title=On_the_fly_category_creator/importer 
+plugin;ImageAttributeItemProcessor;pluginhello:Image attributes processor-1.0.25-Dweeves-http://sourceforge.net/apps/mediawiki/magmi/index.php?title=Image_attributes_processor 
+plugin;Magmi_ConfigurableItemProcessor;pluginhello:Configurable Item processor-1.3.7-Dweeves-http://sourceforge.net/apps/mediawiki/magmi/index.php?title=Configurable_Item_processor 
+plugin;CrossUpsellProducts;pluginhello:Cross/Upsell Importer-1.0.3-Dweeves-http://sourceforge.net/apps/mediawiki/magmi/index.php?title=Cross/Upsell_Importer 
+plugin;RelatedProducts;pluginhello:Product relater-1.0.3-Dweeves,jwtechniek-http://sourceforge.net/apps/mediawiki/magmi/index.php?title=Product_relater 
+plugin;Magmi_DefaultAttributeItemProcessor;pluginhello:Standard Attribute Import-1.0.5-Dweeves- 
+plugin;Magmi_CSVDataSource;startup:CSV Datasource v1.3 - Importing CSV : /var/www/html/indidel/var/import/catalog_product_footware.csv using separator [ , ] enclosing [ " ]
+startup:Performing Datasouce Lookup...
+lookup:1:0.00028300285339355
+startup:Found 1 records, took 0.00028300285339355 sec
+plugin;Magmi_CSVDataSource;startup:CSV Datasource v1.3 - No BOM detected, assuming File is UTF8 without BOM...
+plugin;Magmi_CSVDataSource;startup:CSV Datasource v1.3 - 85 CSV headers columns found
+columns:85
+plugin;Magmi_ConfigurableItemProcessor;startup:Configurable Item processor v1.3.7 - no options_container set, defaulting to :Block after product info
+startup:Ajusted processed columns:86
+itime:1 - 0.00077390670776367 - 0.00077390670776367
+dbtime:0 - 0 - 0 - 0
+plugin;RelatedProducts;warning:Product relater v1.0.3 - Unknown related sku 0
+itime:1 - 0.52846097946167 - 0.52756500244141
+dbtime:63 - 0.29887533187866 - 0.29887533187866 - 63
+info:Skus imported OK:1/1
+end:Import Ended
