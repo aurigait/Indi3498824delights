@@ -12,8 +12,12 @@ class Aurigait_CommonIndidelights_Model_Shippingvalidate extends Mage_Core_Model
 		{
 			foreach($quote->getAllItems() as $item)
 			{
-				$_product=$item->getProduct()->load($item->getProduct()->getId());
-				$intShipping=$_product->getResource()->getAttribute('ga_int_ship_allowed');
+			 	$_product=$item->getProduct()->load($item->getProduct()->getId());
+			 	if($_product->getTypeId() != "simple")
+			 	{
+			 		continue;
+			 	}
+			 	$intShipping=$_product->getResource()->getAttribute('ga_int_ship_allowed');
 				if($intShipping && strtolower($intShipping->getFrontend()->getValue($_product))!='yes')
 				{
 					$products[]=$item->getProduct()->getName();					
