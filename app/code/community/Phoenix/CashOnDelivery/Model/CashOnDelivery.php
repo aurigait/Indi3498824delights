@@ -202,17 +202,17 @@ class Phoenix_CashOnDelivery_Model_CashOnDelivery extends Mage_Payment_Model_Met
 	            }
             }
             /*Somesh Ends Shipping Method Level COD*/
-			
-            foreach($quote->getAllItems() as $item)
-            {
-            	$_product=$item->getProduct()->load($item->getProduct()->getId());
-            	$cod= $_product->getResource()->getAttribute('cod_available');
-            	if($cod && strtolower($cod->getFrontend()->getValue($_product))!='yes')
-            	{
-            		if(!Mage::registry('Cod_not_avail'))
-            			Mage::register('Cod_not_avail', "Cod is not available for product ".$item->getProduct()->getName());
-            		return false;
-            	}
+            if(!Mage::registry('Cod_not_avail')){
+	            foreach($quote->getAllItems() as $item)
+	            {
+	            	$_product=$item->getProduct()->load($item->getProduct()->getId());
+	            	$cod= $_product->getResource()->getAttribute('cod_available');
+	            	if($cod && strtolower($cod->getFrontend()->getValue($_product))!='yes')
+	            	{
+	            			Mage::register('Cod_not_avail', "Cod is not available for product ".$item->getProduct()->getName());
+	            		return false;
+	            	}
+	            }
             }
             //Somesh Ends Product Level COD
             /*Somesh if order maximum */

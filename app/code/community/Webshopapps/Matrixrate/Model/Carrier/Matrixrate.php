@@ -87,7 +87,7 @@ class Webshopapps_Matrixrate_Model_Carrier_Matrixrate
         }
         
   		// Free shipping by qty
-        $freeQty = 0;
+        $freeQty = 0;$cod_region=1;
         if ($request->getAllItems()) {
             foreach ($request->getAllItems() as $item) {
                 if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
@@ -102,6 +102,13 @@ class Webshopapps_Matrixrate_Model_Carrier_Matrixrate
                     }
                 } elseif ($item->getFreeShipping()) {
                     $freeQty += ($item->getQty() - (is_numeric($item->getFreeShipping()) ? $item->getFreeShipping() : 0));
+                }
+                
+                $_product=$item->getProduct()->load($item->getProduct()->getId());
+                $cod= $_product->getResource()->getAttribute('cod_available');
+                if($cod && strtolower($cod->getFrontend()->getValue($_product))!='yes')
+                {
+                	$cod_region=0;
                 }
             }
         }
@@ -159,19 +166,17 @@ class Webshopapps_Matrixrate_Model_Carrier_Matrixrate
 				$method->setCarrierTitle($this->getConfigData('title'));
 				$method->setMethod('matrixrate_'.$rate['pk']);
 				
-				if($rate['is_cod_enable'])
+				if($rate['is_cod_enable'] && $cod_region)
 				{
-				//	echo "hii";
 					$method->setMethodTitle(Mage::helper('matrixrate')->__($rate['delivery_type'])." (Cod available) ");
 					$method->setDeliveryType($rate['delivery_type']);
-					
 				}
 				else
 				{
 					$method->setMethodTitle(Mage::helper('matrixrate')->__($rate['delivery_type'])." (Cod not available) ");
-					$method->setDeliveryType($rate['delivery_type']);
-					
+					$method->setDeliveryType($rate['delivery_type']);					
 				}
+				
 				$shippingPrice = $this->getFinalPriceWithHandlingFee($rate['price']);
 				
 				$method->setCost($rate['cost']);
