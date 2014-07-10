@@ -43,7 +43,8 @@ if($configs['autorun']){
 			btnPrev: "#jmmainwrap-<?php echo $divid?> .jm-prev",
 			width: <?php echo $configs['number_items']*($configs['width']+10); ?>,
 			width_img: <?php echo $configs['width']; ?>,
-					circular: false,
+			circular: false,
+			swipe:true,
 		});
 	});
 	
@@ -54,7 +55,7 @@ if($configs['autorun']){
 <div class="block jm-products-slider-listing" id="jmmainwrap-<?php echo $divid?>">
 	<?php if(isset($configs['title']) && $configs['title']!=''){?>
 	<div class="block-title"><strong><span><?php echo $configs['title']?> </span></strong>
-		<?php if (!$configs['use_scrollerbar']){ ?>
+		<?php if (!$configs['use_scrollerbar'] && (($_collectionSize) && count($listall->getItems())>$configs['number_items'])){ ?>
 		<div class="jm-prev">
 			<i class="fa fa-caret-left"></i>
 		</div>

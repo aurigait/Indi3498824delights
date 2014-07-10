@@ -43,17 +43,21 @@
 ?>
 <?php 
 $block=$this->getLayout()->createBlock('joomlart_jmproductsslider/list')->setTemplate("joomlart/jmproductsslider/horizontallist.phtml");
-$block->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
+$block->setTitle(" ")->setNumberItems(5)->setItemwidth(175)->setItemheight(272)->setWidth(150)->setHeight(150);
 
 $_categories  = Mage::getModel('catalog/category')->getCollection()
 ->addAttributeToSelect('*')->addFieldToFilter("is_tile",1)->addFieldToFilter("show_on_homepage",1);
 foreach ($_categories as $scat)
 {
 	$_subcat = Mage::getModel('catalog/category')->load($scat->getId());
-	$block->setCatsid($scat->getId())->setTitle($_subcat->getTitleOnHome());
-?>		
+	$block->setCatsid($scat->getId());
+	$block->setCatId($scat->getId());
+	if($_subcat->getTitleOnHome())
+		$block->setTitle($_subcat->getTitleOnHome());
+	if(count($block->getListProducts())){
+	?>		
 
-<div class="block block-cate sp-block-cate">
+<div class="block block-cate sp-block-cate home-tile">
 <h2><a href="<?php echo $_subcat->getUrl()?>"><?php echo $_subcat->getName()?></a></h2>
 <p><?php echo $_subcat->getDescription();?></p>
 <?php $childcategory=$_subcat->getChildrenCategories();
@@ -73,7 +77,7 @@ foreach ($_categories as $scat)
 </div>
 </div>
 
-<?php  }?>
+<?php } }?>
 
 
 

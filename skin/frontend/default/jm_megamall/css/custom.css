@@ -178,6 +178,7 @@ ul.megamenu{ margin:15px 20px;}
 .jm-products-slider-horizon .jm-prev, .jm-products-slider-horizon .jm-next, .jm-products-slider-vertical .jm-prev, .jm-products-slider-vertical .jm-next{ top:20px;}
 .list-categories .block-title{ position:relative;}
 .list-categories .block-title, .list-categories .category-title{ padding:18px 0 10px;}
+#jm-home-tile .block-title{ padding:28px 0 10px}
 #jm-breadcrumbs{padding: 10px 0 0;}
 #jm-mainbody{padding: 10px 0 40px;}
 .jm-slider .products-grid button.jmquickview{top: 42%; margin: 0; position: relative;}

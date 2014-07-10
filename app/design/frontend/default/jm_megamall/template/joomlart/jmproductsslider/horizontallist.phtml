@@ -17,6 +17,7 @@ if($configs['autorun']){
 <?php if(!defined('JM_ADD_SKIN_PRODUCTS_SILDER')){?>
 
 <?php if ($configs['use_scrollerbar']){ ?>
+
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('joomlart/jmproductsslider/js/jquery.customScroller-1.2.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('joomlart/jmproductsslider/js/jquery.mousewheel.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('joomlart/jmproductsslider/js/jquery.wresize.js') ?>"></script>
@@ -31,7 +32,7 @@ if($configs['autorun']){
 	jQuery.noConflict();
 <?php if ($configs['use_scrollerbar']){ ?>
 	jQuery(window).bind("load", function(){
-		//jQuery(".<?php echo $classid; ?>").customScroller({width: <?php echo ($configs['itemwidth'])*($configs['number_items']);?>, height: <?php echo ($configs['itemheight']);?>});
+		jQuery(".<?php echo $classid; ?>").customScroller({width: <?php echo ($configs['itemwidth'])*($configs['number_items']);?>, height: <?php echo ($configs['itemheight']);?>});
 	});
 <?php }else{ ?>
 	jQuery(document).ready(function($){
@@ -53,7 +54,7 @@ if($configs['autorun']){
 <div class="block jm-products-slider-listing jm-products-slider-horizon" id="jmmainwrap-<?php echo $divid?>">
 	<?php if(isset($configs['title']) && $configs['title']!=''){?>
 	<div class="block-title"><strong><span><?php echo $configs['title']?> </span></strong>
-		<?php if ( (!$configs['use_scrollerbar'] ) && (($_collectionSize) && count($listall->getItems())>4) ){ ?>
+		<?php if ( (!$configs['use_scrollerbar'] ) && (($_collectionSize) && count($listall->getItems())>$configs['number_items']) ){ ?>
 		<div class="jm-prev">
 			<i class="fa fa-caret-left"></i>
 		</div>
