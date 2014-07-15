@@ -154,7 +154,9 @@ foreach ($_subCaegories as $scatid)
 	}
 ?>
 </div>
-
+<div class="category-description std">
+        <?php echo $_subcat->getDescription(); ?>
+</div>
 <div><?php echo $block->toHtml(); ?></div>
 </div>
 <?php 
