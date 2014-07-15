@@ -43,7 +43,8 @@
 					$html.= $subhtml;
 					$html.='</ul>';
 					$html.='</li>';
-				}				
+				}	
+				$subhtml="";
 			}
 			$html.='</ul>';
 			return $html;
@@ -75,6 +76,7 @@
 					}
 					$html.='</li>';
 				}
+				$subhtml="";
 			}
 			unset ($subcates);
 			return $html;
