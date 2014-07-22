@@ -102,7 +102,7 @@ class JoomlArt_JmProductsSlider_Block_List extends Mage_Catalog_Block_Product_Ab
 		
 	function getListProducts(){
 		$listall = null;
-		if(is_null($this->_productCollection)){
+		//if(is_null($this->_productCollection)){
 	      	switch ($this->_config['mode']){
 				case 'latest':				
 					$listall = $this->getListBestBuyProducts( 'updated_at', 'desc');				
@@ -132,7 +132,7 @@ class JoomlArt_JmProductsSlider_Block_List extends Mage_Catalog_Block_Product_Ab
 				
 			}
 			$this->_productCollection = $listall;
-        }   
+       // }   
 		return $this->_productCollection;
 	}	
 	
@@ -210,7 +210,7 @@ class JoomlArt_JmProductsSlider_Block_List extends Mage_Catalog_Block_Product_Ab
 	
 	function getListBestBuyProducts($fieldorder='ordered_qty', $order='desc'){		
 		$list = array();
-
+		
 		$perPage	= (int) $this->_config['qty'];
         
 		$storeId = Mage::app()->getStore()->getId();
@@ -224,8 +224,8 @@ class JoomlArt_JmProductsSlider_Block_List extends Mage_Catalog_Block_Product_Ab
                     ->addAttributeToFilter('visibility', 4)
                     ->addAttributeToFilter('status', array('eq' => 1))
 					->addAttributeToSort($fieldorder, $order);
-		
-        if($this->_config['catsid']){
+		if($this->_config['catsid']){
+        	
         	$this->addCategoryIdsFilter($products_collection);
         }              
 	   
@@ -499,18 +499,11 @@ class JoomlArt_JmProductsSlider_Block_List extends Mage_Catalog_Block_Product_Ab
 		$products_collection->joinField('category_id', 'catalog/category_product', 'category_id', 'product_id = entity_id', null, 'left')
 		            ->addAttributeToFilter('category_id',array($ctf))->groupByAttribute('entity_id');
     }
+    //Somesh Apply Layered Filter
+    function setCatId($catsid)
+    {
+    	$this->_config['catsid'] = $catsid;
+    
+    }
+
 }
-//Somesh Apply Layered Filter
-function applyLayeredFilter($product_collection)
-{
-	$_filters = Mage::getSingleton('Mage_Catalog_Block_Layer_State')->getActiveFilters();
-	if(!empty($_filters))
-	{
-		foreach($_filters as $f)
-		{
-			$product_collection->addAttributeToFilter($f->getName(),$f->getValueString());
-			
-		}
-	}
-	return $product_collection;
-} 

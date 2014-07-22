@@ -26,6 +26,7 @@
 		</layout>
 	<events>
 	
+    <!--  Somesh Remoing Event as we have combined voucher with welcome mail
       <customer_register_success>
         <observers>
           <aurigait_voucher_observer>
@@ -35,7 +36,7 @@
           </aurigait_voucher_observer>
         </observers>
       </customer_register_success>
-      
+      !-->
       
       <sales_quote_collect_totals_after>
       	<observers>

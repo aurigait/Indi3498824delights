@@ -15,6 +15,7 @@
 -->
         <script type="text/javascript">
         //<![CDATA[
+document.observe("dom:loaded", function() {        
 Varien.searchForm = new Class.create(Varien.searchForm,{ initAutocomplete : function(url, destinationElement){
              new Ajax.Autocompleter(
                      this.field,
@@ -42,7 +43,8 @@ Varien.searchForm = new Class.create(Varien.searchForm,{ initAutocomplete : func
              }});
         var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search entire store here...') ?>');
             searchForm.initAutocomplete('<?php echo $this->helper('searchautocomplete')->getSuggestUrl() ?>', 'search_autocomplete');
-        //]]>
+});
+            //]]>
         </script>
 
     </div>

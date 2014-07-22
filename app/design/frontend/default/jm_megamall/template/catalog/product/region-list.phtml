@@ -36,7 +36,7 @@ foreach ($_subCaegories as $scatid)
 <div class="list-type-slider region">
 <div class="block block-cate sp-block-cate">
 <h1 class="catview"><a href='<?php echo $_subcat->getURL();?>?region=<?php echo $region;?>' ><?php echo $_subcat->getName()?></a></h1>
-<a href='<?php echo $_subcat->getURL()."?region=".$region;?>'>(View all)</a>
+<?php /*<a href='<?php echo $_subcat->getURL()."?region=".$region;?>'>(View all)</a>*/?>
 <?php
 		if($_subcat->hasChildren())
 		{

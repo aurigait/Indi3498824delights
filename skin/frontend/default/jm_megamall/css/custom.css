@@ -47,10 +47,10 @@ body{font-family: 'Open Sans', sans-serif;}
 .block-layered-nav-filter .block-layered-content-filter .block-content{ border-top:none;}
 .block-layered-nav .block-title {background: #463c57; color:#FFF; border-bottom:#d4d4d4 solid 1px; margin-bottom:0;}
 .block-layered-content-filter, .block-layered-nav .currently li, .block-layered-nav-filter .actions a, .block-layered-nav-filter .actions a:hover{ background:none; color:#464646; }
-#narrow-by-list ol{ padding:10px 0;}
-#narrow-by-list dt{ background:#d4d4d4; border-bottom:#f6f6f6 solid 1px; text-transform:none; color:#464646; margin:0; padding:5px 0; font-size:14px; font-weight:normal; position:relative;}
+#narrow-by-list ol{ padding:5px 0;}
+#narrow-by-list dt{ background:#d4d4d4; border-bottom:#f6f6f6 solid 1px; text-transform:none; color:#464646; margin:0; padding:2px 0; font-size:14px; font-weight:normal; position:relative;}
 #narrow-by-list dt:last-child{ border-bottom:none;}
-#narrow-by-list dd li a{ padding:3px 0; text-indent:20px;}
+#narrow-by-list dd li a{ padding:1px 0; text-indent:20px;}
 #narrow-by-list dd li a, #narrow-by-list dd li a span.price, #narrow-by-list dd li a .special-price .price{ border:none; color:#454545;}
 #narrow-by-list dd{ border-bottom:#d4d4d4 solid 1px;}
 #narrow-by-list dd:last-child{ border:none;}
@@ -97,7 +97,7 @@ body{font-family: 'Open Sans', sans-serif;}
 ul.megamenu{ margin:15px 20px;}
 .megamenu h2{ font-size:15px;}
 .megamenu .menu-i h2{ margin: 10px 25px 3px 0; border-bottom: #c8c8c8 dotted 1px;}
-.menu-region h2{ margin: 10px 25px 3px 0; border-bottom: #c8c8c8 dotted 1px;}
+.menu-region h2{ margin: 7px 25px 3px 0; border-bottom: #c8c8c8 dotted 1px;}
 .megamenu .menu-i ul { margin-left:-20px;}
 .megamenu .menu-i ul li{ width:44%; display:inline-block; vertical-align:top; margin-left:20px;}
 .jm-megamenu li.haschild:hover >.childcontent{ overflow:visible; transition: none ; -webkit-transition: none; -moz-transition: none; -o-transition: none; }
@@ -242,7 +242,7 @@ ul.megamenu{ margin:15px 20px;}
 #narrow-by-list dd li.filter-cat.active a{ color:#454545;}
 
 .block-layered-nav .block-content{ padding:0;}
-#narrow-by-list dt .handle{position: absolute; right: 15px; top:5px; padding:1px 0 3px; font-size: 16px; line-height: 1; cursor:pointer; width: 25px; text-align: center; color:#454545; background: url(../images/bg-accodior-shopby.png) no-repeat 0 -38px;
+#narrow-by-list dt .handle{position: absolute; right: 15px; top:2px; padding:1px 0 3px; font-size: 16px; line-height: 1; cursor:pointer; width: 25px; text-align: center; color:#454545; background: url(../images/bg-accodior-shopby.png) no-repeat 0 -38px;
 height: 24px; width: 24px;}
 #narrow-by-list dt .handle:hover {background-position: 0 0;}
 #narrow-by-list dt .handle.active {background-position: 0 100%;  top:1px;}
@@ -355,6 +355,9 @@ button.button{ padding:11px 16px;}
 .atc-qview li{ display:inline-block; vertical-align:middle; position:relative;}
 .atc-qview .tool-tip{ left:-125px; top:30px;}
 .atc-qview .tool-tip .fa-caret-up{ left:auto; right:70px;}
+.price .text-box {text-align:center;padding: 5px}
+#slider-range{width : 90%;margin:0 5%}
+.special-price span.price sup{font-size:10px}
 
 @media only screen and (max-width: 1024px) {
 	#jm-tops2 .col3-set .col-3{ display:none;}

@@ -68,9 +68,9 @@ foreach ($_subCaegories as $scatid)
 <div class="block block-cate sp-block-cate">
 <h2><a href="<?php echo $_subcat->getUrl()?>"><?php echo $_subcat->getName();?></a></h2>
 <p><?php echo $_subcat->getDescription(); ?></p>
-<ul>
+<?php /*<ul>
 <li><a href="<?php echo $_subcat->getUrl()?>">View All</a></li>
-</ul>
+</ul>*/?>
 </div>
 <div class="col2-set">
 <?php $img=$_subcat->getTilePageImage();if(!empty($img)){ ?>

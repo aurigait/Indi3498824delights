@@ -29,7 +29,11 @@
 		<resourceModel>commonindidelights_mysql4</resourceModel>
 	  </commonindidelights>
 	</models>
-	
+	<blocks>
+	  <commonindidelights>
+		<class>Aurigait_Commonindidelights_Block</class>
+	  </commonindidelights>
+	</blocks>
  
 	<events>
 	  <checkout_cart_product_add_after> <!-- identifier of the event we want to catch -->

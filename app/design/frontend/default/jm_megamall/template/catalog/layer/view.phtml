@@ -69,12 +69,12 @@
         <?php endif; ?>
         <?php if($this->canShowOptions()): ?>
             <!--<p class="block-subtitle"><?php // echo $this->__('Shopping Options') ?></p>-->
-            <dl id="narrow-by-list" class="<?php if ($this->getLayer()->getState()->getFilters()): ?> narrow-by-list-filter<?php endif; ?>">
+            <dl id="narrow-by-list" class="<?php if ($this->getLayer()->getState()->getFilters()): ?> narrow-by-list-filter<?php endif; ?>" >
                 <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount()): ?>
-                    <dt><?php echo $this->__($_filter->getName()) ?></dt>
-                    <dd><?php echo $_filter->getHtml() ?></dd>
+                    <dt><?php echo "<strong>".$this->__($_filter->getName())."</strong>" ?></dt>
+                    <dd style="display: none"><?php echo $_filter->getHtml() ?></dd>
                 <?php endif; ?>
                 <?php endforeach; ?>
             </dl>
@@ -88,7 +88,7 @@
 <script type="text/javascript">
 	jQuery(function($){
 	$(document).ready(function(){
-			$("#narrow-by-list dt").append("<span class='handle active'> </span>");
+			$("#narrow-by-list dt").append("<span class='handle'> </span>");
 			$('#narrow-by-list .handle').on('click',function(){
 				$(this).parent().next('dd').toggle(300);
 				$(this).toggleClass('active');

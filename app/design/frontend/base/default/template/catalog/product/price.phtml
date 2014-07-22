@@ -246,7 +246,7 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
                 <p class="special-price">
                     <span class="price-label"><?php echo $_specialPriceStoreLabel ?></span>
                 <span class="price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
-                    <?php echo $_coreHelper->formatPrice($_finalPrice + $_weeeTaxAmountInclTaxes, false) ?>
+                    <?php echo $_coreHelper->formatPrice($_finalPrice + $_weeeTaxAmountInclTaxes, false)?>
                 </span>
                 </p>
             <?php endif; ?>
@@ -342,7 +342,7 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
                 <span class="price-excluding-tax">
                     <span class="label"><?php echo $this->helper('tax')->__('Excl. Tax:') ?></span>
                     <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
-                        <?php echo $_coreHelper->formatPrice($_finalPrice, false) ?>
+                        <?php echo $_coreHelper->formatPrice($_finalPrice, false)." <sup>".number_format((($_regularPrice-$_finalPrice)/$_price)*100,1)."% Off</sup>" ?>
                     </span>
                 </span>
                 <?php foreach ($_weeeTaxAttributes as $_weeeTaxAttribute): ?>
@@ -388,7 +388,7 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
                 <p class="special-price">
                     <span class="price-label"><?php echo $_specialPriceStoreLabel ?></span>
                 <span class="price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
-                    <?php echo $_coreHelper->formatPrice($_finalPrice, false) ?>
+                    <?php echo $_coreHelper->formatPrice($_finalPrice, false)." <sup>".(float)number_format((($_regularPrice-$_finalPrice)/$_price)*100,1)."% Off</sup>"  ?>
                 </span>
                 </p>
             <?php endif; ?>
