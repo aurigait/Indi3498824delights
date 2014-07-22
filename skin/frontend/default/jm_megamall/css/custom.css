@@ -97,7 +97,7 @@ body{font-family: 'Open Sans', sans-serif;}
 ul.megamenu{ margin:15px 20px;}
 .megamenu h2{ font-size:15px;}
 .megamenu .menu-i h2{ margin: 10px 25px 3px 0; border-bottom: #c8c8c8 dotted 1px;}
-.menu-region h2{ margin: 7px 25px 3px 0; border-bottom: #c8c8c8 dotted 1px;}
+.menu-region h2{ margin: 2px 25px 3px 0; border-bottom: #c8c8c8 dotted 1px;}
 .megamenu .menu-i ul { margin-left:-20px;}
 .megamenu .menu-i ul li{ width:44%; display:inline-block; vertical-align:top; margin-left:20px;}
 .jm-megamenu li.haschild:hover >.childcontent{ overflow:visible; transition: none ; -webkit-transition: none; -moz-transition: none; -o-transition: none; }
