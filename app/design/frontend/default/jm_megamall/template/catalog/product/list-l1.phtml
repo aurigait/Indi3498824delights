@@ -104,13 +104,13 @@ $block=$this->getLayout()->createBlock('joomlart_jmproductsslider/L1list')->setT
 $block->setTitle(" ")->setNumberItems(4)->setItemwidth(190)->setItemheight(272)->setWidth(165)->setHeight(150);
 
 $_category  = Mage::getSingleton('catalog/layer')->getCurrentCategory();
-$tree = Mage::getResourceSingleton('catalog/category_tree')
-                ->loadByIds(22, false, false);
+//$tree = Mage::getResourceSingleton('catalog/category_tree')
+ //               ->loadByIds(22, false, false);
 
-$ids = $tree->getCollection()->getAllIds();
+//$ids = $tree->getCollection()->getAllIds();
 
 $_subCaegories=explode(',',$_category->getChildren());
-
+$appliedFilters = Mage::getSingleton('catalog/layer')->getState()->getFilters();
 foreach ($_subCaegories as $scatid)
 {
 	//$layer->setCurrentCategory($scatid);
@@ -120,13 +120,28 @@ foreach ($_subCaegories as $scatid)
 	{
 		$filterCategory=Mage::getModel('catalog/category')->load($catVal[0]);
 		//echo $filterCategory->getPath()." .. ".$_subcat->getPath()."/ <br>";
-		if(strpos($filterCategory->getPath()."/",$_subcat->getPath()."")!==false)
+		if(strpos($filterCategory->getPath()."/",$_subcat->getPath()."")!==false) //filtering category manually
 		{	
 			$scatid=$filterCategory->getId();
 			$flag=1;
 		}
 		
 	}
+	$layer->setCurrentCategory($_subcat);
+	$attributes = $layer->getFilterableAttributes();
+	$countFilters=0;
+	foreach ($appliedFilters as $item)
+	{		
+		foreach ($attributes as $attribute) {
+			if( $item->getFilter()->getRequestVar()=="cat" || $item->getFilter()->getRequestVar()==$attribute->getAttributeCode())
+			{
+				$countFilters++;
+				break;
+			}	
+		}	
+	}
+	if($countFilters!=count($appliedFilters))
+		continue;
 	
 	$block->setCategoryId($scatid);
 	$count=count($block->getListProducts());
@@ -162,7 +177,7 @@ foreach ($_subCaegories as $scatid)
 <?php 
 	
 	}}
-//	$layer->setCurrentCategory($cat_r);
+	$layer->setCurrentCategory($cat_r);
 	
 	?>
 

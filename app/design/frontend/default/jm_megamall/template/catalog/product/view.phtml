@@ -86,7 +86,7 @@ $attributeSetName = $attributeSetModel->getAttributeSetName();
                     <li><label>From:</label> <strong><?php echo $from; ?></strong></li>
                 <?php } ?>
                 <?php 
-                	$brand_attr="";
+                /*	$brand_attr="";
                 	
                 	if($attributeSetName=="Food")
                 		$brand_attr="fa_brand";
@@ -104,11 +104,11 @@ $attributeSetName = $attributeSetModel->getAttributeSetName();
                     <li><label>Brand:</label> <strong><?php echo $brand; ?></strong></li>
                  <?php  }?>
                  <?php 
-                 
+                 */
                 $vendor= $_product->getResource()->getAttribute('ga_vender')->getFrontend()->getValue($_product);
                 if(!empty($vendor)&& $vendor!="No"){
                 ?>
-                    <li><label>Vendor:</label> <strong><?php echo $vendor; ?></strong></li>
+                    <li><label>Brand:</label> <strong><?php echo $vendor; ?></strong></li>
                 <?php } ?>
                  
                  <?php 
